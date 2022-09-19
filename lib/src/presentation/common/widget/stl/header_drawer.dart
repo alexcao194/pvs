@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pvs/src/config/theme.dart';
 
 import '../../../../constant/app_path.dart';
 
@@ -9,7 +10,7 @@ class HeaderDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: AppThemes.theme.primaryColor,
       height: size.height * 0.25,
       width: double.maxFinite,
       child: SafeArea(
@@ -20,17 +21,17 @@ class HeaderDrawer extends StatelessWidget {
               child: Container(
                 height: size.height * 0.13,
                 width: size.height * 0.13,
-                color: Theme.of(context).backgroundColor,
+                color: AppThemes.theme.buttonBackgroundColor,
                 child:
                 Image.asset(AppPath.profile, fit: BoxFit.cover),
               ),
             ),
             const SizedBox(height: 8.0),
             Text('Cao Việt Đức',
-                style: Theme.of(context).textTheme.titleLarge),
+                style: AppThemes.theme.displayNameStyle),
             const SizedBox(height: 4.0),
             Text('B21DCCN235',
-                style: Theme.of(context).textTheme.bodyMedium)
+                style: AppThemes.theme.idStudentStyle)
           ],
         ),
       ),

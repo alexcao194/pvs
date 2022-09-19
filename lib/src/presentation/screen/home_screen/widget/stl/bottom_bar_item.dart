@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pvs/src/config/theme.dart';
 
 class BottomBarItem extends StatelessWidget {
   const BottomBarItem({Key? key, required this.label, required this.isActive, required this.icon}) : super(key: key);
@@ -21,7 +22,7 @@ class BottomBarItem extends StatelessWidget {
                 child: Icon(
                   icon,
                   size: 28,
-                  color: isActive ? Theme.of(context).primaryColor : Colors.black12,
+                  color: isActive ? AppThemes.theme.primaryColor : Colors.black12,
                 )
               ),
             Text(label)

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pvs/src/config/theme.dart';
 import 'package:pvs/src/presentation/screen/home_screen/widget/stf/keep_alive_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/widget/stl/bottom_bar_item.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -24,10 +25,10 @@ class HomeScreen extends StatelessWidget {
               title: 'Hello World',
             leading: CircleAvatar(
               radius: 20.0,
-              backgroundColor: Theme.of(context).backgroundColor,
+              backgroundColor: AppThemes.theme.buttonBackgroundColor,
               child: Text(
                 '1',
-                style: Theme.of(context).textTheme.button,
+                style: AppThemes.theme.lessonButtonStyle,
               ),
             ),
             action: ClipRRect(
@@ -63,6 +64,7 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: AppThemes.theme.primaryColor,
         onPressed: () {
 
         },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pvs/src/config/theme.dart';
 
 class HeaderBar extends StatelessWidget {
   const HeaderBar(
@@ -23,7 +24,7 @@ class HeaderBar extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        color: AppThemes.theme.primaryColor,
       ),
       height: height,
       child: Column(
@@ -42,7 +43,7 @@ class HeaderBar extends StatelessWidget {
                         width: size.height * 0.05,
                         child: leading ?? const SizedBox()),
                   ),
-                  Text(title ?? '', style: Theme.of(context).textTheme.caption),
+                  Text(title ?? '', style: AppThemes.theme.headerTitleStyle),
                   GestureDetector(
                     onTap: actionOnPress,
                     child: SizedBox(

@@ -9,7 +9,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(milliseconds: 500), () {
-      AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.login);
+      AppRouter.navigatorKey.currentState?.pushReplacementNamed(AppRoutes.login);
     });
     return const Scaffold(
       body: Center(

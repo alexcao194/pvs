@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
-import 'package:pvs/src/config/theme.dart';
 
 import 'src/service/app_router.dart';
 
@@ -20,9 +19,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       title: 'PVS',
-      theme: AppTheme.theme,
       onGenerateRoute: AppRouter.generateRoute,
       navigatorKey: AppRouter.navigatorKey,
     );
