@@ -23,10 +23,13 @@ class Template extends StatelessWidget {
               controller: scrollController,
               child: Column(
                 children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).viewInsets.bottom == 0
-                        ? size.height * 0.25
-                        : 0
+                  AnimatedSize(
+                    duration: const Duration(milliseconds: 100),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).viewInsets.bottom == 0
+                          ? size.height * 0.25
+                          : 0
+                    ),
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(25.0),
