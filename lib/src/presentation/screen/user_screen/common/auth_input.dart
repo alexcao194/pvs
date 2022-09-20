@@ -13,7 +13,10 @@ class AuthInput extends StatelessWidget {
         this.onSubmitted,
         this.onTap,
         this.error,
-        this.controller
+        this.controller,
+        this.borderRadius,
+        this.enable,
+        this.keyboardType
       })
       : super(key: key);
 
@@ -26,11 +29,14 @@ class AuthInput extends StatelessWidget {
   final ValueChanged<String>? onSubmitted;
   final VoidCallback? onTap;
   final TextEditingController? controller;
+  final double? borderRadius;
+  final bool? enable;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20.0),
+      borderRadius: BorderRadius.circular(borderRadius ?? 20.0),
       child: TextField(
         cursorColor: AppThemes.theme.primaryColor,
         controller: controller,
@@ -38,13 +44,17 @@ class AuthInput extends StatelessWidget {
         autofocus: autoFocus ?? false,
         obscureText: obscureText ?? false,
         onSubmitted: onSubmitted,
+        enabled: enable,
         onTap: onTap,
+        keyboardType: keyboardType,
+        style: AppThemes.theme.labelAuthInputStyle,
         decoration: InputDecoration(
             prefixIcon: Icon(icon, color: AppThemes.theme.primaryColor),
             border: InputBorder.none,
             fillColor: AppThemes.theme.fillTextInputColor,
             filled: true,
             hintText: label,
+            hintStyle: AppThemes.theme.labelAuthInputStyle,
             errorText: error,
             isCollapsed: false),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pvs/src/config/theme.dart';
 
 import 'bottom_bar_item.dart';
 
@@ -15,6 +16,7 @@ class NavigationAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      color: AppThemes.theme.backgroundColor,
       shape: const CircularNotchedRectangle(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

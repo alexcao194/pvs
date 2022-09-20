@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Chưa có tài khoản? '),
+              Text('Chưa có tài khoản? ', style: AppThemes.theme.haveNoAccountStyle),
               GestureDetector(
                   child: Text('Đăng kí', style: AppThemes.theme.signupStyle),
                   onTap: () {

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigation_bar_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/widget/stf/keep_alive_page.dart';
+import 'package:pvs/src/service/app_router.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../constant/app_path.dart';
 import 'widget/stl/app_drawer.dart';
@@ -29,6 +30,7 @@ class HomeScreen extends StatelessWidget {
     return BlocBuilder<NavigationBarBloc, NavigationBarState>(
         builder: (context, navigationBarState) {
       return Scaffold(
+        backgroundColor: AppThemes.theme.backgroundColor,
         key: _scaffoldKey,
         drawer: const AppDrawer(),
         body: Column(
@@ -48,10 +50,13 @@ class HomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.0),
                 child: Container(
                     color: Colors.white,
-                    child: Image.asset(AppPath.profile, fit: BoxFit.cover)),
+                    child: Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover)),
               ),
               leadingOnPress: () {
                 _scaffoldKey.currentState?.openDrawer();
+              },
+              actionOnPress: () {
+                AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.profile);
               },
             ),
             SizedBox(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pvs/src/config/theme.dart';
 
 import '../../../../constant/app_path.dart';
 
@@ -13,6 +14,7 @@ class Template extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: AppThemes.theme.backgroundColor,
         body: Stack(
           children: [
             SizedBox(
@@ -35,12 +37,12 @@ class Template extends StatelessWidget {
                     borderRadius: BorderRadius.circular(25.0),
                     child: Container(
                       height: size.height,
-                      color: Colors.white,
+                      color: AppThemes.theme.backgroundColor,
                       child: Padding(
                         padding: const EdgeInsets.all(32.0),
                         child: Column(
                           children: [
-                            Text(label),
+                            Text(label, style: AppThemes.theme.titleUserScreenStyle),
                             SizedBox(height: size.height * 0.03),
                           ] + children,
                         ),

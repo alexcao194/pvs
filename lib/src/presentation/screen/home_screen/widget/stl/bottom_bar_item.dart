@@ -3,8 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigation_bar_bloc.dart';
 
+import '../../../../../bloc/theme_bloc/theme_bloc.dart';
+
 class BottomBarItem extends StatelessWidget {
-  const BottomBarItem({Key? key, required this.label, required this.icon, required this.page, required this.pageController}) : super(key: key);
+  const BottomBarItem(
+      {Key? key,
+      required this.label,
+      required this.icon,
+      required this.page,
+      required this.pageController})
+      : super(key: key);
 
   final String label;
   final IconData icon;
@@ -16,9 +24,13 @@ class BottomBarItem extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return BlocBuilder<NavigationBarBloc, NavigationBarState>(
         builder: (context, navigationBarState) {
+      return BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, themeState) {
           return GestureDetector(
             onTap: () {
-              BlocProvider.of<NavigationBarBloc>(context).add(NavigationBarEventChangePage(pickedPage: page, controller: pageController));
+              BlocProvider.of<NavigationBarBloc>(context).add(
+                  NavigationBarEventChangePage(
+                      pickedPage: page, controller: pageController));
             },
             child: SizedBox(
               height: size.height * 0.09,
@@ -31,16 +43,18 @@ class BottomBarItem extends StatelessWidget {
                         child: Icon(
                           icon,
                           size: 28,
-                          color: (navigationBarState.currentPage == page) ? AppThemes.theme.primaryColor : Colors.black12,
-                        )
-                    ),
+                          color: (navigationBarState.currentPage == page)
+                              ? AppThemes.theme.primaryColor
+                              : AppThemes.theme.bottomBarIconColor,
+                        )),
                     Text(label)
                   ],
                 ),
               ),
             ),
           );
-        }
-    );
+        },
+      );
+    });
   }
 }

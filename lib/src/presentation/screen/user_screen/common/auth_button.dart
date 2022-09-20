@@ -18,6 +18,7 @@ class AuthButton extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(40.0),
       child: Material(
+        color: AppThemes.theme.buttonBackgroundColor,
         child: InkWell(
           splashColor: AppThemes.theme.primaryColor,
           onTap: onTap,
@@ -29,7 +30,7 @@ class AuthButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(40.0),
                 border: Border.all(width: 1.5, color: AppThemes.theme.primaryColor)
             ),
-            child: Center(child: Text(label, style: AppThemes.theme.labelAuthButton)),
+            child: Center(child: Text(label, style: AppThemes.theme.labelAuthButtonStyle)),
           ),
         ),
       ),

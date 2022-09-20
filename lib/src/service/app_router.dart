@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pvs/src/presentation/screen/profile_screen/profile_screen.dart';
 
 import '../presentation/screen/home_screen/home_screen.dart';
 import '../presentation/screen/splash_screen/splash_screen.dart';
@@ -24,6 +25,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case AppRoutes.signUp:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
+      case AppRoutes.profile:
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
@@ -42,4 +45,5 @@ class AppRoutes {
   static const String login = '/login';
   static const String registry = '/registry';
   static const String forgotPassword = '/forgot_password';
+  static const String profile = '/profile';
 }
