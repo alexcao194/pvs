@@ -15,6 +15,14 @@ class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final PageController pageController = PageController();
 
+  final List<String> demoData = [
+    'https://www.youtube.com/watch?v=TqYfeftXhU4&list=RDMM&index=7',
+    'https://api.flutter.dev/flutter/widgets/AnimatedSize-class.html',
+    'https://www.facebook.com/groups/drg2022fallptit',
+    'https://api.flutter.dev/flutter/widgets/PageView-class.html',
+    'https://api.flutter.dev/flutter/widgets/PageView-class.html'
+  ];
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -51,15 +59,16 @@ class HomeScreen extends StatelessWidget {
               child: PageView.builder(
                   itemCount: 5,
                   controller: pageController,
+                  physics: const ScrollPhysics(),
                   onPageChanged: (id) {
                     BlocProvider.of<NavigationBarBloc>(context)
                         .add(NavigationBarEventChangePage(pickedPage: id));
                   },
                   itemBuilder: (BuildContext context, int index) {
-                    return const KeepAlivePage(
+                    return KeepAlivePage(
                         child: WebView(
                           javascriptMode: JavascriptMode.unrestricted,
-                          initialUrl: 'https://itptit.com/dashboard/problems/100273',
+                          initialUrl: demoData[index],
                         )
                     );
                   }),
@@ -67,19 +76,17 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: AppThemes.theme.primaryColor,
-          onPressed: () {
-            BlocProvider.of<NavigationBarBloc>(context)
-                .add(
-                  NavigationBarEventChangePage(
-                      pickedPage: 2,
-                      controller: pageController
-                  )
-            );
-          },
-          child: const Icon(Icons.home),
-        ),
+        floatingActionButton: MediaQuery.of(context).viewInsets.bottom == 0
+            ? FloatingActionButton(
+                backgroundColor: AppThemes.theme.primaryColor,
+                onPressed: () {
+                  BlocProvider.of<NavigationBarBloc>(context).add(
+                      NavigationBarEventChangePage(
+                          pickedPage: 2, controller: pageController));
+                },
+                child: const Icon(Icons.home),
+              )
+            : null,
         bottomNavigationBar: NavigationAppBar(pageController: pageController, size: size),
       );
     });
