@@ -1,34 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
+import 'package:pvs/src/presentation/screen/home_screen/bloc/navigation_bar_bloc.dart';
 
 class BottomBarItem extends StatelessWidget {
-  const BottomBarItem({Key? key, required this.label, required this.isActive, required this.icon}) : super(key: key);
+  const BottomBarItem({Key? key, required this.label, required this.icon, required this.page, required this.pageController}) : super(key: key);
 
-  final bool isActive;
   final String label;
   final IconData icon;
+  final int page;
+  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: size.height * 0.09,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Column(
-          children: [
-              SizedBox(
-                height: size.height * 0.04,
-                child: Icon(
-                  icon,
-                  size: 28,
-                  color: isActive ? AppThemes.theme.primaryColor : Colors.black12,
-                )
+    return BlocBuilder<NavigationBarBloc, NavigationBarState>(
+        builder: (context, navigationBarState) {
+          return GestureDetector(
+            onTap: () {
+              BlocProvider.of<NavigationBarBloc>(context).add(NavigationBarEventChangePage(pickedPage: page, controller: pageController));
+            },
+            child: SizedBox(
+              height: size.height * 0.09,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                        height: size.height * 0.04,
+                        child: Icon(
+                          icon,
+                          size: 28,
+                          color: (navigationBarState.currentPage == page) ? AppThemes.theme.primaryColor : Colors.black12,
+                        )
+                    ),
+                    Text(label)
+                  ],
+                ),
               ),
-            Text(label)
-          ],
-        ),
-      ),
+            ),
+          );
+        }
     );
   }
 }

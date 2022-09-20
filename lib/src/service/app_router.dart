@@ -13,7 +13,7 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch(settings.name) {
       case AppRoutes.login:
-        return MaterialPageRoute(builder: (_) => const LoginScreen());
+        return MaterialPageRoute(builder: (_) => LoginScreen());
       case AppRoutes.forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case AppRoutes.registry:
