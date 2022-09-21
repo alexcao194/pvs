@@ -9,7 +9,8 @@ class HeaderBar extends StatelessWidget {
       this.leadingOnPress,
       this.action,
       this.leading,
-      this.height})
+      this.height,
+      this.backgroundColor})
       : super(key: key);
 
   final VoidCallback? leadingOnPress;
@@ -18,13 +19,14 @@ class HeaderBar extends StatelessWidget {
   final Widget? leading;
   final Widget? action;
   final double? height;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
-        color: AppThemes.theme.primaryColor,
+        color: backgroundColor ?? AppThemes.theme.primaryColor,
       ),
       height: height,
       child: Column(

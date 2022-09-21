@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/bloc/theme_bloc/theme_bloc.dart';
-import 'package:pvs/src/presentation/screen/home_screen/bloc/navigation_bar_bloc.dart';
+import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 import 'package:pvs/src/presentation/screen/profile_screen/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'src/presentation/screen/profile_screen/bloc/profile_bloc/profile_bloc.dart';
 import 'src/service/app_router.dart';

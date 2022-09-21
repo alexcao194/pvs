@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/bloc/theme_bloc/theme_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
+import 'package:pvs/src/presentation/screen/home_screen/widget/stl/header_bar.dart';
 import 'package:pvs/src/presentation/screen/user_screen/common/auth_input.dart';
+import 'package:pvs/src/service/app_router.dart';
 
 import '../../../constant/app_path.dart';
 import 'bloc/image_picker_bloc/image_picker_bloc.dart';
@@ -26,8 +30,7 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       SizedBox(
                         height: size.height * 0.25,
-                        child: Image.asset(AppPath.a2Background,
-                            fit: BoxFit.cover),
+                        child: Image.asset(AppPath.a2Background, fit: BoxFit.cover),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -47,15 +50,18 @@ class ProfileScreen extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: GestureDetector(
-                                      onTap: () {
-                                        BlocProvider.of<ImagePickerBloc>(context).add(ImagePickerEventOnPick());
-                                      },
+                                      onTap: profileState.canEdit
+                                          ? () {BlocProvider.of<ImagePickerBloc>(context).add(ImagePickerEventOnPick());}
+                                          : () {}
+                                      ,
                                       child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(100.0),
-                                        child: Image.asset(
+                                        child: (imagePickerState is ImagePickerStatePicked
+                                        ? Image.file(File(imagePickerState.image.path), fit: BoxFit.cover)
+                                        : Image.asset(
                                             AppPath.defaultAvatar,
-                                            fit: BoxFit.cover),
+                                            fit: BoxFit.cover)),
                                       ),
                                     ),
                                   ),
@@ -148,6 +154,14 @@ class ProfileScreen extends StatelessWidget {
                             )
                           ],
                         ),
+                      ),
+                      HeaderBar(
+                        backgroundColor: Colors.transparent,
+                        height: size.height * 0.09,
+                        leading: Icon(Icons.arrow_back_rounded, color: AppThemes.theme.backgroundColor),
+                        leadingOnPress: () {
+                          AppRouter.navigatorKey.currentState?.pop();
+                        },
                       )
                     ],
                   ),

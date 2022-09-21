@@ -14,9 +14,11 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
 
   FutureOr<void> _onPick(ImagePickerEventOnPick event, Emitter<ImagePickerState> emit) async {
     final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery)
+    await _picker.pickImage(source: ImageSource.gallery)
     .then((value) {
-      print(value.runtimeType);
+      if(value != null) {
+        emit(ImagePickerStatePicked(image: value));
+      }
     });
   }
 }

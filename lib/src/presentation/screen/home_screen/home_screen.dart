@@ -1,11 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
-import 'package:pvs/src/presentation/screen/home_screen/bloc/navigation_bar_bloc.dart';
-import 'package:pvs/src/presentation/screen/home_screen/widget/stf/keep_alive_page.dart';
+import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 import 'package:pvs/src/service/app_router.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../constant/app_path.dart';
+import '../profile_screen/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'widget/stl/app_drawer.dart';
 import 'widget/stl/header_bar.dart';
 import 'widget/stl/navigation_app_bar.dart';
@@ -29,7 +31,9 @@ class HomeScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return BlocBuilder<NavigationBarBloc, NavigationBarState>(
         builder: (context, navigationBarState) {
-      return Scaffold(
+      return BlocBuilder<ImagePickerBloc, ImagePickerState>(
+  builder: (context, imagePickerState) {
+    return Scaffold(
         backgroundColor: AppThemes.theme.backgroundColor,
         key: _scaffoldKey,
         drawer: const AppDrawer(),
@@ -47,10 +51,13 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               action: ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Container(
-                    color: Colors.white,
-                    child: Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover)),
+                borderRadius:
+                BorderRadius.circular(100.0),
+                child: (imagePickerState is ImagePickerStatePicked
+                    ? Image.file(File(imagePickerState.image.path), fit: BoxFit.cover)
+                    : Image.asset(
+                    AppPath.defaultAvatar,
+                    fit: BoxFit.cover)),
               ),
               leadingOnPress: () {
                 _scaffoldKey.currentState?.openDrawer();
@@ -61,22 +68,25 @@ class HomeScreen extends StatelessWidget {
             ),
             SizedBox(
               height: size.height * 0.81,
-              child: PageView.builder(
-                  itemCount: 5,
-                  controller: pageController,
-                  physics: const ScrollPhysics(),
-                  onPageChanged: (id) {
-                    BlocProvider.of<NavigationBarBloc>(context)
-                        .add(NavigationBarEventChangePage(pickedPage: id));
-                  },
-                  itemBuilder: (BuildContext context, int index) {
-                    return KeepAlivePage(
-                        child: WebView(
-                          javascriptMode: JavascriptMode.unrestricted,
-                          initialUrl: demoData[index],
-                        )
-                    );
-                  }),
+              child: PageView(
+                children: [
+                  AutomaticKeepAlive(child: WebView(
+                    initialUrl: demoData[0],
+                  )),
+                  AutomaticKeepAlive(child: WebView(
+                    initialUrl: demoData[1],
+                  )),
+                  // const AutomaticKeepAlive(
+                  //   child: AppVideoPlayer(),
+                  // ),
+                  AutomaticKeepAlive(child: WebView(
+                    initialUrl: demoData[2],
+                  )),
+                  AutomaticKeepAlive(child: WebView(
+                    initialUrl: demoData[3],
+                  )),
+                ],
+              ),
             )
           ],
         ),
@@ -94,6 +104,8 @@ class HomeScreen extends StatelessWidget {
             : null,
         bottomNavigationBar: NavigationAppBar(pageController: pageController, size: size),
       );
+  },
+);
     });
   }
 }

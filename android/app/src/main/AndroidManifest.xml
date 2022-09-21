@@ -33,6 +33,3 @@
             android:value="2" />
     </application>
 </manifest>
-
-
-Firebase.instance

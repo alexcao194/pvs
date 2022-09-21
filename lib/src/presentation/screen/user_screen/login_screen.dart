@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
           SizedBox(height: size.height * 0.02),
           const AuthInput(
               icon: Icons.lock,
-              label: 'Mật khẩu'
+              label: 'Mật khẩu',
           ),
           SizedBox(height: size.height * 0.02),
           Row(
