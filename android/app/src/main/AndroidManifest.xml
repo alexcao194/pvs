@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alexcao.pvs.pvs">
    <application
+        android:requestLegacyExternalStorage="true"
         android:label="pvs"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -32,3 +33,6 @@
             android:value="2" />
     </application>
 </manifest>
+
+
+Firebase.instance

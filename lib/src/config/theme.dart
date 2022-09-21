@@ -54,7 +54,7 @@ class AppThemes {
         );
     }
   }
-  static AppTheme get theme => _theme(158, 452, 545, darkMode);
+  static AppTheme get theme => _theme(255, 0, 0, darkMode);
 }
 
 class AppTheme {
@@ -103,5 +103,5 @@ class AppTheme {
     required this.haveNoAccountStyle,
     required this.countProcessStyle,
     required this.bottomBarIconColor
-    });
+  });
 }
