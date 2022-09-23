@@ -9,6 +9,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../../../constant/app_path.dart';
 import '../profile_screen/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'widget/stl/app_drawer.dart';
+import 'widget/stl/app_video_player.dart';
 import 'widget/stl/header_bar.dart';
 import 'widget/stl/navigation_app_bar.dart';
 
@@ -69,6 +70,11 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: size.height * 0.81,
               child: PageView(
+                controller: pageController,
+                onPageChanged: (index) {
+                  print('111111');
+                  BlocProvider.of<NavigationBarBloc>(context).add(NavigationBarEventChangePage(pickedPage: index));
+                },
                 children: [
                   AutomaticKeepAlive(child: WebView(
                     initialUrl: demoData[0],
@@ -76,9 +82,9 @@ class HomeScreen extends StatelessWidget {
                   AutomaticKeepAlive(child: WebView(
                     initialUrl: demoData[1],
                   )),
-                  // const AutomaticKeepAlive(
-                  //   child: AppVideoPlayer(),
-                  // ),
+                  const AutomaticKeepAlive(
+                    child: AppVideoPlayer(),
+                  ),
                   AutomaticKeepAlive(child: WebView(
                     initialUrl: demoData[2],
                   )),

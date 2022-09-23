@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
+
+import '../../bloc/video_player_bloc/video_player_bloc.dart';
 
 class AppVideoPlayer extends StatelessWidget {
   const AppVideoPlayer({
@@ -8,7 +11,15 @@ class AppVideoPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final VideoPlayerController controller = VideoPlayerController.network('https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4');
-    return Center(child: SizedBox(height: 200, child: VideoPlayer(controller)));
+    return BlocBuilder<VideoPlayerBloc, VideoPlayerState>(
+      builder: (context, playerState) {
+        return Center(
+            child: SizedBox(
+                height: 200,
+                child: playerState is VideoPlayerStateWaiting ? VideoPlayer(playerState.controller) : const Text('Waiting init')
+            )
+        );
+      },
+    );
   }
 }

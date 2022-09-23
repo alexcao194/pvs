@@ -22,7 +22,7 @@ class HeaderDrawer extends StatelessWidget {
                 child: Image.asset(AppPath.a2Background, fit: BoxFit.cover)),
             SizedBox(
                 height: size.height * 0.25,
-                child: Image.asset(AppPath.fillter, fit: BoxFit.cover)),
+                child: Image.asset(AppPath.filter, fit: BoxFit.cover)),
             SafeArea(
               child: SizedBox(
                 width: double.maxFinite,
