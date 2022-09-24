@@ -44,7 +44,13 @@ class LoginScreen extends StatelessWidget {
           AuthButton(
             label: 'Đăng nhập',
             onTap: () {
-              BlocProvider.of<UserBloc>(context).add(const UserEventLogin(password: 'password1', id: 'id1'));
+              BlocProvider.of<UserBloc>(context)
+                  .add(
+                  UserEventLogin(
+                      password: passwordController.value.text,
+                      id: idController.value.text
+                  )
+              );
             },
           ),
           SizedBox(height: size.height * 0.22),
