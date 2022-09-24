@@ -16,18 +16,21 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserEventGetPassword>(_getPassword);
   }
 
-  FutureOr<void> _onLogin(UserEventLogin event, Emitter<UserState> emit) {
-    Socket.instance!.emit('require_login', {
-      'id' : event.id,
-      'password' : event.password
+  FutureOr<void> _onLogin(UserEventLogin event, Emitter<UserState> emit) async {
+    Socket.instance!.emit(
+        'require_signup',
+        {
+          'id' : 'B21DCCN235',
+          'password' : '111111'
+        });
+    emit(UserStateLoading());
+    Socket.instance!.on('login_state_success',(data) {
+      User tempUser = User.fromJson(data);
+      emit(UserStateLoginSuccessful(user: tempUser));
     });
   }
 
   FutureOr<void> _onSignup(UserEventSignup event, Emitter<UserState> emit) {
-    Socket.instance!.emit('require_signup', {
-      'id' : event.id,
-      'password' : event.password
-    });
   }
 
   FutureOr<void> _getPassword(UserEventGetPassword event, Emitter<UserState> emit) {

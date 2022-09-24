@@ -1,22 +1,28 @@
 class User {
-  const User({
-    required this.id,
-    required this.currentLesson,
-    required this.displayName,
-    required this.email,
-    required this.group,
-    required this.numberPhone,
-    required this.recoveryMail,
-    required this.totalLesson
-});
-
-  final String displayName;
-  final String id;
-  final String email;
-  final String recoveryMail;
-  final String numberPhone;
-  final int group;
-  final int currentLesson;
-  final int totalLesson;
+  User({
+    this.id,
+    this.currentLesson,
+    this.displayName,
+    this.email,
+    this.group,
+    this.numberPhone,
+    this.totalLesson
+  });
+  User.fromJson(Map<String, dynamic> data) {
+    displayName = data['display_name'];
+    id = data['id'];
+    email = data['email'];
+    numberPhone = data['phone_number'];
+    group = data['group_class'];
+    currentLesson = data['current_lesson'];
+    totalLesson = data['total_lesson'];
+  }
+  String? displayName;
+  String? id;
+  String? email;
+  String? numberPhone;
+  int? group;
+  int? currentLesson;
+  int? totalLesson;
 
 }

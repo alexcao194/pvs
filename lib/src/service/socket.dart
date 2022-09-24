@@ -1,16 +1,18 @@
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class Socket {
-  const Socket._();
+  Socket._();
   static IO.Socket? _socket;
-
   static IO.Socket? get instance {
-    _socket ??= IO.io(
-        'http://localhost:1904',
+    if(_socket == null) {
+      final cacheSocket = IO.io(
+        'http://192.168.12.106:1904',
         IO.OptionBuilder()
           .setTransports(['websocket'])
           .build()
       );
+      _socket = cacheSocket;
+    }
     return _socket;
   }
 }
