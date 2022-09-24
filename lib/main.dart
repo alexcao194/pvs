@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/bloc/theme_bloc/theme_bloc.dart';
+import 'package:pvs/src/bloc/user_bloc/user_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/video_player_bloc/video_player_bloc.dart';
 import 'package:pvs/src/presentation/screen/profile_screen/bloc/image_picker_bloc/image_picker_bloc.dart';
@@ -22,7 +23,8 @@ void main() async {
           BlocProvider(create: (_) => ProfileBloc()),
           BlocProvider(create: (_) => ThemeBloc()),
           BlocProvider(create: (_) => ImagePickerBloc()),
-          BlocProvider(create: (_) => VideoPlayerBloc())
+          BlocProvider(create: (_) => VideoPlayerBloc()),
+          BlocProvider(create: (_) => UserBloc())
         ],
         child: const MyApp()
       )

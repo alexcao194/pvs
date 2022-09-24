@@ -28,5 +28,10 @@ class UserEventLogin extends UserEvent {
 }
 
 class UserEventGetPassword extends UserEvent {
-  const UserEventGetPassword();
+  const UserEventGetPassword({required this.id});
+
+  final String id;
+
+  @override
+  List<Object> get props =>[id];
 }
