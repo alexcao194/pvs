@@ -13,7 +13,7 @@ class UserInitial extends UserState {
 }
 
 class UserStateLoading extends UserState {
-
+  const UserStateLoading();
 }
 
 

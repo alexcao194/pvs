@@ -7,6 +7,7 @@ abstract class UserEvent extends Equatable {
   List<Object> get props => [];
 }
 
+
 class UserEventSignup extends UserEvent {
   const UserEventSignup({required this.id, required this.password});
 
@@ -19,7 +20,6 @@ class UserEventSignup extends UserEvent {
 
 class UserEventLogin extends UserEvent {
   const UserEventLogin({required this.password, required this.id});
-
   final String id;
   final String password;
 

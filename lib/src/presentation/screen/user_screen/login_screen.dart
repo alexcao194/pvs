@@ -18,7 +18,9 @@ class LoginScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, userState) {
-        return Template(label: 'Đăng nhập', children: [
+        return Stack(
+          children: [
+            Template(label: 'Đăng nhập', children: [
           const AuthInput(icon: Icons.person, label: 'Mã Sinh Viên'),
           SizedBox(height: size.height * 0.02),
           const AuthInput(
@@ -48,7 +50,7 @@ class LoginScreen extends StatelessWidget {
                   .add(
                   UserEventLogin(
                       password: passwordController.value.text,
-                      id: idController.value.text
+                      id: idController.value.text,
                   )
               );
             },
@@ -68,7 +70,12 @@ class LoginScreen extends StatelessWidget {
               )
             ],
           )
-        ]);
+        ]),
+            userState is UserStateLoading ? const Center(
+              child: CircularProgressIndicator(),
+            ) : const SizedBox(),
+          ],
+        );
       },
     );
   }
