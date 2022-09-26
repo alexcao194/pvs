@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/constant/app_string.dart';
 import 'package:pvs/src/service/app_router.dart';
+import 'package:pvs/src/service/app_socket.dart';
 
 import '../../../model/user.dart';
 import '../../service/http.dart';
@@ -24,8 +26,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(const UserStateLoading());
     await HTTP.get('/login',
     {
-      'id' : 'B21DCCN235',
-      'password' : '111111'
+      'id' : event.id,
+      'password' : event.password
     }).then((value) {
       print(value);
       if(value == 'incorrect_account') {

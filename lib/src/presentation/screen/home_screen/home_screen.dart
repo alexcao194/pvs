@@ -19,14 +19,6 @@ class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final PageController pageController = PageController();
 
-  final List<String> demoData = [
-    'https://www.youtube.com/watch?v=TqYfeftXhU4&list=RDMM&index=7',
-    'https://api.flutter.dev/flutter/widgets/AnimatedSize-class.html',
-    'https://www.facebook.com/groups/drg2022fallptit',
-    'https://api.flutter.dev/flutter/widgets/PageView-class.html',
-    'https://api.flutter.dev/flutter/widgets/PageView-class.html'
-  ];
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -75,22 +67,12 @@ class HomeScreen extends StatelessWidget {
                   print('111111');
                   BlocProvider.of<NavigationBarBloc>(context).add(NavigationBarEventChangePage(pickedPage: index));
                 },
-                children: [
-                  AutomaticKeepAlive(child: WebView(
-                    initialUrl: demoData[0],
-                  )),
-                  AutomaticKeepAlive(child: WebView(
-                    initialUrl: demoData[1],
-                  )),
-                  const AutomaticKeepAlive(
-                    child: AppVideoPlayer(),
-                  ),
-                  AutomaticKeepAlive(child: WebView(
-                    initialUrl: demoData[2],
-                  )),
-                  AutomaticKeepAlive(child: WebView(
-                    initialUrl: demoData[3],
-                  )),
+                children: const [
+                  Center(child: Text('comming soon1')),
+                  Center(child: Text('comming soon2')),
+                  Center(child: Text('comming soon3')),
+                  Center(child: Text('comming soon4')),
+                  Center(child: Text('comming soon5'))
                 ],
               ),
             )

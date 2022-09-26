@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
               BlocProvider.of<UserBloc>(context)
                   .add(
                   UserEventLogin(
-                      password: passwordController.value.text,
+                      password: passwordController.value.text.toUpperCase(),
                       id: idController.value.text,
                   )
               );
