@@ -18,7 +18,7 @@ class AppRouter {
       case AppRoutes.forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case AppRoutes.registry:
-        return MaterialPageRoute(builder: (_) => const RegistryScreen());
+        return MaterialPageRoute(builder: (_) => RegistryScreen());
       case AppRoutes.splash:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case AppRoutes.home:
