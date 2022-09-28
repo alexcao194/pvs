@@ -10,6 +10,7 @@ class AppThemes {
           primaryColor: Color.fromARGB(255, r, g, b),
           disableColor: Colors.black12,
           bottomBarIconColor: Colors.white24,
+          loadingBackground: const Color.fromARGB(100, 255, 255, 255),
           backgroundColor: const Color.fromARGB(255, 59, 59, 59),
           fillTextInputColor: Color.fromARGB(25, r, g, b),
           lessonButtonStyle: const TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
@@ -26,8 +27,10 @@ class AppThemes {
           labelAuthInputStyle: const TextStyle(color: Colors.white70),
           titleUserScreenStyle: const TextStyle(color: Colors.white),
           haveNoAccountStyle: const TextStyle(color: Colors.white),
-          countProcessStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)
-        );
+          countProcessStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          userErrorStyle: const TextStyle(color: Colors.red),
+            userStatusStyle: const TextStyle(color: Colors.green)
+    );
       default:
         return AppTheme(
           buttonBackgroundColor: Colors.white,
@@ -35,6 +38,7 @@ class AppThemes {
           disableColor: Colors.black12,
           backgroundColor: Colors.white,
           bottomBarIconColor: Colors.black12,
+          loadingBackground: const Color.fromARGB(100, 255, 255, 255),
           fillTextInputColor: Color.fromARGB(25, r, g, b),
           lessonButtonStyle: const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
           idStudentStyle: const TextStyle(color: Colors.black45),
@@ -50,7 +54,9 @@ class AppThemes {
           labelAuthInputStyle: const TextStyle(color: Colors.black),
           titleUserScreenStyle: const TextStyle(color: Colors.black),
           haveNoAccountStyle: const TextStyle(color: Colors.black),
-          countProcessStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w600)
+          countProcessStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+          userErrorStyle: const TextStyle(color: Colors.red),
+          userStatusStyle: const TextStyle(color: Colors.green),
         );
     }
   }
@@ -73,6 +79,8 @@ class AppTheme {
   final TextStyle titleUserScreenStyle;
   final TextStyle haveNoAccountStyle;
   final TextStyle countProcessStyle;
+  final TextStyle userErrorStyle;
+  final TextStyle userStatusStyle;
 
   final Color primaryColor;
   final Color buttonBackgroundColor;
@@ -80,6 +88,8 @@ class AppTheme {
   final Color fillTextInputColor;
   final Color backgroundColor;
   final Color bottomBarIconColor;
+  final Color loadingBackground;
+
 
   const AppTheme({
     required this.buttonBackgroundColor,
@@ -102,6 +112,9 @@ class AppTheme {
     required this.titleUserScreenStyle,
     required this.haveNoAccountStyle,
     required this.countProcessStyle,
-    required this.bottomBarIconColor
+    required this.bottomBarIconColor,
+    required this.loadingBackground,
+    required this.userErrorStyle,
+    required this.userStatusStyle
   });
 }

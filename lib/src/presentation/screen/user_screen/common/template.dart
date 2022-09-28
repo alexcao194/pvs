@@ -4,11 +4,12 @@ import 'package:pvs/src/config/theme.dart';
 import '../../../../constant/app_path.dart';
 
 class Template extends StatelessWidget {
-  const Template({Key? key, required this.label, required this.children, this.scrollController}) : super(key: key);
+  const Template({Key? key, required this.label, required this.children, this.scrollController, this.height}) : super(key: key);
 
   final ScrollController? scrollController;
   final String label;
   final List<Widget> children;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class Template extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(25.0),
                     child: Container(
-                      height: size.height,
+                      height: height ?? size.height,
                       color: AppThemes.theme.backgroundColor,
                       child: Padding(
                         padding: const EdgeInsets.all(32.0),

@@ -8,6 +8,7 @@ abstract class UserState extends Equatable {
 }
 
 class UserInitial extends UserState {
+  const UserInitial();
   @override
   List<Object> get props => [];
 }
@@ -18,10 +19,10 @@ class UserStateLoading extends UserState {
 
 
 class UserStateSignUpSuccessful extends UserState {
-  const UserStateSignUpSuccessful();
-
+  const UserStateSignUpSuccessful({required this.status});
+  final String status;
   @override
-  List<Object> get props => [];
+  List<Object> get props => [status];
 }
 
 class UserStateSignUpFail extends UserState {
