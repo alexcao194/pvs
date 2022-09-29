@@ -43,3 +43,26 @@ class UserEventGetPassword extends UserEvent {
   @override
   List<Object> get props =>[id];
 }
+
+class UserEventRegistry extends UserEvent {
+  const UserEventRegistry(
+      {required this.gender,
+      required this.group,
+      required this.phoneNumber,
+      required this.displayName,
+      required this.birthday,
+      required this.id,
+      required this.context
+      });
+
+  final String displayName;
+  final String birthday;
+  final String group;
+  final String gender;
+  final String phoneNumber;
+  final String id;
+  final BuildContext context;
+
+  @override
+  List<Object> get props => [displayName, birthday, group, gender, phoneNumber, id, context];
+}

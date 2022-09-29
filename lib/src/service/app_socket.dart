@@ -4,7 +4,7 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 class AppSocket {
   AppSocket._();
   static IO.Socket? _socket;
-  static String localHost = '172.20.10.6:1904';
+  static String localHost = '192.168.2.175:1904';
 
   static IO.Socket? get instance {
     if (_socket == null) {

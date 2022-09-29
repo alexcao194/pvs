@@ -34,11 +34,11 @@ class UserStateSignUpFail extends UserState {
 }
 
 class UserStateLoginSuccessful extends UserState {
-  final User user;
-  const UserStateLoginSuccessful({required this.user});
+  final Account account;
+  const UserStateLoginSuccessful({required this.account});
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [account];
 }
 
 class UserStateLoginFail extends UserState {
@@ -75,8 +75,9 @@ class UserStateRegistrySuccessful extends UserState {
 
 class UserStateRegistryFail extends UserState {
   final String error;
-  const UserStateRegistryFail({required this.error});
+  final String id;
+  const UserStateRegistryFail({required this.error, required this.id});
 
   @override
-  List<Object> get props => [error];
+  List<Object> get props => [error, id];
 }

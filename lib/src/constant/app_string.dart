@@ -10,4 +10,6 @@ class AppString {
   static String nullField = "Các trường không được để trống";
   static String signupSuccessful = "Đăng kí thành công";
   static String invalidPassword = "Mật khẩu quá ngắn";
+  static String getStart = "";
+  static String internalError = "Có lỗi từ bên trong ứng dụng, liên hệ admin";
 }

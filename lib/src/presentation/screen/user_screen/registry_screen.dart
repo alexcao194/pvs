@@ -87,6 +87,7 @@ class RegistryScreen extends StatelessWidget {
                                     child: AuthInput(
                                       controller: groupController,
                                       icon: Icons.group,
+                                      keyboardType: TextInputType.number,
                                       label: "Nhóm",
                                       borderRadius: 3.0,
                                     ),
@@ -104,6 +105,7 @@ class RegistryScreen extends StatelessWidget {
                                     controller: birthdayController,
                                     icon: Icons.calendar_month,
                                     label: "Ngày sinh",
+                                    enable: false,
                                     borderRadius: 3.0,
                                   ),
                                 ),
@@ -140,10 +142,19 @@ class RegistryScreen extends StatelessWidget {
                                 height: size.height * 0.02,
                                 width: double.maxFinite),
                             AuthInput(
+                              controller: phoneController,
+                              keyboardType: TextInputType.phone,
                               icon: Icons.phone,
                               label: "Số điện thoại",
                               borderRadius: 3.0,
                             ),
+                            SizedBox(
+                                height: size.height * 0.02,
+                                width: double.maxFinite),
+                            Text(
+                              userState is UserStateRegistryFail ? userState.error : (userState is UserStateRegistrySuccessful ? userState.status : ''),
+                              style: AppThemes.theme.userErrorStyle,
+                            )
                           ],
                         ),
                       ),
@@ -151,8 +162,18 @@ class RegistryScreen extends StatelessWidget {
                   ),
                   floatingActionButton: FloatingActionButton(
                     backgroundColor: AppThemes.theme.primaryColor,
-                    onPressed: () {},
-                    child: Icon(Icons.check),
+                    onPressed: () {
+                      BlocProvider.of<UserBloc>(context).add(UserEventRegistry(
+                          context: context,
+                          gender: dropMenuState.value.toString(),
+                          group: groupController.value.text,
+                          phoneNumber: phoneController.value.text,
+                          displayName: nameController.value.text,
+                          birthday: birthdayController.value.text,
+                          id: (userState is UserStateLoginSuccessful ? userState.account.id! : (userState is UserStateRegistryFail ? userState.id : ''))
+                      ));
+                    },
+                    child: const Icon(Icons.check),
                   ),
                 );
               },

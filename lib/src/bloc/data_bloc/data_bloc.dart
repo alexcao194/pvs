@@ -5,7 +5,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pvs/src/service/http.dart';
 
-import '../../../model/user.dart';
+import '../../model/user.dart';
+
 
 part 'data_event.dart';
 part 'data_state.dart';
