@@ -7,6 +7,7 @@ import 'package:pvs/src/bloc/theme_bloc/theme_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/video_player_bloc/video_player_bloc.dart';
 import 'package:pvs/src/presentation/screen/profile_screen/bloc/image_picker_bloc/image_picker_bloc.dart';
+import 'package:pvs/src/presentation/screen/user_screen/bloc/date_picker_bloc/date_picker_bloc.dart';
 import 'package:pvs/src/presentation/screen/user_screen/bloc/drop_menu_bloc/drop_menu_bloc.dart';
 import 'package:pvs/src/service/shared_preferences.dart';
 import 'src/presentation/screen/profile_screen/bloc/profile_bloc/profile_bloc.dart';
@@ -30,7 +31,8 @@ void main() async {
           BlocProvider(create: (_) => VideoPlayerBloc()),
           BlocProvider(create: (_) => UserBloc()),
           BlocProvider(create: (_) => DataBloc()),
-          BlocProvider(create: (_) => DropMenuBloc())
+          BlocProvider(create: (_) => DropMenuBloc()),
+          BlocProvider(create: (_) => DatePickerBloc())
         ],
         child: const MyApp()
       )
