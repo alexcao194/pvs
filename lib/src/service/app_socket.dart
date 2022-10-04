@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+
+
 class AppSocket {
   AppSocket._();
   static IO.Socket? _socket;
-  static String localHost = '192.168.7.212:1904';
+  static String localHost = '192.168.134.212:1904';
 
   static IO.Socket? get instance {
     if (_socket == null) {
