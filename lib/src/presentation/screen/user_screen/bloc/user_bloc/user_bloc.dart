@@ -8,9 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/constant/app_string.dart';
 import 'package:pvs/src/model/account.dart';
+import 'package:pvs/src/model/user.dart';
+import 'package:pvs/src/service/app_network_infor.dart';
 import 'package:pvs/src/service/app_router.dart';
 
-import '../../../../../model/user.dart';
 import '../../../../../service/http.dart';
 
 part 'user_event.dart';
@@ -49,7 +50,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         })
         .timeout(const Duration(milliseconds: 2000))
         .onError((error, stackTrace) {
-          print(error);
+          print(AppNetworkInfo.IP4!);
           emit(UserStateLoginFail(error: error.toString()));
         });
   }

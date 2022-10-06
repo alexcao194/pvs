@@ -20,7 +20,7 @@ class AppRouter {
       case AppRoutes.registry:
         return MaterialPageRoute(builder: (_) => RegistryScreen());
       case AppRoutes.splash:
-        return MaterialPageRoute(builder: (_) => const SplashScreen());
+        return MaterialPageRoute(builder: (_) => SplashScreen());
       case AppRoutes.home:
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case AppRoutes.signUp:
