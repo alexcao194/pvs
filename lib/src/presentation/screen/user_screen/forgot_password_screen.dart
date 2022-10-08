@@ -12,7 +12,7 @@ class ForgotPasswordScreen extends StatelessWidget {
     return Template(
       label: 'Quên mật khẩu',
       children: [
-        AuthInput(
+        const AuthInput(
           icon: Icons.person,
           label: 'Mã Sinh Viên',
       ),

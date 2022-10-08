@@ -14,10 +14,7 @@ class AppVideoPlayer extends StatelessWidget {
     return BlocBuilder<VideoPlayerBloc, VideoPlayerState>(
       builder: (context, playerState) {
         return Center(
-            child: SizedBox(
-                height: 200,
-                child: playerState is VideoPlayerStateWaiting ? VideoPlayer(playerState.controller) : const Text('Waiting init')
-            )
+
         );
       },
     );

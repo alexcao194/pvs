@@ -29,11 +29,6 @@ class VideoPlayerStateStopping extends VideoPlayerState {
 
 }
 
-class VideoPlayerStateWaiting extends VideoPlayerState {
-  const VideoPlayerStateWaiting({required this.controller});
+class VideoPlayerStateLoading extends VideoPlayerState {
 
-  final VideoPlayerController controller;
-
-  @override
-  List<Object> get props => [controller];
 }

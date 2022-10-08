@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pvs/src/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/constant/app_string.dart';
 import 'package:pvs/src/model/account.dart';
 import 'package:pvs/src/model/user.dart';
-import 'package:pvs/src/service/app_network_infor.dart';
 import 'package:pvs/src/service/app_router.dart';
 
 import '../../../../../service/http.dart';
@@ -31,7 +32,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     await HTTP
         .get('/login', {'id': event.id, 'password': event.password})
         .then((value) {
-          print(value);
           if (value == 'incorrect_account') {
             emit(UserStateLoginFail(error: AppString.incorrectAccount));
           } else {
@@ -50,7 +50,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         })
         .timeout(const Duration(milliseconds: 2000))
         .onError((error, stackTrace) {
-          print(AppNetworkInfo.IP4!);
           emit(UserStateLoginFail(error: error.toString()));
         });
   }
@@ -86,18 +85,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   FutureOr<void> _getPassword(
       UserEventGetPassword event, Emitter<UserState> emit) {}
 
-  FutureOr<void> _onRegistry(
-      UserEventRegistry event, Emitter<UserState> emit) async {
+  FutureOr<void> _onRegistry(UserEventRegistry event, Emitter<UserState> emit) async {
     if (event.displayName == '' ||
         event.group.toString() == '' ||
         event.birthday == '' ||
         event.gender.toString() == '' ||
         event.phoneNumber == '') {
-          print(event.displayName);
-          print(event.group.toString());
-          print(event.birthday);
-          print(event.gender.toString());
-          print(event.phoneNumber);
       emit(UserStateRegistryFail(error: AppString.nullField, id: event.id));
     } else {
       emit(const UserStateLoading());
@@ -110,13 +103,30 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             'gender': event.gender.toString(),
             'phone_number': event.phoneNumber
           })
-          .then((value) {
+          .then((value) async {
             if (value == 'registry_successful') {
-              BlocProvider.of<DataBloc>(event.context)
-                  .add(DataEventGetProfile(user: User(id: event.id)));
-              emit(UserStateRegistrySuccessful(status: AppString.getStart));
-              AppRouter.navigatorKey.currentState
-                  ?.pushReplacementNamed(AppRoutes.home);
+              if (event.avatar != null) {
+                await HTTP.upload(
+                    '/upload_avatar',
+                    File(event.avatar!.path).path,
+                    '${event.id}_avatar.jpg',
+                    {'id': event.id}).then((value) {
+                  debugPrint('update successful with code = $value');
+                  BlocProvider.of<DataBloc>(event.context)
+                      .add(DataEventGetProfile(user: User(id: event.id)));
+                  emit(UserStateRegistrySuccessful(status: AppString.getStart));
+                  AppRouter.navigatorKey.currentState
+                      ?.pushReplacementNamed(AppRoutes.home);
+                }).onError((error, stackTrace) {
+                  debugPrint('error with code = $error');
+                });
+              } else {
+                BlocProvider.of<DataBloc>(event.context)
+                    .add(DataEventGetProfile(user: User(id: event.id)));
+                emit(UserStateRegistrySuccessful(status: AppString.getStart));
+                AppRouter.navigatorKey.currentState
+                    ?.pushReplacementNamed(AppRoutes.home);
+              }
             } else if (value == 'internal_error') {
               emit(UserStateRegistryFail(
                   error: AppString.internalError, id: event.id));

@@ -7,14 +7,12 @@ abstract class UserEvent extends Equatable {
   List<Object> get props => [];
 }
 
-
 class UserEventSignup extends UserEvent {
-  const UserEventSignup({
-    required this.id,
-    required this.password,
-    required this.email,
-    required this.rePassword
-  });
+  const UserEventSignup(
+      {required this.id,
+      required this.password,
+      required this.email,
+      required this.rePassword});
 
   final String id;
   final String password;
@@ -26,7 +24,9 @@ class UserEventSignup extends UserEvent {
 }
 
 class UserEventLogin extends UserEvent {
-  const UserEventLogin({required this.password, required this.id, required this.context});
+  const UserEventLogin(
+      {required this.password, required this.id, required this.context});
+
   final String id;
   final String password;
   final BuildContext context;
@@ -41,7 +41,7 @@ class UserEventGetPassword extends UserEvent {
   final String id;
 
   @override
-  List<Object> get props =>[id];
+  List<Object> get props => [id];
 }
 
 class UserEventRegistry extends UserEvent {
@@ -52,8 +52,8 @@ class UserEventRegistry extends UserEvent {
       required this.displayName,
       required this.birthday,
       required this.id,
-      required this.context
-      });
+      required this.context,
+      required this.avatar});
 
   final String displayName;
   final String birthday;
@@ -62,7 +62,9 @@ class UserEventRegistry extends UserEvent {
   final String phoneNumber;
   final String id;
   final BuildContext context;
+  final XFile? avatar;
 
   @override
-  List<Object> get props => [displayName, birthday, group, gender, phoneNumber, id, context];
+  List<Object> get props =>
+      [avatar!, displayName, birthday, group, gender, phoneNumber, id, context];
 }

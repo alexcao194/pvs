@@ -6,7 +6,7 @@ import 'package:pvs/src/presentation/screen/user_screen/common/auth_input.dart';
 import 'package:pvs/src/service/app_time.dart';
 
 import '../../../config/theme.dart';
-import '../../../constant/app_path.dart';
+import '../../common/widget/stl/avatar.dart';
 import '../profile_screen/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'bloc/date_picker_bloc/date_picker_bloc.dart';
 import 'bloc/drop_menu_bloc/drop_menu_bloc.dart';
@@ -40,39 +40,7 @@ class RegistryScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                SizedBox(
-                                  height: size.height * 0.20,
-                                  width: size.height * 0.20,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(100.0),
-                                    child: Container(
-                                      color: AppThemes.theme.backgroundColor,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            BlocProvider.of<ImagePickerBloc>(
-                                                    context)
-                                                .add(ImagePickerEventOnPick());
-                                          },
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(100.0),
-                                            child: (imagePickerState
-                                                    is ImagePickerStatePicked
-                                                ? Image.file(
-                                                    File(imagePickerState
-                                                        .image.path),
-                                                    fit: BoxFit.cover)
-                                                : Image.asset(
-                                                    AppPath.defaultAvatar,
-                                                    fit: BoxFit.cover)),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                Avatar(height: size.height * 0.2, isRegistry: true),
                                 SizedBox(
                                     height: size.height * 0.02,
                                     width: double.maxFinite),
@@ -118,7 +86,8 @@ class RegistryScreen extends StatelessWidget {
                                         child: AuthInput(
                                           controller: birthdayController,
                                           icon: Icons.calendar_month,
-                                          label: AppTime.simpleDateFormat(datePickerState.time),
+                                          label: AppTime.simpleDateFormat(
+                                              datePickerState.time),
                                           enable: false,
                                           borderRadius: 3.0,
                                         ),
@@ -190,11 +159,13 @@ class RegistryScreen extends StatelessWidget {
                           BlocProvider.of<UserBloc>(context).add(
                               UserEventRegistry(
                                   context: context,
+                                  avatar: imagePickerState is ImagePickerStatePicked ? imagePickerState.image : null,
                                   gender: dropMenuState.value.toString(),
                                   group: groupController.value.text,
                                   phoneNumber: phoneController.value.text,
                                   displayName: nameController.value.text,
-                                  birthday: AppTime.simpleDateFormat(datePickerState.time),
+                                  birthday: AppTime.simpleDateFormat(
+                                      datePickerState.time),
                                   id: (userState is UserStateLoginSuccessful
                                       ? userState.account.id!
                                       : (userState is UserStateRegistryFail

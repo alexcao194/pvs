@@ -12,6 +12,7 @@ import '../user_screen/bloc/user_bloc/user_bloc.dart';
 import 'widget/stl/app_drawer.dart';
 import 'widget/stl/header_bar.dart';
 import 'widget/stl/navigation_app_bar.dart';
+import 'pages/video_page.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -76,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                             children: const [
                               Center(child: Text('comming soon1')),
                               Center(child: Text('comming soon2')),
-                              Center(child: Text('comming soon3')),
+                              VideoPage(),
                               Center(child: Text('comming soon4')),
                               Center(child: Text('comming soon5'))
                             ],
@@ -85,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     floatingActionButtonLocation:
-                        FloatingActionButtonLocation.centerDocked,
+                        FloatingActionButtonLocation.miniEndDocked,
                     floatingActionButton:
                         MediaQuery.of(context).viewInsets.bottom == 0
                             ? FloatingActionButton(

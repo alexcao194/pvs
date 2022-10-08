@@ -8,5 +8,14 @@ abstract class ImagePickerEvent extends Equatable {
 }
 
 class ImagePickerEventOnPick extends ImagePickerEvent {
+  const ImagePickerEventOnPick({required this.id});
 
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+}
+
+class ImagePickerEventReset extends ImagePickerEvent {
+  const ImagePickerEventReset();
 }

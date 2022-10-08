@@ -8,8 +8,8 @@ abstract class VideoPlayerEvent extends Equatable {
   List<Object> get props => [controller];
 }
 
-class VideoPlayerEventInitDone extends VideoPlayerEvent {
-  const VideoPlayerEventInitDone({required super.controller});
+class VideoPlayerEventInit extends VideoPlayerEvent {
+  const VideoPlayerEventInit({required super.controller});
 }
 
 class VideoPlayerEventChangeState extends VideoPlayerEvent {
