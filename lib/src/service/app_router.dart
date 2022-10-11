@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:pvs/src/presentation/screen/profile_screen/profile_screen.dart';
 
 import '../presentation/screen/home_screen/home_screen.dart';
-import '../presentation/screen/splash_screen/splash_screen.dart';
+import '../presentation/screen/user_screen/connect_screen.dart';
 import '../presentation/screen/user_screen/forgot_password_screen.dart';
 import '../presentation/screen/user_screen/login_screen.dart';
 import '../presentation/screen/user_screen/registry_screen.dart';
@@ -20,7 +20,7 @@ class AppRouter {
       case AppRoutes.registry:
         return MaterialPageRoute(builder: (_) => RegistryScreen());
       case AppRoutes.splash:
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+        return MaterialPageRoute(builder: (_) => ConnectScreen());
       case AppRoutes.home:
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case AppRoutes.signUp:

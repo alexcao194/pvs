@@ -5,10 +5,10 @@ import 'package:pvs/src/presentation/screen/user_screen/common/auth_button.dart'
 import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/http.dart';
 
-import '../user_screen/common/auth_input.dart';
+import 'common/auth_input.dart';
 
-class SplashScreen extends StatelessWidget {
-  SplashScreen({Key? key}) : super(key: key);
+class ConnectScreen extends StatelessWidget {
+  ConnectScreen({Key? key}) : super(key: key);
   final TextEditingController ipController = TextEditingController();
   @override
   Widget build(BuildContext context) {
