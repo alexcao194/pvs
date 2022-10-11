@@ -21,32 +21,40 @@ class NavigationAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          BottomBarItem(
-            label: 'study',
-            icon: Icons.list,
-            page: 0,
-            pageController: pageController,
+          Expanded(
+            child: BottomBarItem(
+              label: 'Kiến thức',
+              icon: Icons.home,
+              page: 0,
+              pageController: pageController,
+            ),
           ),
-          BottomBarItem(
-            label: 'study',
-            icon: Icons.ad_units,
-            page: 1,
-            pageController: pageController,
+          Expanded(
+            child: BottomBarItem(
+              label: 'Bài tập',
+              icon: Icons.list_alt,
+              page: 1,
+              pageController: pageController,
+            ),
           ),
           SizedBox(
-            width: size.width * 0.05,
+            width: size.width * 0.1,
           ),
-          BottomBarItem(
-            label: 'study',
-            icon: Icons.book,
-            page: 3,
-            pageController: pageController,
+          Expanded(
+            child: BottomBarItem(
+              label: 'Trắc nghiệm',
+              icon: Icons.book,
+              page: 3,
+              pageController: pageController,
+            ),
           ),
-          BottomBarItem(
-            label: 'study',
-            icon: Icons.settings,
-            page: 4,
-            pageController: pageController,
+          Expanded(
+            child: BottomBarItem(
+              label: 'Kiểm tra',
+              icon: Icons.featured_play_list_sharp,
+              page: 4,
+              pageController: pageController,
+            ),
           ),
         ],
       ),

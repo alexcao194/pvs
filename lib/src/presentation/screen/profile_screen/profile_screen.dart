@@ -49,7 +49,41 @@ class ProfileScreen extends StatelessWidget {
                                     SizedBox(
                                         height: size.height * 0.14,
                                         width: double.maxFinite),
-                                    const Avatar(),
+                                  SizedBox(
+                                    height: size.height * 0.22,
+                                    width: size.height * 0.22,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100.0),
+                                      child: Container(
+                                        color: AppThemes.theme.backgroundColor,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: GestureDetector(
+                                            onTap: profileState.canEdit
+                                                ? () {
+                                              BlocProvider.of<ImagePickerBloc>(context).add(
+                                                  ImagePickerEventOnPick(
+                                                      id: (userState
+                                                      is UserStateLoginSuccessful
+                                                          ? userState.account.id!
+                                                          : (userState
+                                                      is UserStateRegistryFail
+                                                          ? userState.id
+                                                          : ''))));
+                                            }
+                                                : () {},
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(100.0),
+                                              child: (dataState.user.avatar!.length > 4)
+                                                ? Image.network(
+                                                  (dataState.user.avatar!)
+                                              ) : Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover)
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                     Text(dataState.user.displayName ?? 'Null',
                                         style: AppThemes
                                             .theme.profileDisplayNameStyle),

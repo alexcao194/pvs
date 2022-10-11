@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     floatingActionButtonLocation:
-                        FloatingActionButtonLocation.miniEndDocked,
+                        FloatingActionButtonLocation.centerDocked,
                     floatingActionButton:
                         MediaQuery.of(context).viewInsets.bottom == 0
                             ? FloatingActionButton(
@@ -97,7 +97,7 @@ class HomeScreen extends StatelessWidget {
                                           pickedPage: 2,
                                           controller: pageController));
                                 },
-                                child: const Icon(Icons.home),
+                                child: const Icon(Icons.play_arrow),
                               )
                             : null,
                     bottomNavigationBar: NavigationAppBar(

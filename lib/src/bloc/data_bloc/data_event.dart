@@ -11,3 +11,7 @@ abstract class DataEvent extends Equatable {
 class DataEventGetProfile extends DataEvent {
   const DataEventGetProfile({required super.user});
 }
+
+class DataEventUploadAvatar extends DataEvent {
+  const DataEventUploadAvatar({required super.user});
+}
