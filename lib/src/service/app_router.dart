@@ -26,7 +26,7 @@ class AppRouter {
       case AppRoutes.signUp:
         return MaterialPageRoute(builder: (_) => SignupScreen());
       case AppRoutes.profile:
-        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+        return MaterialPageRoute(builder: (_) => ProfileScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
