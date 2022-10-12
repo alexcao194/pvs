@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/bloc/theme_bloc/theme_bloc.dart';
@@ -11,7 +9,6 @@ import 'package:pvs/src/service/app_router.dart';
 
 import '../../../bloc/data_bloc/data_bloc.dart';
 import '../../../constant/app_path.dart';
-import '../../common/widget/stl/avatar.dart';
 import 'bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'bloc/profile_bloc/profile_bloc.dart';
 
@@ -49,41 +46,51 @@ class ProfileScreen extends StatelessWidget {
                                     SizedBox(
                                         height: size.height * 0.14,
                                         width: double.maxFinite),
-                                  SizedBox(
-                                    height: size.height * 0.22,
-                                    width: size.height * 0.22,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(100.0),
-                                      child: Container(
-                                        color: AppThemes.theme.backgroundColor,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: GestureDetector(
-                                            onTap: profileState.canEdit
-                                                ? () {
-                                              BlocProvider.of<ImagePickerBloc>(context).add(
-                                                  ImagePickerEventOnPick(
-                                                      id: (userState
-                                                      is UserStateLoginSuccessful
-                                                          ? userState.account.id!
-                                                          : (userState
-                                                      is UserStateRegistryFail
-                                                          ? userState.id
-                                                          : ''))));
-                                            }
-                                                : () {},
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(100.0),
-                                              child: (dataState.user.avatar!.length > 4)
-                                                ? Image.network(
-                                                  (dataState.user.avatar!)
-                                              ) : Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover)
+                                    SizedBox(
+                                      height: size.height * 0.22,
+                                      width: size.height * 0.22,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(100.0),
+                                        child: Container(
+                                          color:
+                                              AppThemes.theme.backgroundColor,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: GestureDetector(
+                                              onTap: profileState.canEdit
+                                                  ? () {
+                                                      BlocProvider.of<ImagePickerBloc>(context)
+                                                          .add(ImagePickerEventOnPick(
+                                                              id: (userState is UserStateLoginSuccessful
+                                                                  ? userState
+                                                                      .account
+                                                                      .id!
+                                                                  : (userState
+                                                                          is UserStateRegistryFail
+                                                                      ? userState
+                                                                          .id
+                                                                      : ''))));
+                                                    }
+                                                  : () {},
+                                              child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100.0),
+                                                  child: (dataState.user.avatar!.length > 4)
+                                                      ? Image.network(
+                                                          dataState
+                                                              .user.avatar!,
+                                                          fit: BoxFit.cover,
+                                                        )
+                                                      : Image.asset(
+                                                          AppPath.defaultAvatar,
+                                                          fit: BoxFit.cover)),
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
                                     Text(dataState.user.displayName ?? 'Null',
                                         style: AppThemes
                                             .theme.profileDisplayNameStyle),
@@ -221,4 +228,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-

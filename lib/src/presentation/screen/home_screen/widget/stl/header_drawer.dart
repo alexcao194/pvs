@@ -1,20 +1,20 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pvs/src/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
 
 import '../../../../../constant/app_path.dart';
-import '../../../profile_screen/bloc/image_picker_bloc/image_picker_bloc.dart';
 
 class HeaderDrawer extends StatelessWidget {
   const HeaderDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return BlocBuilder<ImagePickerBloc, ImagePickerState>(
-      builder: (context, imagePickerState) {
+    var size = MediaQuery
+        .of(context)
+        .size;
+    return BlocBuilder<DataBloc, DataState>(
+      builder: (context, dataState) {
         return Stack(
           children: [
             SizedBox(
@@ -36,12 +36,16 @@ class HeaderDrawer extends StatelessWidget {
                         width: size.height * 0.13,
                         color: AppThemes.theme.buttonBackgroundColor,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100.0),
-                          child: (imagePickerState is ImagePickerStatePicked
-                              ? Image.file(File(imagePickerState.image.path),
-                                  fit: BoxFit.cover)
-                              : Image.asset(AppPath.defaultAvatar,
-                                  fit: BoxFit.cover)),
+                            borderRadius: BorderRadius.circular(100.0),
+                            child: (dataState.user.avatar!.length > 4)
+                                ? Image.network(
+                              dataState
+                                  .user.avatar!,
+                              fit: BoxFit.cover,
+                            )
+                                : Image.asset(
+                                AppPath.defaultAvatar,
+                                fit: BoxFit.cover)
                         ),
                       ),
                     ),

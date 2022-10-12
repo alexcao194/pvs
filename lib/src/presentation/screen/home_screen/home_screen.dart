@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
@@ -51,11 +49,15 @@ class HomeScreen extends StatelessWidget {
                           ),
                           action: ClipRRect(
                             borderRadius: BorderRadius.circular(100.0),
-                            child: (imagePickerState is ImagePickerStatePicked
-                                ? Image.file(File(imagePickerState.image.path),
-                                    fit: BoxFit.cover)
-                                : Image.asset(AppPath.defaultAvatar,
-                                    fit: BoxFit.cover)),
+                            child: (dataState.user.avatar!.length > 4)
+                                ? Image.network(
+                              dataState
+                                  .user.avatar!,
+                              fit: BoxFit.cover,
+                            )
+                                : Image.asset(
+                                AppPath.defaultAvatar,
+                                fit: BoxFit.cover)
                           ),
                           leadingOnPress: () {
                             _scaffoldKey.currentState?.openDrawer();
