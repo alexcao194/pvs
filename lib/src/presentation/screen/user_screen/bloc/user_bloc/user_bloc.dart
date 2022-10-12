@@ -41,10 +41,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               AppRouter.navigatorKey.currentState
                   ?.pushReplacementNamed(AppRoutes.registry);
             } else {
-              AppRouter.navigatorKey.currentState
-                  ?.pushReplacementNamed(AppRoutes.home);
               BlocProvider.of<DataBloc>(event.context)
-                  .add(DataEventGetProfile(user: User(id: account.id)));
+                  .add(DataEventGetProfileFromLogin(user: User(id: account.id)));
             }
           }
         })

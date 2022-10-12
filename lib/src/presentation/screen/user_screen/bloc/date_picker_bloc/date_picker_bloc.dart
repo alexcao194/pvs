@@ -10,6 +10,7 @@ part 'date_picker_state.dart';
 class DatePickerBloc extends Bloc<DatePickerEvent, DatePickerState> {
   DatePickerBloc() : super(DatePickerInitial(time: DateTime.now())) {
     on<DatePickerEventOnPick>(_onPick);
+    on<DatePickerEventReset>(_onReset);
   }
 
   FutureOr<void> _onPick(DatePickerEventOnPick event, Emitter<DatePickerState> emit) async {
@@ -19,5 +20,9 @@ class DatePickerBloc extends Bloc<DatePickerEvent, DatePickerState> {
         firstDate: DateTime(1800),
     lastDate: DateTime(2025)
     ).then((value) => emit(DatePickerStateDone(time: value ?? state.time)));
+  }
+
+  FutureOr<void> _onReset(DatePickerEventReset event, Emitter<DatePickerState> emit) {
+    emit(DatePickerInitial(time: DateTime.now()));
   }
 }
