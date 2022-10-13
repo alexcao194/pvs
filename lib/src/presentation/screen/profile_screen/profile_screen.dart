@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pvs/src/bloc/theme_bloc/theme_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
+import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
+import 'package:pvs/src/presentation/bloc/image_picker_bloc/image_picker_bloc.dart';
+import 'package:pvs/src/presentation/bloc/theme_bloc/theme_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/widget/stl/header_bar.dart';
 import 'package:pvs/src/presentation/screen/user_screen/bloc/date_picker_bloc/date_picker_bloc.dart';
 import 'package:pvs/src/presentation/screen/user_screen/bloc/drop_menu_bloc/drop_menu_bloc.dart';
@@ -10,9 +12,7 @@ import 'package:pvs/src/presentation/screen/user_screen/common/auth_input.dart';
 import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/app_time.dart';
 
-import '../../../bloc/data_bloc/data_bloc.dart';
 import '../../../constant/app_path.dart';
-import 'bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'bloc/profile_bloc/profile_bloc.dart';
 
 class ProfileScreen extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pvs/src/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
+import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 
 import '../../../../../constant/app_path.dart';
 

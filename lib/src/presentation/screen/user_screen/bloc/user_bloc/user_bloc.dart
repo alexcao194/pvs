@@ -7,10 +7,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pvs/src/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/constant/app_string.dart';
 import 'package:pvs/src/model/account.dart';
 import 'package:pvs/src/model/user.dart';
+import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/service/app_router.dart';
 
 import '../../../../../service/http.dart';

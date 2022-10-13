@@ -3,10 +3,9 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pvs/src/model/user.dart';
 import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/http.dart';
-
-import '../../model/user.dart';
 
 
 part 'data_event.dart';

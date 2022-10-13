@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
+import 'package:pvs/src/presentation/bloc/theme_bloc/theme_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
-
-import '../../../../../bloc/theme_bloc/theme_bloc.dart';
 
 class BottomBarItem extends StatelessWidget {
   const BottomBarItem(

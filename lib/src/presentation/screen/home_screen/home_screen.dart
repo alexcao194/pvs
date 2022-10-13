@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
+import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
+import 'package:pvs/src/presentation/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 import 'package:pvs/src/service/app_router.dart';
-import '../../../bloc/data_bloc/data_bloc.dart';
 import '../../../constant/app_path.dart';
-import '../profile_screen/bloc/image_picker_bloc/image_picker_bloc.dart';
 import '../user_screen/bloc/user_bloc/user_bloc.dart';
 import 'widget/stl/app_drawer.dart';
 import 'widget/stl/header_bar.dart';

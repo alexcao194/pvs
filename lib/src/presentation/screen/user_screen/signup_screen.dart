@@ -2,12 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pvs/src/presentation/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'package:pvs/src/presentation/screen/user_screen/common/auth_button.dart';
 import 'package:pvs/src/service/app_router.dart';
 
 import '../../../config/theme.dart';
-import '../../../constant/app_path.dart';
-import '../profile_screen/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'bloc/user_bloc/user_bloc.dart';
 import 'common/auth_input.dart';
 import 'common/template.dart';
