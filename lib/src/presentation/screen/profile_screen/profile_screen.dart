@@ -8,7 +8,7 @@ import 'package:pvs/src/presentation/screen/home_screen/widget/stl/header_bar.da
 import 'package:pvs/src/presentation/screen/user_screen/bloc/date_picker_bloc/date_picker_bloc.dart';
 import 'package:pvs/src/presentation/screen/user_screen/bloc/drop_menu_bloc/drop_menu_bloc.dart';
 import 'package:pvs/src/presentation/screen/user_screen/bloc/user_bloc/user_bloc.dart';
-import 'package:pvs/src/presentation/screen/user_screen/common/auth_input.dart';
+import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_input.dart';
 import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/app_time.dart';
 

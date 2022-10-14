@@ -5,6 +5,7 @@ import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/presentation/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/widget/stf/play_pause_button.dart';
+import 'pages/quiz_page.dart';
 import 'package:pvs/src/service/app_router.dart';
 import '../../../constant/app_path.dart';
 import '../user_screen/bloc/user_bloc/user_bloc.dart';
@@ -31,78 +32,60 @@ class HomeScreen extends StatelessWidget {
               return BlocBuilder<DataBloc, DataState>(
                 builder: (context, dataState) {
                   return Scaffold(
-                    backgroundColor: AppThemes.theme.backgroundColor,
-                    key: _scaffoldKey,
-                    drawer: const AppDrawer(),
-                    body: Column(
-                      children: [
-                        HeaderBar(
-                          height: size.height * 0.1,
-                          title: 'Hello World',
-                          leading: CircleAvatar(
-                            radius: 20.0,
-                            backgroundColor:
-                                AppThemes.theme.buttonBackgroundColor,
-                            child: Text(
-                              '1',
-                              style: AppThemes.theme.lessonButtonStyle,
+                      backgroundColor: AppThemes.theme.backgroundColor,
+                      key: _scaffoldKey,
+                      drawer: const AppDrawer(),
+                      body: Column(
+                        children: [
+                          HeaderBar(
+                            height: size.height * 0.1,
+                            title: 'Hello World',
+                            leading: CircleAvatar(
+                              radius: 20.0,
+                              backgroundColor:
+                                  AppThemes.theme.buttonBackgroundColor,
+                              child: Text(
+                                '1',
+                                style: AppThemes.theme.lessonButtonStyle,
+                              ),
                             ),
-                          ),
-                          action: ClipRRect(
-                            borderRadius: BorderRadius.circular(100.0),
-                            child: (dataState.user.avatar!.length > 4)
-                                ? Image.network(
-                              dataState
-                                  .user.avatar!,
-                              fit: BoxFit.cover,
-                            )
-                                : Image.asset(
-                                AppPath.defaultAvatar,
-                                fit: BoxFit.cover)
-                          ),
-                          leadingOnPress: () {
-                            _scaffoldKey.currentState?.openDrawer();
-                          },
-                          actionOnPress: () {
-                            AppRouter.navigatorKey.currentState
-                                ?.pushNamed(AppRoutes.profile);
-                          },
-                        ),
-                        SizedBox(
-                          height: size.height * 0.81,
-                          child: PageView(
-                            controller: pageController,
-                            onPageChanged: (index) {
-                              BlocProvider.of<NavigationBarBloc>(context).add(
-                                  NavigationBarEventChangePage(
-                                      pickedPage: index));
+                            action: ClipRRect(
+                                borderRadius: BorderRadius.circular(100.0),
+                                child: (dataState.user.avatar!.length > 4)
+                                    ? Image.network(
+                                        dataState.user.avatar!,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset(AppPath.defaultAvatar,
+                                        fit: BoxFit.cover)),
+                            leadingOnPress: () {
+                              _scaffoldKey.currentState?.openDrawer();
                             },
-                            children: const [
-                              Center(child: Text('comming soon1')),
-                              Center(child: Text('comming soon2')),
-                              VideoPage(),
-                              Center(child: Text('comming soon4')),
-                              Center(child: Text('comming soon5'))
-                            ],
+                            actionOnPress: () {
+                              AppRouter.navigatorKey.currentState
+                                  ?.pushNamed(AppRoutes.profile);
+                            },
                           ),
-                        )
-                      ],
-                    ),
-                    floatingActionButtonLocation:
-                        FloatingActionButtonLocation.centerDocked,
-                    floatingActionButton:
-                        MediaQuery.of(context).viewInsets.bottom == 0
-                            ? FloatingActionButton(
-                                backgroundColor: AppThemes.theme.primaryColor,
-                                onPressed: () {
-
-                                },
-                                child: PlayPauseButton(pageController: pageController)
-                              )
-                            : null,
-                    bottomNavigationBar: NavigationAppBar(
-                        pageController: pageController, size: size),
-                  );
+                          SizedBox(
+                            height: size.height * 0.81,
+                            child: getPage(navigationBarState),
+                          )
+                        ],
+                      ),
+                      floatingActionButtonLocation:
+                          FloatingActionButtonLocation.centerDocked,
+                      floatingActionButton:
+                          (MediaQuery.of(context).viewInsets.bottom == 0 &&
+                                  navigationBarState.currentPage != 3)
+                              ? FloatingActionButton(
+                                  backgroundColor: AppThemes.theme.primaryColor,
+                                  onPressed: () {},
+                                  child: const PlayPauseButton())
+                              : null,
+                      bottomNavigationBar: (navigationBarState.currentPage != 3)
+                          ? NavigationAppBar(
+                              pageController: pageController, size: size)
+                          : null);
                 },
               );
             },
@@ -110,5 +93,21 @@ class HomeScreen extends StatelessWidget {
         },
       );
     });
+  }
+
+  Widget getPage(NavigationBarState navigationBarState) {
+    switch (navigationBarState.currentPage) {
+      case 0:
+        return const Center(child: Text('coming soon 1'));
+      case 1:
+        return const Center(child: Text('coming soon 2'));
+      case 2:
+        return const VideoPage();
+      case 3:
+        return const LoadingPage();
+      case 4:
+        return const Center(child: Text('coming soon 5'));
+    }
+    return const Center(child: Text('some thing wrong'));
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
-import 'package:pvs/src/presentation/screen/user_screen/common/auth_input.dart';
-import 'package:pvs/src/presentation/screen/user_screen/common/template.dart';
+import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_input.dart';
+import 'package:pvs/src/presentation/screen/user_screen/widget/stl/template.dart';
 import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/shared_preferences.dart';
 import 'bloc/user_bloc/user_bloc.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pvs/src/config/theme.dart';
-
-import '../../../../constant/app_path.dart';
+import 'package:pvs/src/constant/app_path.dart';
 
 class Template extends StatelessWidget {
   const Template({Key? key, required this.label, required this.children, this.scrollController, this.height}) : super(key: key);

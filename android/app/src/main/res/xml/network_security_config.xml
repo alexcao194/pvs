@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">api.example.com(to be adjusted)</domain>
+        <domain includeSubdomains="true">10.20.14.159:1904</domain>
     </domain-config>
 </network-security-config>

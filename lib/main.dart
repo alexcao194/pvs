@@ -18,6 +18,10 @@ void main() async {
     statusBarColor: Colors.transparent
   ));
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp
+  ]);
   Prefs.initial();
   await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   runApp(

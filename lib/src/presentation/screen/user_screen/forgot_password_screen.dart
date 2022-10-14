@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pvs/src/presentation/screen/user_screen/common/auth_button.dart';
-import 'package:pvs/src/presentation/screen/user_screen/common/auth_input.dart';
-import 'package:pvs/src/presentation/screen/user_screen/common/template.dart';
-
+import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_button.dart';
+import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_input.dart';
+import 'package:pvs/src/presentation/screen/user_screen/widget/stl/template.dart';
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
 

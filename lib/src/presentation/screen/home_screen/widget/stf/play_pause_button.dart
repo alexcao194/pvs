@@ -3,10 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 
 class PlayPauseButton extends StatefulWidget {
-  const PlayPauseButton({Key? key, required this.pageController}) : super(key: key);
-
-  final PageController pageController;
-
+  const PlayPauseButton({Key? key}) : super(key: key);
   @override
   State<PlayPauseButton> createState() => _PlayPauseButtonState();
 }
@@ -33,9 +30,8 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
         return GestureDetector(
           onTap: () {
             BlocProvider.of<NavigationBarBloc>(context)
-                .add(NavigationBarEventChangePage(
-                pickedPage: 2,
-                controller: widget.pageController));
+                .add(const NavigationBarEventChangePage(
+                pickedPage: 2));
           },
           child: AnimatedIcon(
             icon: AnimatedIcons.play_pause,

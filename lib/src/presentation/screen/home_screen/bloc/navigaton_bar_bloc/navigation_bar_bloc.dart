@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pvs/src/service/app_router.dart';
 
 part 'navigation_bar_event.dart';
 part 'navigation_bar_state.dart';
@@ -14,9 +14,10 @@ class NavigationBarBloc extends Bloc<NavigationBarEvent, NavigationBarState>{
 
 
   FutureOr<void> _onChangePage(NavigationBarEventChangePage event, Emitter<NavigationBarState> emit) {
-    if(event.controller != null) {
-      event.controller!.animateToPage(event.pickedPage, duration: const Duration(milliseconds: 200), curve: Curves.linear);
+    if(event.pickedPage == 3) {
+      AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.quiz);
+    } else {
+      emit(NavigationBarStatePageChanged(currentPage: event.pickedPage));
     }
-    emit(NavigationBarStatePageChanged(currentPage: event.pickedPage));
   }
 }

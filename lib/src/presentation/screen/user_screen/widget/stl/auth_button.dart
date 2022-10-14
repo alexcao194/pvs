@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../config/theme.dart';
+import '../../../../../config/theme.dart';
 
 class AuthButton extends StatelessWidget {
   const AuthButton({

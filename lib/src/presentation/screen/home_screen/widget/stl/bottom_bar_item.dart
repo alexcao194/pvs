@@ -29,7 +29,7 @@ class BottomBarItem extends StatelessWidget {
             onTap: () {
               BlocProvider.of<NavigationBarBloc>(context).add(
                   NavigationBarEventChangePage(
-                      pickedPage: page, controller: pageController));
+                      pickedPage: page));
             },
             child: SizedBox(
               height: size.height * 0.09,

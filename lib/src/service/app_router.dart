@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page.dart';
 import 'package:pvs/src/presentation/screen/profile_screen/profile_screen.dart';
 
 import '../presentation/screen/home_screen/home_screen.dart';
@@ -27,6 +28,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SignupScreen());
       case AppRoutes.profile:
         return MaterialPageRoute(builder: (_) => ProfileScreen());
+      case AppRoutes.quiz:
+        return MaterialPageRoute(builder: (_) => const QuizPage());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
@@ -46,4 +49,5 @@ class AppRoutes {
   static const String registry = '/registry';
   static const String forgotPassword = '/forgot_password';
   static const String profile = '/profile';
+  static const String quiz = '/quiz';
 }
