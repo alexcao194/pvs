@@ -4,6 +4,7 @@ import 'package:pvs/src/config/theme.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/presentation/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
+import 'package:pvs/src/presentation/screen/home_screen/widget/stf/play_pause_button.dart';
 import 'package:pvs/src/service/app_router.dart';
 import '../../../constant/app_path.dart';
 import '../user_screen/bloc/user_bloc/user_bloc.dart';
@@ -94,12 +95,9 @@ class HomeScreen extends StatelessWidget {
                             ? FloatingActionButton(
                                 backgroundColor: AppThemes.theme.primaryColor,
                                 onPressed: () {
-                                  BlocProvider.of<NavigationBarBloc>(context)
-                                      .add(NavigationBarEventChangePage(
-                                          pickedPage: 2,
-                                          controller: pageController));
+
                                 },
-                                child: const Icon(Icons.play_arrow),
+                                child: PlayPauseButton(pageController: pageController)
                               )
                             : null,
                     bottomNavigationBar: NavigationAppBar(

@@ -18,9 +18,11 @@ class _VideoPageState extends State<VideoPage> {
     BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
         BetterPlayerDataSourceType.network,
         "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
-        betterPlayerController = BetterPlayerController(
-        const BetterPlayerConfiguration(),
-        betterPlayerDataSource: betterPlayerDataSource);
+    betterPlayerController = BetterPlayerController(
+    const BetterPlayerConfiguration(
+
+    ),
+    betterPlayerDataSource: betterPlayerDataSource);
   }
 
   @override
