@@ -4,8 +4,8 @@ import 'package:pvs/src/config/theme.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/presentation/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/widget/stf/play_pause_button.dart';
-import 'pages/quiz_page.dart';
 import 'package:pvs/src/service/app_router.dart';
 import '../../../constant/app_path.dart';
 import '../user_screen/bloc/user_bloc/user_bloc.dart';
@@ -75,17 +75,14 @@ class HomeScreen extends StatelessWidget {
                       floatingActionButtonLocation:
                           FloatingActionButtonLocation.centerDocked,
                       floatingActionButton:
-                          (MediaQuery.of(context).viewInsets.bottom == 0 &&
-                                  navigationBarState.currentPage != 3)
+                          (MediaQuery.of(context).viewInsets.bottom == 0)
                               ? FloatingActionButton(
                                   backgroundColor: AppThemes.theme.primaryColor,
                                   onPressed: () {},
                                   child: const PlayPauseButton())
                               : null,
-                      bottomNavigationBar: (navigationBarState.currentPage != 3)
-                          ? NavigationAppBar(
-                              pageController: pageController, size: size)
-                          : null);
+                      bottomNavigationBar: NavigationAppBar(pageController: pageController, size: size)
+                  );
                 },
               );
             },

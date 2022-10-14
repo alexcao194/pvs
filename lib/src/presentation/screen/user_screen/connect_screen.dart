@@ -1,10 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_button.dart';
+import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_input.dart';
 import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/http.dart';
-
-import 'common/auth_input.dart';
 
 class ConnectScreen extends StatelessWidget {
   ConnectScreen({Key? key}) : super(key: key);
