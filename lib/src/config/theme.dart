@@ -14,7 +14,6 @@ class AppThemes {
           loadingBackground: const Color.fromARGB(100, 255, 255, 255),
           backgroundColor: const Color.fromARGB(255, 59, 59, 59),
           fillTextInputColor: Color.fromARGB(25, r, g, b),
-          quizButtonColor: const Color.fromARGB(20, 20, 20, 20),
           lessonButtonStyle: const TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
           idStudentStyle: const TextStyle(color: Colors.black45),
           displayNameStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
@@ -39,7 +38,6 @@ class AppThemes {
           primaryColor: Color.fromARGB(255, r, g, b),
           primaryColor50: Color.fromARGB(100, r, g, b),
           disableColor: Colors.black12,
-          quizButtonColor: const Color.fromARGB(255, 100, 100, 100),
           backgroundColor: Colors.white,
           bottomBarIconColor: Colors.black12,
           loadingBackground: const Color.fromARGB(100, 255, 255, 255),
@@ -94,7 +92,6 @@ class AppTheme {
   final Color bottomBarIconColor;
   final Color loadingBackground;
   final Color primaryColor50;
-  final Color quizButtonColor;
 
 
   const AppTheme({
@@ -123,6 +120,5 @@ class AppTheme {
     required this.userErrorStyle,
     required this.userStatusStyle,
     required this.primaryColor50,
-    required this.quizButtonColor
   });
 }

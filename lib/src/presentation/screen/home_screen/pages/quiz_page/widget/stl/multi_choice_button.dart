@@ -14,16 +14,19 @@ class MultiChoiceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Radio(
-            value: 1,
-            activeColor: color,
-            groupValue: 1,
-            onChanged: (value) {}
-        ),
-        Expanded(child: AnswerCard(title: title, color: color)),
-      ],
+    return SizedBox(
+      height: 70.0,
+      child: Row(
+        children: [
+          Radio(
+              value: 1,
+              activeColor: color,
+              groupValue: 1,
+              onChanged: (value) {}
+          ),
+          Expanded(child: AnswerCard(title: title, color: color)),
+        ],
+      ),
     );
   }
 }

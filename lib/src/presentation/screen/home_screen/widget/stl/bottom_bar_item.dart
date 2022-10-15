@@ -41,12 +41,12 @@ class BottomBarItem extends StatelessWidget {
                         height: size.height * 0.04,
                         child: Icon(
                           icon,
-                          size: 28,
+                          size: size.height * 0.04,
                           color: (navigationBarState.currentPage == page)
                               ? AppThemes.theme.primaryColor
                               : AppThemes.theme.bottomBarIconColor,
                         )),
-                    Text(label)
+                    if(size.height >= 700) Text(label)
                   ],
                 ),
               ),

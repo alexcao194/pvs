@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page/quiz_page.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page/quiz_screen.dart';
 import 'package:pvs/src/presentation/screen/profile_screen/profile_screen.dart';
 
 import '../presentation/screen/home_screen/home_screen.dart';
@@ -29,7 +29,7 @@ class AppRouter {
       case AppRoutes.profile:
         return MaterialPageRoute(builder: (_) => ProfileScreen());
       case AppRoutes.quiz:
-        return MaterialPageRoute(builder: (_) => const QuizPage());
+        return MaterialPageRoute(builder: (_) => const QuizScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
@@ -50,4 +50,5 @@ class AppRoutes {
   static const String forgotPassword = '/forgot_password';
   static const String profile = '/profile';
   static const String quiz = '/quiz';
+  static const String rank = '/rank';
 }
