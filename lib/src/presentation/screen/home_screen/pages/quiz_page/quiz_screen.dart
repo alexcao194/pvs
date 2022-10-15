@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pvs/src/config/theme.dart';
-import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page/widget/stl/image_quiz.dart';
+
+import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page/pages/quiz_page.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page/pages/rank_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page/widget/stl/header_bar.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page/widget/stl/bottom_bar.dart';
-import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page/widget/stl/text_quiz.dart';
 
 class QuizScreen extends StatelessWidget {
   const QuizScreen({Key? key}) : super(key: key);
@@ -19,15 +20,11 @@ class QuizScreen extends StatelessWidget {
               children: [
                 const HeaderBar(),
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: Container(
-                        color: AppThemes.theme.primaryColor50,
-                        child: const TextQuiz(mode : QuizMode.multiChoice)
-                      ),
-                    ),
+                  child: PageView(
+                    children: const [
+                      QuizPage(),
+                      RankPage()
+                    ],
                   ),
                 ),
                 const BottomBar()
@@ -37,6 +34,7 @@ class QuizScreen extends StatelessWidget {
         ));
   }
 }
+
 
 class LoadingPage extends StatelessWidget {
   const LoadingPage({Key? key}) : super(key: key);
