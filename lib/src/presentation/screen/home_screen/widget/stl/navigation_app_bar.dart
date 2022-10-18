@@ -29,22 +29,22 @@ class NavigationAppBar extends StatelessWidget {
         CurvedNavigationBarItem(
           child: Icon(Icons.home, color: Colors.white),
           label: 'Kiến thức',
-          labelStyle: TextStyle(color: Colors.white)
+          labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)
         ),
         CurvedNavigationBarItem(
             child: Icon(Icons.ondemand_video, color: Colors.white),
             label: 'Video',
-            labelStyle: TextStyle(color: Colors.white)
+            labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)
         ),
         CurvedNavigationBarItem(
             child: Icon(Icons.task, color: Colors.white),
             label: 'Bài tập',
-            labelStyle: TextStyle(color: Colors.white)
+            labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)
         ),
         CurvedNavigationBarItem(
             child: Icon(Icons.control_point_duplicate, color: Colors.white),
             label: 'Kiểm tra',
-            labelStyle: TextStyle(color: Colors.white)
+            labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)
         ),
       ],
     );

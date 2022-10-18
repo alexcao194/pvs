@@ -14,6 +14,7 @@ class AppDrawer extends StatelessWidget {
       child: Stack(
         children: [
           SingleChildScrollView(
+            physics: const ScrollPhysics(parent: BouncingScrollPhysics()),
             child: Column(
               children: [
                 SizedBox(height: size.height * 0.25),

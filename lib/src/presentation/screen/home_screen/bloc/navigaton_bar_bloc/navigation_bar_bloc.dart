@@ -14,7 +14,7 @@ class NavigationBarBloc extends Bloc<NavigationBarEvent, NavigationBarState>{
 
 
   FutureOr<void> _onChangePage(NavigationBarEventChangePage event, Emitter<NavigationBarState> emit) {
-    event.pageController.animateToPage(event.pickedPage, duration: const Duration(milliseconds: 300), curve: Curves.bounceOut);
+    event.pageController.animateToPage(event.pickedPage, duration: const Duration(milliseconds: 300), curve: Curves.fastLinearToSlowEaseIn);
     emit(NavigationBarStatePageChanged(currentPage: event.pickedPage));
   }
 }

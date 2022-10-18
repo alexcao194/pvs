@@ -9,7 +9,6 @@ class HeaderBar extends StatelessWidget {
       this.leadingOnPress,
       this.action,
       this.leading,
-      this.height,
       this.backgroundColor})
       : super(key: key);
 
@@ -18,46 +17,44 @@ class HeaderBar extends StatelessWidget {
   final String? title;
   final Widget? leading;
   final Widget? action;
-  final double? height;
   final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Container(
-      decoration: BoxDecoration(
-        color: backgroundColor ?? AppThemes.theme.primaryColor,
-      ),
-      height: height,
-      child: Column(
-        children: [
-          const Expanded(child: SizedBox()),
-          SizedBox(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: leadingOnPress,
-                    child: SizedBox(
-                        height: size.height * 0.05,
-                        width: size.height * 0.05,
-                        child: leading ?? const SizedBox()),
-                  ),
-                  Text(title ?? '', style: AppThemes.theme.headerTitleStyle),
-                  GestureDetector(
-                    onTap: actionOnPress,
-                    child: SizedBox(
-                        height: size.height * 0.05,
-                        width: size.height * 0.05,
-                        child: action ?? const SizedBox()),
-                  ),
-                ],
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50.0),
+          color: backgroundColor ?? AppThemes.theme.primaryColor,
+        ),
+        child:           SizedBox(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: leadingOnPress,
+                  child: SizedBox(
+                      height: size.height * 0.05,
+                      width: size.height * 0.05,
+                      child: leading ?? const SizedBox()),
+                ),
+                Text(title ?? '', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                GestureDetector(
+                  onTap: actionOnPress,
+                  child: SizedBox(
+                      height: size.height * 0.05,
+                      width: size.height * 0.05,
+                      child: action ?? const SizedBox()),
+                ),
+              ],
             ),
-          )
-        ],
+          ),
+        )
+        ,
       ),
     );
   }

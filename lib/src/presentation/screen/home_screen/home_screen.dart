@@ -32,65 +32,36 @@ class HomeScreen extends StatelessWidget {
                       backgroundColor: AppThemes.theme.backgroundColor,
                       key: _scaffoldKey,
                       drawer: const AppDrawer(),
-                      body: Column(
+                      body: Stack(
                         children: [
-                          HeaderBar(
-                            height: size.height * 0.1,
-                            title: 'Hello World',
-                            leading: CircleAvatar(
-                              radius: 20.0,
-                              backgroundColor:
-                                  AppThemes.theme.buttonBackgroundColor,
-                              child: Text(
-                                '1',
-                                style: AppThemes.theme.lessonButtonStyle,
-                              ),
-                            ),
-                            action: ClipRRect(
-                                borderRadius: BorderRadius.circular(100.0),
-                                child: (dataState.user.avatar!.length > 4)
-                                    ? Image.network(
-                                        dataState.user.avatar!,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.asset(AppPath.defaultAvatar,
-                                        fit: BoxFit.cover)),
-                            leadingOnPress: () {
-                              _scaffoldKey.currentState?.openDrawer();
-                            },
-                            actionOnPress: () {
-                              AppRouter.navigatorKey.currentState
-                                  ?.pushNamed(AppRoutes.profile);
-                            },
+                          PageView(
+                            controller: pageController,
+                            children: [
+                              Center(child: Text('1')),
+                              Center(child: Text('2')),
+                              Center(child: Text('3')),
+                              Center(child: Text('4')),
+                            ],
                           ),
-                          SizedBox(
-                            height: size.height * 0.81,
-                            child: PageView(
-                              controller: pageController,
-                              children: const [
-                                Center(child: Text('1')),
-                                Center(child: Text('2')),
-                                Center(child: Text('3')),
-                                Center(child: Text('4')),
-                              ],
-                            )
-                          )
+                          buildHeaderBar(dataState),
                         ],
                       ),
                       floatingActionButtonLocation:
                           FloatingActionButtonLocation.endFloat,
                       floatingActionButton:
-                          (MediaQuery.of(context).viewInsets.bottom == 0 && navigationBarState.currentPage != 3)
+                          (MediaQuery.of(context).viewInsets.bottom == 0 &&
+                                  navigationBarState.currentPage != 3)
                               ? FloatingActionButton(
-                            tooltip: 'Open Quiz',
+                                  tooltip: 'Open Quiz',
                                   backgroundColor: AppThemes.theme.primaryColor,
                                   onPressed: () {
-                                    AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.quiz);
+                                    AppRouter.navigatorKey.currentState
+                                        ?.pushNamed(AppRoutes.quiz);
                                   },
                                   child: const Icon(Icons.quiz))
                               : null,
-                      bottomNavigationBar: NavigationAppBar(pageController: pageController, size: size)
-                  );
+                      bottomNavigationBar: NavigationAppBar(
+                          pageController: pageController, size: size));
                 },
               );
             },
@@ -98,5 +69,33 @@ class HomeScreen extends StatelessWidget {
         },
       );
     });
+  }
+
+  HeaderBar buildHeaderBar(DataState dataState) {
+    return HeaderBar(
+      title: 'Hello World',
+      leading: CircleAvatar(
+        radius: 20.0,
+        backgroundColor: AppThemes.theme.buttonBackgroundColor,
+        child: Text(
+          '1',
+          style: AppThemes.theme.lessonButtonStyle,
+        ),
+      ),
+      action: ClipRRect(
+          borderRadius: BorderRadius.circular(100.0),
+          child: (dataState.user.avatar!.length > 4)
+              ? Image.network(
+                  dataState.user.avatar!,
+                  fit: BoxFit.cover,
+                )
+              : Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover)),
+      leadingOnPress: () {
+        _scaffoldKey.currentState?.openDrawer();
+      },
+      actionOnPress: () {
+        AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.profile);
+      },
+    );
   }
 }

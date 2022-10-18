@@ -315,7 +315,6 @@ class ProfileScreen extends StatelessWidget {
                                       ),
                                       HeaderBar(
                                         backgroundColor: Colors.transparent,
-                                        height: size.height * 0.09,
                                         leading: Icon(Icons.arrow_back_rounded,
                                             color: AppThemes.theme
                                                 .backgroundColor),
