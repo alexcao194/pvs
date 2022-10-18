@@ -32,13 +32,9 @@ class HeaderBar extends StatelessWidget {
         const HeaderButton(
             child: Text('3/60',
                 style: TextStyle(color: Colors.white, fontSize: 18))),
-        Expanded(
-            child: GestureDetector(
-                onTap: () {
-                  AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.rank);
-                },
-                child: const ProgressBar(
-                    count: 1243465, end: Icon(Icons.control_point))))
+        const Expanded(
+            child: ProgressBar(
+                count: 1243465, end: Icon(Icons.control_point)))
       ],
     );
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
-
-import 'bottom_bar_item.dart';
+import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 
 class NavigationAppBar extends StatelessWidget {
   const NavigationAppBar({
@@ -15,49 +17,36 @@ class NavigationAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar(
-      color: AppThemes.theme.backgroundColor,
-      shape: const CircularNotchedRectangle(),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Expanded(
-            child: BottomBarItem(
-              label: 'Kiến thức',
-              icon: Icons.home,
-              page: 0,
-              pageController: pageController,
-            ),
-          ),
-          Expanded(
-            child: BottomBarItem(
-              label: 'Bài tập',
-              icon: Icons.list_alt,
-              page: 1,
-              pageController: pageController,
-            ),
-          ),
-          SizedBox(
-            width: size.width * 0.1,
-          ),
-          Expanded(
-            child: BottomBarItem(
-              label: 'Trắc nghiệm',
-              icon: Icons.book,
-              page: 3,
-              pageController: pageController,
-            ),
-          ),
-          Expanded(
-            child: BottomBarItem(
-              label: 'Kiểm tra',
-              icon: Icons.featured_play_list_sharp,
-              page: 4,
-              pageController: pageController,
-            ),
-          ),
-        ],
-      ),
+    return CurvedNavigationBar(
+      color: AppThemes.theme.primaryColor,
+      backgroundColor: Colors.transparent,
+      animationCurve: Curves.fastLinearToSlowEaseIn,
+      animationDuration: const Duration(milliseconds: 300),
+      onTap: (index) {
+        BlocProvider.of<NavigationBarBloc>(context).add(NavigationBarEventChangePage(pickedPage: index, pageController: pageController));
+      },
+      items: const [
+        CurvedNavigationBarItem(
+          child: Icon(Icons.home, color: Colors.white),
+          label: 'Kiến thức',
+          labelStyle: TextStyle(color: Colors.white)
+        ),
+        CurvedNavigationBarItem(
+            child: Icon(Icons.ondemand_video, color: Colors.white),
+            label: 'Video',
+            labelStyle: TextStyle(color: Colors.white)
+        ),
+        CurvedNavigationBarItem(
+            child: Icon(Icons.task, color: Colors.white),
+            label: 'Bài tập',
+            labelStyle: TextStyle(color: Colors.white)
+        ),
+        CurvedNavigationBarItem(
+            child: Icon(Icons.control_point_duplicate, color: Colors.white),
+            label: 'Kiểm tra',
+            labelStyle: TextStyle(color: Colors.white)
+        ),
+      ],
     );
   }
 }

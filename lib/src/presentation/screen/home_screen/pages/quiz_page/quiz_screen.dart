@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pvs/src/config/theme.dart';
 
 import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page/pages/quiz_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page/pages/rank_page.dart';
@@ -32,18 +31,5 @@ class QuizScreen extends StatelessWidget {
             ),
           ),
         ));
-  }
-}
-
-
-class LoadingPage extends StatelessWidget {
-  const LoadingPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-        child: CircularProgressIndicator(
-      color: AppThemes.theme.primaryColor,
-    ));
   }
 }

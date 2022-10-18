@@ -16,7 +16,7 @@ class QuizPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.0),
         child: Container(
             color: AppThemes.theme.primaryColor50,
-            child: const TextQuiz(mode : QuizMode.multiChoice)
+            child: const TextQuiz(mode : QuizMode.singleChoice)
         ),
       ),
     );

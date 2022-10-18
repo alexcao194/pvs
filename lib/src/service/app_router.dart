@@ -50,5 +50,4 @@ class AppRoutes {
   static const String forgotPassword = '/forgot_password';
   static const String profile = '/profile';
   static const String quiz = '/quiz';
-  static const String rank = '/rank';
 }

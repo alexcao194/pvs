@@ -4,10 +4,11 @@ abstract class NavigationBarEvent extends Equatable {
 }
 
 class NavigationBarEventChangePage extends NavigationBarEvent {
-  const NavigationBarEventChangePage({required this.pickedPage});
+  const NavigationBarEventChangePage({required this.pickedPage, required this.pageController});
 
   final int pickedPage;
+  final PageController pageController;
 
   @override
-  List<Object?> get props => [pickedPage];
+  List<Object?> get props => [pickedPage, pageController];
 }
