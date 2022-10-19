@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pvs/src/constant/app_fonts.dart';
+import 'package:pvs/src/constant/app_path.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/presentation/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'package:pvs/src/presentation/bloc/theme_bloc/theme_bloc.dart';
@@ -49,6 +51,9 @@ class MyApp extends StatelessWidget {
       title: 'PVS',
       onGenerateRoute: AppRouter.generateRoute,
       navigatorKey: AppRouter.navigatorKey,
+      theme: ThemeData(
+        // fontFamily: AppFonts.primary
+      ),
     );
   }
 }

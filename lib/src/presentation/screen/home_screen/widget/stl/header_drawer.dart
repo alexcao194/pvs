@@ -29,6 +29,7 @@ class HeaderDrawer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const SizedBox(height: 8.0),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(50.0),
                       child: Container(

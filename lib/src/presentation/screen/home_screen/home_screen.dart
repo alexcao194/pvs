@@ -4,6 +4,8 @@ import 'package:pvs/src/config/theme.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/presentation/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/settings_page/settings_page.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/video_page.dart';
 import 'package:pvs/src/service/app_router.dart';
 import '../../../constant/app_path.dart';
 import '../user_screen/bloc/user_bloc/user_bloc.dart';
@@ -36,11 +38,12 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           PageView(
                             controller: pageController,
-                            children: [
-                              Center(child: Text('1')),
-                              Center(child: Text('2')),
+                            children: const [
+                              SettingsPage(),
+                              VideoPage(),
                               Center(child: Text('3')),
                               Center(child: Text('4')),
+                              SettingsPage()
                             ],
                           ),
                           buildHeaderBar(dataState),
@@ -50,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                           FloatingActionButtonLocation.endFloat,
                       floatingActionButton:
                           (MediaQuery.of(context).viewInsets.bottom == 0 &&
-                                  navigationBarState.currentPage != 3)
+                                  navigationBarState.currentPage != 4)
                               ? FloatingActionButton(
                                   tooltip: 'Open Quiz',
                                   backgroundColor: AppThemes.theme.primaryColor,
@@ -79,7 +82,6 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: AppThemes.theme.buttonBackgroundColor,
         child: Text(
           '1',
-          style: AppThemes.theme.lessonButtonStyle,
         ),
       ),
       action: ClipRRect(

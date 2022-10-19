@@ -4,7 +4,6 @@ import 'package:pvs/src/config/theme.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/presentation/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'package:pvs/src/presentation/bloc/theme_bloc/theme_bloc.dart';
-import 'package:pvs/src/presentation/screen/home_screen/widget/stl/header_bar.dart';
 import 'package:pvs/src/presentation/screen/user_screen/bloc/date_picker_bloc/date_picker_bloc.dart';
 import 'package:pvs/src/presentation/screen/user_screen/bloc/drop_menu_bloc/drop_menu_bloc.dart';
 import 'package:pvs/src/presentation/screen/user_screen/bloc/user_bloc/user_bloc.dart';
@@ -313,15 +312,14 @@ class ProfileScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      HeaderBar(
-                                        backgroundColor: Colors.transparent,
-                                        leading: Icon(Icons.arrow_back_rounded,
-                                            color: AppThemes.theme
-                                                .backgroundColor),
-                                        leadingOnPress: () {
-                                          AppRouter.navigatorKey.currentState
-                                              ?.pop();
-                                        },
+                                      Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: BackButton(
+                                          color: Colors.white,
+                                          onPressed: () {
+                                            AppRouter.navigatorKey.currentState?.pop();
+                                          },
+                                        ),
                                       )
                                     ],
                                   ),
