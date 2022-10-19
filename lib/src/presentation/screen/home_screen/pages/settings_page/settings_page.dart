@@ -23,7 +23,7 @@ class SettingsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SettingsButton(title: 'Dark mode', description: 'Turn on dark mode', iconData: Icons.ac_unit_outlined),
-              SettingsButton(title: 'Nav Style', description: 'Change navigation bar style', iconData: Icons.access_time)
+              SettingsButton(title: 'Dynamic Island', description: 'Change navigation bar style', iconData: Icons.access_time)
             ],
           )
         ],

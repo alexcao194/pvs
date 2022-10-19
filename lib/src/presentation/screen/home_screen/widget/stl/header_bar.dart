@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pvs/src/config/theme.dart';
 
-class HeaderBar extends StatefulWidget {
-  const HeaderBar(
+enum HeaderType {
+  dynamic,
+  full
+}
+
+class DynamicHeaderBar extends StatefulWidget {
+  const DynamicHeaderBar(
       {Key? key,
       this.title,
       this.actionOnPress,
@@ -20,11 +25,10 @@ class HeaderBar extends StatefulWidget {
   final Color? backgroundColor;
 
   @override
-  State<HeaderBar> createState() => _HeaderBarState();
+  State<DynamicHeaderBar> createState() => _DynamicHeaderBarState();
 }
 
-class _HeaderBarState extends State<HeaderBar> {
-
+class _DynamicHeaderBarState extends State<DynamicHeaderBar> {
   bool isActive = false;
   bool isShowing = false;
 
@@ -34,7 +38,7 @@ class _HeaderBarState extends State<HeaderBar> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if(isActive) isShowing = !isShowing;
+          if (isActive) isShowing = !isShowing;
           isActive = !isActive;
         });
       },
@@ -46,7 +50,7 @@ class _HeaderBarState extends State<HeaderBar> {
             child: AnimatedContainer(
               onEnd: () {
                 setState(() {
-                  if(isActive) isShowing = !isShowing;
+                  if (isActive) isShowing = !isShowing;
                 });
               },
               width: isActive ? size.width * 0.75 : size.width * 0.11,
@@ -61,16 +65,19 @@ class _HeaderBarState extends State<HeaderBar> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    if(isShowing) GestureDetector(
-                      onTap: widget.leadingOnPress,
-                      child: SizedBox(
-                          height: size.width * 0.07,
-                          width: size.width * 0.07,
-                          child: widget.leading ?? const SizedBox()),
-                    ),
-                    if(isShowing) Text(widget.title ?? '',
-                        style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w600)),
+                    if (isShowing)
+                      GestureDetector(
+                        onTap: widget.leadingOnPress,
+                        child: SizedBox(
+                            height: size.width * 0.07,
+                            width: size.width * 0.07,
+                            child: widget.leading ?? const SizedBox()),
+                      ),
+                    if (isShowing)
+                      Text(widget.title ?? '',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600)),
                     GestureDetector(
                       onTap: isActive ? widget.actionOnPress : null,
                       child: SizedBox(
@@ -88,3 +95,98 @@ class _HeaderBarState extends State<HeaderBar> {
     );
   }
 }
+
+class FullHeaderBar extends StatelessWidget {
+  const FullHeaderBar(
+      {Key? key,
+      this.title,
+      this.actionOnPress,
+      this.leadingOnPress,
+      this.action,
+      this.leading,
+      this.backgroundColor})
+      : super(key: key);
+
+  final VoidCallback? leadingOnPress;
+  final VoidCallback? actionOnPress;
+  final String? title;
+  final Widget? leading;
+  final Widget? action;
+  final Color? backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    return Container(
+      decoration: BoxDecoration(
+        color: backgroundColor ?? AppThemes.theme.primaryColor,
+      ),
+      height: size.height * 0.08,
+      child: Column(
+        children: [
+          const Expanded(child: SizedBox()),
+          SizedBox(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: leadingOnPress,
+                    child: SizedBox(
+                        height: size.height * 0.05,
+                        width: size.height * 0.05,
+                        child: leading ?? const SizedBox()),
+                  ),
+                  Text(title ?? '', style: AppThemes.theme.headerTitleStyle),
+                  GestureDetector(
+                    onTap: actionOnPress,
+                    child: SizedBox(
+                        height: size.height * 0.05,
+                        width: size.height * 0.05,
+                        child: action ?? const SizedBox()),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class HeaderBar extends StatelessWidget {
+  const HeaderBar({Key? key, required this.headerType, this.leadingOnPress, this.actionOnPress, this.title, this.leading, this.action, this.backgroundColor}) : super(key: key);
+
+  final HeaderType headerType;
+  final VoidCallback? leadingOnPress;
+  final VoidCallback? actionOnPress;
+  final String? title;
+  final Widget? leading;
+  final Widget? action;
+  final Color? backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    switch(headerType) {
+      case HeaderType.dynamic:
+        return DynamicHeaderBar(
+          title: title,
+          leading: leading,
+          leadingOnPress: leadingOnPress,
+          action: action,
+          actionOnPress: actionOnPress,
+        );
+      case HeaderType.full:
+        return FullHeaderBar(
+          title: title,
+          leading: leading,
+          leadingOnPress: leadingOnPress,
+          action: action,
+          actionOnPress: actionOnPress,
+        );
+    }
+  }
+}
+

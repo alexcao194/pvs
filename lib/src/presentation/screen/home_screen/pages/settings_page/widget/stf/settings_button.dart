@@ -25,7 +25,7 @@ class _SettingsButtonState extends State<SettingsButton> {
       height: size.width * 0.4,
       width: size.width * 0.42,
       decoration: BoxDecoration(
-          color: Colors.black12,
+          color: const Color.fromARGB(12, 0, 0, 0),
           borderRadius: BorderRadius.circular(10.0)
       ),
       child: Padding(
@@ -58,7 +58,6 @@ class _SettingsButtonState extends State<SettingsButton> {
                       width: size.width * 0.13,
                       height: size.height * 0.035,
                       activeColor: Colors.white,
-
                       inactiveColor: Colors.white,
                       activeToggleColor: Colors.black26,
                       inactiveToggleColor: Colors.black26,

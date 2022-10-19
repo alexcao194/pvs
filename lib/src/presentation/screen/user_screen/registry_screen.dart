@@ -40,28 +40,27 @@ class RegistryScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                SizedBox(
-                                  height: size.height * 0.22,
-                                  width: size.height * 0.22,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(100.0),
-                                    child: Container(
-                                      color: AppThemes.theme.backgroundColor,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            BlocProvider.of<ImagePickerBloc>(
-                                                    context)
-                                                .add(ImagePickerEventOnPick(
-                                                    id: (userState
-                                                            is UserStateLoginSuccessful
-                                                        ? userState.account.id!
-                                                        : (userState
-                                                                is UserStateRegistryFail
-                                                            ? userState.id
-                                                            : ''))));
-                                          },
+                                GestureDetector(
+                                  onTap: () {
+                                    BlocProvider.of<ImagePickerBloc>(context).add(
+                                        ImagePickerEventOnPick(
+                                            id: userState is UserStateLoginSuccessful
+                                                ? userState.account.id!
+                                                : userState is UserStateRegistryFail
+                                                ? userState.id
+                                                : ''
+                                        )
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    height: size.height * 0.22,
+                                    width: size.height * 0.22,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100.0),
+                                      child: Container(
+                                        color: AppThemes.theme.backgroundColor,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(100.0),

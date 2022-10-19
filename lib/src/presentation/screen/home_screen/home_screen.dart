@@ -76,6 +76,7 @@ class HomeScreen extends StatelessWidget {
 
   HeaderBar buildHeaderBar(DataState dataState) {
     return HeaderBar(
+      headerType: HeaderType.dynamic,
       title: 'Hello World',
       leading: CircleAvatar(
         radius: 20.0,

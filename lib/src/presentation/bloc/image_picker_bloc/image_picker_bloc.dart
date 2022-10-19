@@ -14,7 +14,14 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
   }
 
   FutureOr<void> _onPick(ImagePickerEventOnPick event, Emitter<ImagePickerState> emit) async {
-    
+    final ImagePicker picker = ImagePicker();
+    emit(const ImagePickerLoading());
+    await picker.pickImage(source: ImageSource.gallery)
+        .then((value) async {
+      if(value != null) {
+        emit(ImagePickerStatePicked(image: value));
+      }
+    });
   }
 
   FutureOr<void> _onReset(ImagePickerEventReset event, Emitter<ImagePickerState> emit) {
