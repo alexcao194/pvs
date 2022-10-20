@@ -77,11 +77,11 @@ class HomeScreen extends StatelessWidget {
   HeaderBar buildHeaderBar(DataState dataState) {
     return HeaderBar(
       headerType: HeaderType.dynamic,
-      title: 'Hello World',
+      title: const Text('Hello world'),
       leading: CircleAvatar(
         radius: 20.0,
         backgroundColor: AppThemes.theme.buttonBackgroundColor,
-        child: Text(
+        child: const Text(
           '1',
         ),
       ),

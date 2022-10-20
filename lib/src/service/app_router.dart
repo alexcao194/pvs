@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pvs/src/presentation/screen/home_screen/pages/quiz_page/quiz_screen.dart';
 import 'package:pvs/src/presentation/screen/profile_screen/profile_screen.dart';
+import 'package:pvs/src/presentation/screen/quiz_screen/quiz_screen.dart';
 
 import '../presentation/screen/home_screen/home_screen.dart';
 import '../presentation/screen/user_screen/connect_screen.dart';

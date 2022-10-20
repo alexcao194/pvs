@@ -19,7 +19,7 @@ class DynamicHeaderBar extends StatefulWidget {
 
   final VoidCallback? leadingOnPress;
   final VoidCallback? actionOnPress;
-  final String? title;
+  final Widget? title;
   final Widget? leading;
   final Widget? action;
   final Color? backgroundColor;
@@ -63,7 +63,7 @@ class _DynamicHeaderBarState extends State<DynamicHeaderBar> {
               child: Padding(
                 padding: EdgeInsets.all(size.width * 0.02),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: isShowing ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
                   children: [
                     if (isShowing)
                       GestureDetector(
@@ -74,10 +74,7 @@ class _DynamicHeaderBarState extends State<DynamicHeaderBar> {
                             child: widget.leading ?? const SizedBox()),
                       ),
                     if (isShowing)
-                      Text(widget.title ?? '',
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600)),
+                      widget.title ?? const SizedBox(),
                     GestureDetector(
                       onTap: isActive ? widget.actionOnPress : null,
                       child: SizedBox(
@@ -109,7 +106,7 @@ class FullHeaderBar extends StatelessWidget {
 
   final VoidCallback? leadingOnPress;
   final VoidCallback? actionOnPress;
-  final String? title;
+  final Widget? title;
   final Widget? leading;
   final Widget? action;
   final Color? backgroundColor;
@@ -138,7 +135,7 @@ class FullHeaderBar extends StatelessWidget {
                         width: size.height * 0.05,
                         child: leading ?? const SizedBox()),
                   ),
-                  Text(title ?? '', style: AppThemes.theme.headerTitleStyle),
+                  title?? const SizedBox(),
                   GestureDetector(
                     onTap: actionOnPress,
                     child: SizedBox(
@@ -162,7 +159,7 @@ class HeaderBar extends StatelessWidget {
   final HeaderType headerType;
   final VoidCallback? leadingOnPress;
   final VoidCallback? actionOnPress;
-  final String? title;
+  final Widget? title;
   final Widget? leading;
   final Widget? action;
   final Color? backgroundColor;
@@ -177,6 +174,7 @@ class HeaderBar extends StatelessWidget {
           leadingOnPress: leadingOnPress,
           action: action,
           actionOnPress: actionOnPress,
+          backgroundColor: backgroundColor,
         );
       case HeaderType.full:
         return FullHeaderBar(
@@ -185,6 +183,7 @@ class HeaderBar extends StatelessWidget {
           leadingOnPress: leadingOnPress,
           action: action,
           actionOnPress: actionOnPress,
+          backgroundColor: backgroundColor,
         );
     }
   }
