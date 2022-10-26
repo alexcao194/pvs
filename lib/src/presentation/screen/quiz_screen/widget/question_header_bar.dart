@@ -11,7 +11,7 @@ class QuestionHeaderBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return HeaderBar(
       headerType: HeaderType.full,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       leading: Row(
         children: const [Icon(Icons.heart_broken), Text('4')],
       ),

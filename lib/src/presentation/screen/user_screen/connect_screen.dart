@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_button.dart';
 import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_input.dart';
 import 'package:pvs/src/service/app_router.dart';
-import 'package:pvs/src/service/http.dart';
+import 'package:pvs/src/service/local_authentication.dart';
 import 'package:pvs/src/service/shared_preferences.dart';
 
 class ConnectScreen extends StatelessWidget {
@@ -28,7 +28,7 @@ class ConnectScreen extends StatelessWidget {
               label: 'Get IP',
               onTap: () {
                 Prefs.set('ip4', ipController.value.text);
-                HTTP.ip4 = ipController.value.text;
+                LocalAuthentication.ip4 = ipController.value.text;
                 AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.login);
               },
             )

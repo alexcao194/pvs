@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class QuestionBox extends StatelessWidget {
-  const QuestionBox({
-    Key? key,
-  }) : super(key: key);
+  const QuestionBox({Key? key, required this.content,}) : super(key: key);
+
+  final Widget content;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class QuestionBox extends StatelessWidget {
             color: Colors.black12,
           ),
           borderRadius: BorderRadius.circular(10.0)),
-      child: const Center(child: Text('Điền từ còn thiếu vào chỗ trống')),
+      child: content
     );
   }
 }

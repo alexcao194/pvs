@@ -1,4 +1,4 @@
-import 'package:pvs/src/service/http.dart';
+import 'package:pvs/src/service/local_authentication.dart';
 
 class User {
   String? id;
@@ -42,7 +42,7 @@ class User {
     totalLesson = json['total_lesson'];
     state = json['state'];
     if(avatar!.length > 4) {
-      avatar = 'http://${HTTP.ip4}/avatar/${json['id']}_avatar.jpg';
+      avatar = 'http://${LocalAuthentication.ip4}/avatar/${json['id']}_avatar.jpg';
     }
   }
 
