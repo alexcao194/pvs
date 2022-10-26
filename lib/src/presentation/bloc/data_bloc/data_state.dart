@@ -12,6 +12,6 @@ class DataInitial extends DataState {
   const DataInitial({required super.user});
 }
 
-class DataStateGetDataSuccessful extends DataState {
-  const DataStateGetDataSuccessful({required super.user});
+class DataStateGetUserSuccessful extends DataState {
+  const DataStateGetUserSuccessful({required super.user});
 }

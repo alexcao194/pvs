@@ -8,12 +8,8 @@ abstract class DataEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class DataEventGetProfile extends DataEvent {
-  const DataEventGetProfile({required super.user});
-}
-
-class DataEventGetProfileFromLogin extends DataEvent {
-  const DataEventGetProfileFromLogin({required super.user});
+class DataEventGetUser extends DataEvent {
+  const DataEventGetUser({required super.user});
 }
 
 class DataEventUploadAvatar extends DataEvent {

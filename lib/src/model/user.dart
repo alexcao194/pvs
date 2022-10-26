@@ -41,25 +41,26 @@ class User {
     currentLesson = json['current_lesson'];
     totalLesson = json['total_lesson'];
     state = json['state'];
-    if(avatar!.length > 4) {
-      avatar = 'http://${LocalAuthentication.ip4}/avatar/${json['id']}_avatar.jpg';
+    if(avatar == null || avatar!.length > 4) {
+      avatar = '';
     }
+    background ??= 'aa';
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['display_name'] = this.displayName;
-    data['birthday'] = this.birthday;
-    data['gender'] = this.gender;
-    data['avatar'] = this.avatar;
-    data['email'] = this.email;
-    data['group_class'] = this.groupClass;
-    data['background'] = this.background;
-    data['phone_number'] = this.phoneNumber;
-    data['current_lesson'] = this.currentLesson;
-    data['total_lesson'] = this.totalLesson;
-    data['state'] = this.state;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['display_name'] = displayName;
+    data['birthday'] = birthday;
+    data['gender'] = gender;
+    data['avatar'] = avatar;
+    data['email'] = email;
+    data['group_class'] = groupClass;
+    data['background'] = background;
+    data['phone_number'] = phoneNumber;
+    data['current_lesson'] = currentLesson;
+    data['total_lesson'] = totalLesson;
+    data['state'] = state;
     return data;
   }
 }

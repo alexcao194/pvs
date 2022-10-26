@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -8,11 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pvs/src/constant/app_string.dart';
-import 'package:pvs/src/model/account.dart';
-import 'package:pvs/src/model/user.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
-import 'package:pvs/src/service/app_router.dart';
 
+import '../../../../../model/user.dart';
 import '../../../../../service/local_authentication.dart';
 
 part 'user_event.dart';
@@ -28,23 +24,19 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   FutureOr<void> _onLogin(UserEventLogin event, Emitter<UserState> emit) async {
-    //emit(const UserStateLoading());
+    // emit(const UserStateLoading());
     await LocalAuthentication
         .login(event.id.toUpperCase(), event.password)
-        .then((value) {
-          // if (value == 'incorrect_account') {
-          //   emit(UserStateLoginFail(error: AppString.incorrectAccount));
-          // } else {
-          //   Account account = Account.fromJson(json.decode(value));
-          //   emit(UserStateLoginSuccessful(account: account));
-          //   if (account.auth == 0) {
-          //     AppRouter.navigatorKey.currentState
-          //         ?.pushReplacementNamed(AppRoutes.registry);
-          //   } else {
-          //     BlocProvider.of<DataBloc>(event.context)
-          //         .add(DataEventGetProfileFromLogin(user: User(id: account.id)));
-          //   }
-          // }
+        .then((value) async {
+          switch(value) {
+            case 'unauthorized':
+              emit(UserStateLoginFail(error: AppString.incorrectAccount));
+              break;
+            default:
+              emit(UserStateLoginSuccessful(id: value!));
+              BlocProvider.of<DataBloc>(event.context).add(DataEventGetUser(user: User(id: value)));
+              break;
+          }
         })
         .timeout(const Duration(milliseconds: 2000))
         .onError((error, stackTrace) {
@@ -80,8 +72,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     // }
   }
 
-  FutureOr<void> _getPassword(
-      UserEventGetPassword event, Emitter<UserState> emit) {}
+  FutureOr<void> _getPassword(UserEventGetPassword event, Emitter<UserState> emit) {}
 
   FutureOr<void> _onRegistry(UserEventRegistry event, Emitter<UserState> emit) async {
     // if (event.displayName == '' ||

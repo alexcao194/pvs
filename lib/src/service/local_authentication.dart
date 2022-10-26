@@ -10,7 +10,7 @@ class LocalAuthentication {
   static String? ip4;
 
   static Future<String?> login(String id, String password) async {
-    await client.post(Uri.parse('http://${LocalAuthentication.ip4}/login'),
+    Response res = await client.post(Uri.parse('http://$ip4/login'),
         headers: {
           'content-type' : 'application/json'
         },
@@ -18,13 +18,20 @@ class LocalAuthentication {
           "id" : id,
           "password" : password
         })
-    ).then((value) {
-      var outcome = json.decode(value.body);
-      token = outcome["accessToken"];
-      refreshToken = outcome["refreshToken"];
-      return outcome["message"];
-    });
-    return null;
+    );
+    var outcome = json.decode(res.body);
+    token = outcome["accessToken"];
+    refreshToken = outcome["refreshToken"];
+    return outcome["id"];
+  }
+
+  static Future<Map<String, dynamic>?> getUser(String token) async {
+    Response res = await client.get(Uri.parse('http://$ip4/user'),
+      headers: {
+        'x-access-token' : token
+      });
+
+    return json.decode(res.body);
   }
 
   static Future<String> upload(String address, String filePath, String fileName,

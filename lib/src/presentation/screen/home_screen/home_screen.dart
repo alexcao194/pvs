@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
-import 'package:pvs/src/presentation/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/settings_page/settings_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/video_page.dart';
@@ -24,49 +23,45 @@ class HomeScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return BlocBuilder<NavigationBarBloc, NavigationBarState>(
         builder: (context, navigationBarState) {
-      return BlocBuilder<ImagePickerBloc, ImagePickerState>(
-        builder: (context, imagePickerState) {
-          return BlocBuilder<UserBloc, UserState>(
-            builder: (context, userState) {
-              return BlocBuilder<DataBloc, DataState>(
-                builder: (context, dataState) {
-                  return Scaffold(
-                      backgroundColor: AppThemes.theme.backgroundColor,
-                      key: _scaffoldKey,
-                      drawer: const AppDrawer(),
-                      body: Stack(
-                        children: [
-                          PageView(
-                            controller: pageController,
-                            children: const [
-                              SettingsPage(),
-                              VideoPage(),
-                              Center(child: Text('3')),
-                              Center(child: Text('4')),
-                              SettingsPage()
-                            ],
-                          ),
-                          buildHeaderBar(dataState),
+      return BlocBuilder<UserBloc, UserState>(
+        builder: (context, userState) {
+          return BlocBuilder<DataBloc, DataState>(
+            builder: (context, dataState) {
+              return Scaffold(
+                  backgroundColor: AppThemes.theme.backgroundColor,
+                  key: _scaffoldKey,
+                  drawer: const AppDrawer(),
+                  body: Stack(
+                    children: [
+                      PageView(
+                        controller: pageController,
+                        children: const [
+                          SettingsPage(),
+                          VideoPage(),
+                          Center(child: Text('3')),
+                          Center(child: Text('4')),
+                          SettingsPage()
                         ],
                       ),
-                      floatingActionButtonLocation:
-                          FloatingActionButtonLocation.endFloat,
-                      floatingActionButton:
-                          (MediaQuery.of(context).viewInsets.bottom == 0 &&
-                                  navigationBarState.currentPage != 4)
-                              ? FloatingActionButton(
-                                  tooltip: 'Open Quiz',
-                                  backgroundColor: AppThemes.theme.primaryColor,
-                                  onPressed: () {
-                                    AppRouter.navigatorKey.currentState
-                                        ?.pushNamed(AppRoutes.quiz);
-                                  },
-                                  child: const Icon(Icons.quiz))
-                              : null,
-                      bottomNavigationBar: NavigationAppBar(
-                          pageController: pageController, size: size));
-                },
-              );
+                      buildHeaderBar(dataState),
+                    ],
+                  ),
+                  floatingActionButtonLocation:
+                  FloatingActionButtonLocation.endFloat,
+                  floatingActionButton:
+                  (MediaQuery.of(context).viewInsets.bottom == 0 &&
+                      navigationBarState.currentPage != 4)
+                      ? FloatingActionButton(
+                      tooltip: 'Open Quiz',
+                      backgroundColor: AppThemes.theme.primaryColor,
+                      onPressed: () {
+                        AppRouter.navigatorKey.currentState
+                            ?.pushNamed(AppRoutes.quiz);
+                      },
+                      child: const Icon(Icons.quiz))
+                      : null,
+                  bottomNavigationBar: NavigationAppBar(
+                      pageController: pageController, size: size));
             },
           );
         },
