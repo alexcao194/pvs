@@ -53,7 +53,7 @@ class UserEventRegistry extends UserEvent {
       required this.birthday,
       required this.id,
       required this.context,
-      required this.avatar});
+        this.avatar});
 
   final String displayName;
   final String birthday;
@@ -65,6 +65,5 @@ class UserEventRegistry extends UserEvent {
   final XFile? avatar;
 
   @override
-  List<Object> get props =>
-      [avatar!, displayName, birthday, group, gender, phoneNumber, id, context];
+  List<Object> get props => [avatar!, displayName, birthday, group, gender, phoneNumber, id, context];
 }

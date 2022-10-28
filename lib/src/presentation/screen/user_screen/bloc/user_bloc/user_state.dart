@@ -19,10 +19,11 @@ class UserStateLoading extends UserState {
 
 
 class UserStateSignUpSuccessful extends UserState {
-  const UserStateSignUpSuccessful({required this.status});
+  const UserStateSignUpSuccessful({required this.status, required this.id});
   final String status;
+  final String id;
   @override
-  List<Object> get props => [status];
+  List<Object> get props => [status, id];
 }
 
 class UserStateSignUpFail extends UserState {
@@ -34,11 +35,10 @@ class UserStateSignUpFail extends UserState {
 }
 
 class UserStateLoginSuccessful extends UserState {
-  final String id;
-  const UserStateLoginSuccessful({required this.id});
+  const UserStateLoginSuccessful();
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [];
 }
 
 class UserStateLoginFail extends UserState {

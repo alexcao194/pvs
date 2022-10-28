@@ -64,10 +64,10 @@ class SignupScreen extends StatelessWidget {
                                   UserEventSignup(
                                       id: idController.value.text.toUpperCase(),
                                       password: passwordController.value.text,
-                                      email: emailController.value.text
-                                          .toLowerCase(),
-                                      rePassword:
-                                      rePasswordController.value.text));
+                                      email: emailController.value.text.toLowerCase(),
+                                      rePassword: rePasswordController.value.text
+                                  )
+                              );
                             },
                           )),
                       const SizedBox(width: 8.0),
