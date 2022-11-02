@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -34,7 +35,6 @@ class LocalAuthentication {
       headers: {
         'x-access-token' : token
       });
-
     return json.decode(res.body);
   }
 
@@ -72,21 +72,43 @@ class LocalAuthentication {
           "gender": gender,
           "phoneNumber": phoneNumber,
           "id": id,
-          "avatar" : ' '
+          "avatar" : avatar != null ? "users/$id/avatar.jpg" : 'undefined'
         })
     );
-    print(json.decode(res.body)['message']);
+    if(avatar != null) {
+      await upload('/avatar', File(avatar.path).path, '$id/avatar.jpg', {});
+    }
     return json.decode(res.body)['message'];
   }
 
-  static Future<String> upload(String address, String filePath, String fileName, Map<String, String> request) async {
+  static Future<String?> updateProfile(String email, String phoneNumber, String birthday, String gender, XFile? avatar) async {
+    Response res = await client.post(Uri.parse('http://$ip4/update-profile'),
+      headers: {
+        'content-type' : 'application/json',
+        'x-access-token' : token!
+      },
+      body: json.encode({
+        'email' : email,
+        'phoneNumber' : phoneNumber,
+        'birthday' : birthday,
+        'gender' : gender,
+        'avatar' : avatar != null ? "hasData" : 'undefined'
+      })
+    );
+    return json.decode(res.body)['message'];
+  }
+
+  static Future<String?> upload(String address, String filePath, String fileName, Map<String, String> request) async {
     var postUri = Uri.http(ip4!, address, request);
     var req = http.MultipartRequest("POST", postUri);
-    await http.MultipartFile.fromPath('image', filePath, filename: fileName)
-        .then((file) {
+    await http.MultipartFile.fromPath('avatar', filePath, filename: fileName).then((file) {
       req.files.add(file);
     });
     http.StreamedResponse response = await req.send();
     return response.statusCode.toString();
+  }
+
+  static avatar(String id) {
+    return "http://$ip4/users/$id/avatar.jpg";
   }
 }

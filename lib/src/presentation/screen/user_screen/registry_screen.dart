@@ -62,7 +62,37 @@ class _RegistryScreenState extends State<RegistryScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    buildAvatar(size, img),
+                    GestureDetector(
+                    onTap: () async {
+                        await ImgPicker.onPick().then((value) {
+                          if (value != null) {
+                            setState(() {
+                              img = value;
+                            });
+                          }
+                        });
+                      },
+                      child: SizedBox(
+                  height: size.height * 0.22,
+                  width: size.height * 0.22,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100.0),
+                    child: Container(
+                      color: AppThemes.theme.backgroundColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: ClipRRect(
+                            borderRadius:
+                            BorderRadius.circular(100.0),
+                            child: img == null
+                                ? Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover)
+                                : Image.file(File(img!.path), fit: BoxFit.cover)
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
                     buildForm(size),
                     SizedBox(
                         height: size.height * 0.02,
@@ -103,6 +133,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                   phoneNumber: phoneController.value.text,
                   displayName: nameController.value.text,
                   birthday: AppTime.simpleDateFormat(date!),
+                  avatar: img,
                   id: (userState is UserStateSignUpSuccessful) ? userState.id : (userState is UserStateRegistryFail ? userState.id : ''),
                   context: context,
               ));
@@ -206,36 +237,5 @@ class _RegistryScreenState extends State<RegistryScreen> {
     );
   }
 
-  Widget buildAvatar(Size size, XFile? img) {
-    return GestureDetector(
-      onTap: () async {
-        await ImgPicker.onPick().then((value) {
-          if(value != null) {
-            img = value;
-          }
-        });
-      },
-      child: SizedBox(
-        height: size.height * 0.22,
-        width: size.height * 0.22,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(100.0),
-          child: Container(
-            color: AppThemes.theme.backgroundColor,
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: ClipRRect(
-                  borderRadius:
-                  BorderRadius.circular(100.0),
-                  child: img == null
-                      ? Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover)
-                      : Image.file(File(img.path))
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
 

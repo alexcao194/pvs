@@ -4,6 +4,7 @@ import 'package:pvs/src/config/theme.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 
 import '../../../../../constant/app_path.dart';
+import '../../../../../service/local_authentication.dart';
 
 class HeaderDrawer extends StatelessWidget {
   const HeaderDrawer({Key? key}) : super(key: key);
@@ -38,15 +39,7 @@ class HeaderDrawer extends StatelessWidget {
                         color: AppThemes.theme.buttonBackgroundColor,
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(100.0),
-                            child: (dataState.user.avatar!.length > 4)
-                                ? Image.network(
-                              dataState
-                                  .user.avatar!,
-                              fit: BoxFit.cover,
-                            )
-                                : Image.asset(
-                                AppPath.defaultAvatar,
-                                fit: BoxFit.cover)
+                            child: getAvatar(dataState)
                         ),
                       ),
                     ),
@@ -63,5 +56,12 @@ class HeaderDrawer extends StatelessWidget {
         );
       },
     );
+  }
+  Widget getAvatar(DataState dataState) {
+    if(dataState.user.avatar == 'undefined') {
+      return Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover);
+    } else {
+      return Image.network(LocalAuthentication.avatar(dataState.user.id!), fit: BoxFit.cover);
+    }
   }
 }

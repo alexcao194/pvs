@@ -67,3 +67,18 @@ class UserEventRegistry extends UserEvent {
   @override
   List<Object> get props => [avatar!, displayName, birthday, group, gender, phoneNumber, id, context];
 }
+
+class UserEventUpdateProfile extends UserEvent {
+  const UserEventUpdateProfile({required this.avatar, required this.gender, required this.birthday, required this.phoneNumber, required this.email, required this.context});
+
+  final String birthday;
+  final String email;
+  final String phoneNumber;
+  final String gender;
+  final XFile? avatar;
+  final BuildContext context;
+
+  @override
+  List<Object> get props => [avatar!, birthday, gender, phoneNumber, context];
+
+}

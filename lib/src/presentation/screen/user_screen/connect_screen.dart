@@ -5,6 +5,7 @@ import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_input.da
 import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/local_authentication.dart';
 import 'package:pvs/src/service/shared_preferences.dart';
+import 'package:pvs/src/service/stream_socket.dart';
 
 class ConnectScreen extends StatelessWidget {
   ConnectScreen({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class ConnectScreen extends StatelessWidget {
               label: 'Get IP',
               onTap: () {
                 Prefs.set('ip4', ipController.value.text);
-                LocalAuthentication.ip4 = ipController.value.text;
+                LocalAuthentication.ip4 = '${ipController.value.text}:1904';
                 AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.login);
               },
             )

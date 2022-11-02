@@ -1,5 +1,3 @@
-import 'package:pvs/src/service/local_authentication.dart';
-
 class User {
   String? id;
   String? displayName;
@@ -41,10 +39,6 @@ class User {
     currentLesson = json['current_lesson'];
     totalLesson = json['total_lesson'];
     state = json['state'];
-    if(avatar == null || avatar!.length > 4) {
-      avatar = '';
-    }
-    background ??= 'aa';
   }
 
   Map<String, dynamic> toJson() {

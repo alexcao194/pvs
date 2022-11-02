@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,6 +12,7 @@ import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/app_time.dart';
 import 'package:pvs/src/service/date_picker.dart';
 import 'package:pvs/src/service/image_picker.dart';
+import 'package:pvs/src/service/local_authentication.dart';
 
 import '../../../constant/app_path.dart';
 
@@ -26,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late TextEditingController numberContrller;
   bool isEditing = false;
   DateTime? date;
-  int gender = 0;
+  int? gender;
   XFile? img;
 
   @override
@@ -68,7 +71,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(height: size.height * 0.14, width: double.maxFinite),
-                            buildAvatar(size, dataState),
+                        SizedBox(
+                          height: size.height * 0.22,
+                          width: size.height * 0.22,
+                          child: ClipRRect(
+                            borderRadius:
+                            BorderRadius.circular(100.0),
+                            child: Container(
+                              color:
+                              AppThemes.theme.backgroundColor,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: GestureDetector(
+                                    onTap: isEditing
+                                        ? () async {
+                                      await ImgPicker.onPick().then((value) {
+                                        if(value != null) {
+                                          setState(() {
+                                            img = value;
+                                          });
+                                        }
+                                      });
+                                    }
+                                        : () {},
+                                    child: ClipRRect(
+                                        borderRadius:
+                                        BorderRadius.circular(100.0),
+                                        child: getAvatar(dataState, img)
+                                    )
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                             Text(dataState.user.displayName ?? 'Null', style: AppThemes.theme.profileDisplayNameStyle),
                             const SizedBox(height: 4.0),
                             Text(dataState.user.id ?? 'Null', style: AppThemes.theme.profileIdStyle),
@@ -113,6 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   children: [
                                     AuthInput(
                                       icon: Icons.email,
+                                      controller: emailController,
                                       label: dataState.user.email ?? 'Null',
                                       borderRadius: 5.0,
                                       enable: isEditing,
@@ -122,8 +158,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     const SizedBox(height: 16.0),
                                     AuthInput(
                                       icon: Icons.phone,
-                                      label:
-                                      dataState.user.phoneNumber ?? 'Null',
+                                      controller: numberContrller,
+                                      label: dataState.user.phoneNumber ?? 'Null',
                                       borderRadius: 5.0,
                                       enable: isEditing,
                                       keyboardType: TextInputType.phone,
@@ -148,6 +184,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 if(value != null) {
                                                   setState(() {
                                                     date = value;
+                                                    birthdayController.text = date != null ? AppTime.simpleDateFormat(date!) : dataState.user.birthday!;
                                                   });
                                                 }
                                               });
@@ -156,7 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             child: AuthInput(
                                               controller: birthdayController,
                                               icon: Icons.calendar_month,
-                                              label: isEditing && date != null ? AppTime.simpleDateFormat(date!) : (dataState is DataStateGetUserSuccessful) ? dataState.user.birthday! : '',
+                                              label: date != null ? AppTime.simpleDateFormat(date!) : dataState.user.birthday!,
                                               enable: false,
                                               borderRadius: 3.0,
                                             ),
@@ -172,6 +209,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               child: Padding(
                                                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
                                                 child: DropdownButton(
+                                                  underline: const SizedBox(),
+                                                  alignment: Alignment.center,
+                                                  icon: const SizedBox(),
                                                   items: const [
                                                     DropdownMenuItem(
                                                         value: 0,
@@ -180,13 +220,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         value: 1,
                                                         child: Text('Nữ'))
                                                   ],
-                                                  value: gender,
+                                                  value: gender ?? dataState.user.gender,
                                                   onChanged: (value) {
-                                                    setState(() {
-                                                      if(value != null) {
+                                                    if(value != null && isEditing) {
+                                                      setState(() {
                                                         gender = value;
-                                                      }
-                                                    });
+                                                      });
+                                                    }
                                                   },
                                                 ),
                                               ),
@@ -195,12 +235,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         )
                                       ],
                                     ),
-                                    Switch(
-                                        value: AppThemes.darkMode,
-                                        activeColor: AppThemes.theme.primaryColor,
-                                        onChanged: (_) {
-                                          BlocProvider.of<ThemeBloc>(context).add(ThemeEventChangeTheme(darkMode: _));
-                                        })
                                   ],
                                 ),
                               ),
@@ -222,6 +256,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   floatingActionButton: FloatingActionButton(
                     backgroundColor: AppThemes.theme.primaryColor,
                     onPressed: () {
+                      if(isEditing) {
+                        BlocProvider.of<UserBloc>(context).add(UserEventUpdateProfile(
+                            avatar: img,
+                            gender: gender.toString(),
+                            birthday: birthdayController.value.text != "" ? birthdayController.value.text : dataState.user.birthday!,
+                            phoneNumber: numberContrller.value.text != "" ? numberContrller.value.text : dataState.user.phoneNumber!,
+                            email: emailController.value.text != "" ? emailController.value.text : dataState.user.email!,
+                            context: context));
+                      } else {
+                        setState(() {
+                          numberContrller.text = dataState.user.phoneNumber!;
+                          emailController.text = dataState.user.email!;
+                        });
+                      }
                       setState(() {
                         isEditing = !isEditing;
                       });
@@ -237,54 +285,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  SizedBox buildAvatar(Size size, DataState dataState) {
-    return SizedBox(
-        height: size.height * 0.22,
-        width: size.height * 0.22,
-        child: ClipRRect(
-          borderRadius:
-          BorderRadius.circular(100.0),
-          child: Container(
-            color:
-            AppThemes.theme.backgroundColor,
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: GestureDetector(
-                onTap: isEditing
-                    ? () async {
-                  await ImgPicker.onPick().then((value) {
-                    if(value != null) {
-                      setState(() {
-                        img = value;
-                      });
-                    }
-                  });
-                }
-                    : () {},
-                child: ClipRRect(
-                    borderRadius:
-                    BorderRadius.circular(100.0),
-                    child: getAvatar(dataState, img)
-                )
-              ),
-            ),
-          ),
-        ),
-      );
-  }
-
   Widget getAvatar(dataState, img) {
     if(isEditing) {
       if(img != null) {
-        return Image.file(img.path, fit: BoxFit.cover);
+        return Image.file(File(img.path), fit: BoxFit.cover);
       } else {
-        return (dataState.user.avatar!.length > 4)
-            ? Image.network(dataState.user.avatar!, fit: BoxFit.cover,)
+        return (dataState.user.avatar! != 'undefined')
+            ? Image.network(LocalAuthentication.avatar(dataState.user.id!), fit: BoxFit.cover,)
             : Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover);
       }
     } else {
-      return (dataState.user.avatar!.length > 4)
-          ? Image.network(dataState.user.avatar!, fit: BoxFit.cover,)
+      return (dataState.user.avatar! != 'undefined')
+          ? Image.network(LocalAuthentication.avatar(dataState.user.id!), fit: BoxFit.cover)
           : Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover);
     }
   }

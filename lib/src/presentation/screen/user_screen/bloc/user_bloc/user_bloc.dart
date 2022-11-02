@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,6 +20,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserEventSignup>(_onSignup);
     on<UserEventGetPassword>(_getPassword);
     on<UserEventRegistry>(_onRegistry);
+    on<UserEventUpdateProfile>(_onUpdate);
   }
 
   FutureOr<void> _onLogin(UserEventLogin event, Emitter<UserState> emit) async {
@@ -112,6 +114,26 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         case 'registry-successful':
           emit(UserStateRegistrySuccessful(status: AppString.signupSuccessful));
           break;
+      }
+    });
+  }
+
+  FutureOr<void> _onUpdate(UserEventUpdateProfile event, Emitter<UserState> emit) async {
+    await LocalAuthentication.updateProfile(event.email, event.phoneNumber, event.birthday, event.gender, event.avatar)
+    .then((value) async {
+      print(value);
+      if(value == 'invalid-phone-number') {
+
+      } else if(value == 'invalid-email') {
+
+      } else {
+        if(event.avatar != null) {
+          await LocalAuthentication.upload('/avatar', File(event.avatar!.path).path, '$value/avatar.jpg', {}).then((value) {
+            BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser() );
+          });
+        } else {
+          BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser() );
+        }
       }
     });
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_button.dart';
 import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_input.dart';
 import 'package:pvs/src/presentation/screen/user_screen/widget/stl/template.dart';
+import 'package:pvs/src/service/data_handler.dart';
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
 
@@ -16,7 +17,12 @@ class ForgotPasswordScreen extends StatelessWidget {
           label: 'Mã Sinh Viên',
       ),
         SizedBox(height: size.height * 0.02),
-        const AuthButton(label: 'Lấy mật khẩu')
+        AuthButton(
+            label: 'Lấy mật khẩu',
+          onTap: () {
+              DataHandler.getQuestion();
+          },
+        )
       ],
     );
   }

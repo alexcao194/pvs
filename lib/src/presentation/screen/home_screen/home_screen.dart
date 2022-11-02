@@ -3,9 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/exercise_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/settings_page/settings_page.dart';
-import 'package:pvs/src/presentation/screen/home_screen/pages/video_page.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/video_page/video_page.dart';
+import 'package:pvs/src/presentation/screen/home_screen/widget/stf/keep_alive_page.dart';
 import 'package:pvs/src/service/app_router.dart';
+import 'package:pvs/src/service/local_authentication.dart';
+import 'package:pvs/src/service/stream_socket.dart';
 import '../../../constant/app_path.dart';
 import '../user_screen/bloc/user_bloc/user_bloc.dart';
 import 'widget/stl/app_drawer.dart';
@@ -33,15 +37,18 @@ class HomeScreen extends StatelessWidget {
                   drawer: const AppDrawer(),
                   body: Stack(
                     children: [
-                      PageView(
-                        controller: pageController,
-                        children: const [
-                          SettingsPage(),
-                          VideoPage(),
-                          Center(child: Text('3')),
-                          Center(child: Text('4')),
-                          SettingsPage()
-                        ],
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: size.height * 0.09),
+                        child: PageView(
+                          controller: pageController,
+                          children: const [
+                            KeepAlivePage(child: ExercisePage()),
+                            VideoPage(),
+                            KeepAlivePage(child: ExercisePage()),
+                            Center(child: Text('4')),
+                            SettingsPage()
+                          ],
+                        ),
                       ),
                       buildHeaderBar(dataState),
                     ],
@@ -55,8 +62,7 @@ class HomeScreen extends StatelessWidget {
                       tooltip: 'Open Quiz',
                       backgroundColor: AppThemes.theme.primaryColor,
                       onPressed: () {
-                        AppRouter.navigatorKey.currentState
-                            ?.pushNamed(AppRoutes.quiz);
+                        StreamSocket.socket!.emit('get-question', 'get-question');
                       },
                       child: const Icon(Icons.quiz))
                       : null,
@@ -71,8 +77,8 @@ class HomeScreen extends StatelessWidget {
 
   HeaderBar buildHeaderBar(DataState dataState) {
     return HeaderBar(
-      headerType: HeaderType.dynamic,
-      title: const Text('Hello world'),
+      headerType: HeaderType.full,
+      title: const Text('Hello world', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       leading: CircleAvatar(
         radius: 20.0,
         backgroundColor: AppThemes.theme.buttonBackgroundColor,
@@ -82,12 +88,7 @@ class HomeScreen extends StatelessWidget {
       ),
       action: ClipRRect(
           borderRadius: BorderRadius.circular(100.0),
-          child: (dataState.user.avatar!.length > 4)
-              ? Image.network(
-                  dataState.user.avatar!,
-                  fit: BoxFit.cover,
-                )
-              : Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover)),
+          child: getAvatar(dataState)),
       leadingOnPress: () {
         _scaffoldKey.currentState?.openDrawer();
       },
@@ -95,5 +96,14 @@ class HomeScreen extends StatelessWidget {
         AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.profile);
       },
     );
+  }
+
+
+  Widget getAvatar(DataState dataState) {
+    if(dataState.user.avatar == 'undefined') {
+      return Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover);
+    } else {
+      return Image.network(LocalAuthentication.avatar(dataState.user.id!), fit: BoxFit.cover);
+    }
   }
 }

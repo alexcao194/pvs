@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/quiz_screen.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/result_screen.dart';
+import 'package:pvs/src/presentation/screen/messenger_screen/messenger_screen.dart';
 import 'package:pvs/src/presentation/screen/profile_screen/profile_screen.dart';
-import 'package:pvs/src/presentation/screen/quiz_screen/quiz_screen.dart';
 
 import '../presentation/screen/home_screen/home_screen.dart';
 import '../presentation/screen/user_screen/connect_screen.dart';
@@ -19,7 +21,7 @@ class AppRouter {
       case AppRoutes.forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case AppRoutes.registry:
-        return MaterialPageRoute(builder: (_) => RegistryScreen());
+        return MaterialPageRoute(builder: (_) => const RegistryScreen());
       case AppRoutes.splash:
         return MaterialPageRoute(builder: (_) => ConnectScreen());
       case AppRoutes.home:
@@ -27,9 +29,13 @@ class AppRouter {
       case AppRoutes.signUp:
         return MaterialPageRoute(builder: (_) => SignupScreen());
       case AppRoutes.profile:
-        return MaterialPageRoute(builder: (_) => ProfileScreen());
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
       case AppRoutes.quiz:
-        return MaterialPageRoute(builder: (_) => const QuizScreen());
+        return MaterialPageRoute(builder: (_) => QuizScreen());
+      case AppRoutes.messsenger:
+        return MaterialPageRoute(builder: (_) => const MessengerScreen());
+      case AppRoutes.result:
+        return MaterialPageRoute(builder: (_) => const ResultScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
@@ -50,4 +56,6 @@ class AppRoutes {
   static const String forgotPassword = '/forgot_password';
   static const String profile = '/profile';
   static const String quiz = '/quiz';
+  static const String messsenger = '/messenger';
+  static const String result = '/result';
 }
