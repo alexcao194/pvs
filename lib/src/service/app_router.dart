@@ -4,6 +4,7 @@ import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/result_screen.dart';
 import 'package:pvs/src/presentation/screen/messenger_screen/messenger_screen.dart';
 import 'package:pvs/src/presentation/screen/profile_screen/profile_screen.dart';
+import 'package:pvs/src/presentation/screen/splash_screen/splash_screen.dart';
 
 import '../presentation/screen/home_screen/home_screen.dart';
 import '../presentation/screen/user_screen/connect_screen.dart';
@@ -18,11 +19,13 @@ class AppRouter {
     switch(settings.name) {
       case AppRoutes.login:
         return MaterialPageRoute(builder: (_) => LoginScreen());
+      case AppRoutes.splash:
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
       case AppRoutes.forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case AppRoutes.registry:
         return MaterialPageRoute(builder: (_) => const RegistryScreen());
-      case AppRoutes.splash:
+      case AppRoutes.connect:
         return MaterialPageRoute(builder: (_) => ConnectScreen());
       case AppRoutes.home:
         return MaterialPageRoute(builder: (_) => HomeScreen());
@@ -49,6 +52,7 @@ class AppRouter {
 
 class AppRoutes {
   static const String splash = '/';
+  static const String connect = '/connect';
   static const String home = '/home';
   static const String signUp = '/sign_up';
   static const String login = '/login';

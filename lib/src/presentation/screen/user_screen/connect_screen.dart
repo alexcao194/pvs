@@ -1,15 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_button.dart';
 import 'package:pvs/src/presentation/screen/user_screen/widget/stl/auth_input.dart';
 import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/local_authentication.dart';
 import 'package:pvs/src/service/shared_preferences.dart';
-import 'package:pvs/src/service/stream_socket.dart';
 
 class ConnectScreen extends StatelessWidget {
   ConnectScreen({Key? key}) : super(key: key);
   final TextEditingController ipController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     ipController.text = Prefs.get('ip4');
@@ -28,9 +27,8 @@ class ConnectScreen extends StatelessWidget {
             AuthButton(
               label: 'Get IP',
               onTap: () {
-                Prefs.set('ip4', ipController.value.text);
-                LocalAuthentication.ip4 = '${ipController.value.text}:1904';
-                AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.login);
+                Prefs.set('ip4', '${ipController.value.text}:1904');
+                AppRouter.navigatorKey.currentState?.pushReplacementNamed(AppRoutes.splash);
               },
             )
           ],

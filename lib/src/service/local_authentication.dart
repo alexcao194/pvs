@@ -4,18 +4,19 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pvs/src/service/shared_preferences.dart';
 
 class LocalAuthentication {
   static http.Client client = Client();
-  static String? token;
-  static String? refreshToken;
-  static String? ip4;
 
   static Future<String?> login(String id, String password) async {
+    if(Prefs.get('ip4') == null) {
+      return 'no-ip4';
+    }
     if(id == '' || password == '') {
       return 'input-empty';
     }
-    Response res = await client.post(Uri.parse('http://$ip4/login'),
+    Response res = await client.post(Uri.parse('http://${Prefs.get('ip4')}/login'),
         headers: {
           'content-type' : 'application/json'
         },
@@ -25,13 +26,18 @@ class LocalAuthentication {
         })
     );
     var outcome = json.decode(res.body);
-    token = outcome["accessToken"];
-    refreshToken = outcome["refreshToken"];
+    await Prefs.set('token', outcome["accessToken"]);
+    await Prefs.set('refreshToken', outcome["refreshToken"]);
     return outcome['message'];
   }
 
   static Future<Map<String, dynamic>?> getUser(String token) async {
-    Response res = await client.get(Uri.parse('http://$ip4/user'),
+    if(Prefs.get('ip4') == null) {
+      return {
+        'message' : 'no-ip4'
+      };
+    }
+    Response res = await client.get(Uri.parse('http://${Prefs.get('ip4')}/user'),
       headers: {
         'x-access-token' : token
       });
@@ -45,7 +51,7 @@ class LocalAuthentication {
     if(rePassword != password) {
       return 'password-not-match';
     }
-    Response res = await client.post(Uri.parse('http://$ip4/signup'),
+    Response res = await client.post(Uri.parse('http://${Prefs.get('ip4')}/signup'),
         headers: {
           'content-type' : 'application/json'
         },
@@ -61,7 +67,7 @@ class LocalAuthentication {
 
   static Future<String?> registry(String displayName, String birthday, String group, String gender, String phoneNumber, String id, XFile? avatar) async {
     if(displayName == ''|| birthday == ''|| group == ''|| gender == ''|| phoneNumber == ''|| id == '') return 'input-empty';
-    Response res = await client.post(Uri.parse('http://$ip4/registry'),
+    Response res = await client.post(Uri.parse('http://${Prefs.get('ip4')}/registry'),
         headers: {
           'content-type' : 'application/json'
         },
@@ -82,10 +88,10 @@ class LocalAuthentication {
   }
 
   static Future<String?> updateProfile(String email, String phoneNumber, String birthday, String gender, XFile? avatar) async {
-    Response res = await client.post(Uri.parse('http://$ip4/update-profile'),
+    Response res = await client.post(Uri.parse('http://${Prefs.get('ip4')}/update-profile'),
       headers: {
         'content-type' : 'application/json',
-        'x-access-token' : token!
+        'x-access-token' : Prefs.get('token')
       },
       body: json.encode({
         'email' : email,
@@ -98,8 +104,20 @@ class LocalAuthentication {
     return json.decode(res.body)['message'];
   }
 
+  static Future<Map<String, dynamic>> refreshToken() async {
+    Response res = await client.post(Uri.parse('http://${Prefs.get('ip4')}/refresh-token'),
+      headers: {
+        'content-type' : 'application/json'
+      },
+      body: {
+        'refreshToken' : Prefs.get('refreshToken')
+      }
+    );
+    return json.decode(res.body);
+  }
+
   static Future<String?> upload(String address, String filePath, String fileName, Map<String, String> request) async {
-    var postUri = Uri.http(ip4!, address, request);
+    var postUri = Uri.http(Prefs.get('ip4'), address, request);
     var req = http.MultipartRequest("POST", postUri);
     await http.MultipartFile.fromPath('avatar', filePath, filename: fileName).then((file) {
       req.files.add(file);
@@ -109,6 +127,6 @@ class LocalAuthentication {
   }
 
   static avatar(String id) {
-    return "http://$ip4/users/$id/avatar.jpg";
+    return "http://${Prefs.get('ip4')}/users/$id/avatar.jpg";
   }
 }

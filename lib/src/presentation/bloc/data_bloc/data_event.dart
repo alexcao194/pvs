@@ -14,3 +14,7 @@ class DataEventGetUser extends DataEvent {
 class DataEventUploadAvatar extends DataEvent {
   const DataEventUploadAvatar();
 }
+
+class DataEventLogout extends DataEvent {
+  const DataEventLogout();
+}

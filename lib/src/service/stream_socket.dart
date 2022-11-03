@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:pvs/src/service/local_authentication.dart';
+import 'package:pvs/src/service/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 import 'package:socket_io_client/socket_io_client.dart';
 
@@ -10,7 +10,7 @@ class StreamSocket {
   static final  _response = StreamController<List<Map<String, String>>>();
 
   static init() {
-    socket = io.io('http://${LocalAuthentication.ip4}', OptionBuilder().setTransports(['websocket']).build());
+    socket = io.io('http://${Prefs.get('ip4')}', OptionBuilder().setTransports(['websocket']).build());
     socket!.onDisconnect((_) => print('disconnect'));
   }
 

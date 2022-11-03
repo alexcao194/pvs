@@ -81,3 +81,7 @@ class UserStateRegistryFail extends UserState {
   @override
   List<Object> get props => [error, id];
 }
+
+class UserSateLogout extends UserState {
+  const UserSateLogout();
+}

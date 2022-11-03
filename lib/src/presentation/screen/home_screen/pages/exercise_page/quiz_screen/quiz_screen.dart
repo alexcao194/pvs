@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:alex_core/alex_core.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/multi_choice_quiz.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/widget/question_header_bar.dart';
 

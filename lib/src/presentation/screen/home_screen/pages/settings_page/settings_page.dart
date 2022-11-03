@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/settings_page/widget/stf/settings_button.dart';
+import 'package:pvs/src/presentation/screen/user_screen/bloc/user_bloc/user_bloc.dart';
 
 import '../../../../bloc/data_bloc/data_bloc.dart';
 
@@ -29,7 +30,10 @@ class SettingsPage extends StatelessWidget {
                   SettingsButton(title: 'Chế độ tối', description: 'Bật/tắt chế độ tối', iconData: Icons.ac_unit_outlined),
                   SettingsButton(title: 'Vùng đầu trang', description: 'Thay đổi kiểu thanh trạng thái', iconData: Icons.access_time)
                 ],
-              )
+              ),
+              CupertinoButton(child: const Text('Đăng xuất', style: TextStyle(color: Colors.red)), onPressed: () {
+                BlocProvider.of<UserBloc>(context).add(const UserEventLogout());
+              })
             ],
           ),
         );

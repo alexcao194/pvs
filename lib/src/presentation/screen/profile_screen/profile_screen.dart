@@ -63,80 +63,89 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       SizedBox(
                         height: size.height * 0.25,
-                        child: Image.asset(AppPath.a2Background, fit: BoxFit.cover),
+                        child: Image.asset(AppPath.a2Background,
+                            fit: BoxFit.cover),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(height: size.height * 0.14, width: double.maxFinite),
-                        SizedBox(
-                          height: size.height * 0.22,
-                          width: size.height * 0.22,
-                          child: ClipRRect(
-                            borderRadius:
-                            BorderRadius.circular(100.0),
-                            child: Container(
-                              color:
-                              AppThemes.theme.backgroundColor,
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: GestureDetector(
-                                    onTap: isEditing
-                                        ? () async {
-                                      await ImgPicker.onPick().then((value) {
-                                        if(value != null) {
-                                          setState(() {
-                                            img = value;
-                                          });
-                                        }
-                                      });
-                                    }
-                                        : () {},
-                                    child: ClipRRect(
-                                        borderRadius:
-                                        BorderRadius.circular(100.0),
-                                        child: getAvatar(dataState, img)
-                                    )
+                            SizedBox(
+                                height: size.height * 0.14,
+                                width: double.maxFinite),
+                            SizedBox(
+                              height: size.height * 0.22,
+                              width: size.height * 0.22,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100.0),
+                                child: Container(
+                                  color: AppThemes.theme.backgroundColor,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: GestureDetector(
+                                        onTap: isEditing
+                                            ? () async {
+                                                await ImgPicker.onPick()
+                                                    .then((value) {
+                                                  if (value != null) {
+                                                    setState(() {
+                                                      img = value;
+                                                    });
+                                                  }
+                                                });
+                                              }
+                                            : () {},
+                                        child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(100.0),
+                                            child: getAvatar(dataState, img))),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                            Text(dataState.user.displayName ?? 'Null', style: AppThemes.theme.profileDisplayNameStyle),
+                            Text(dataState.user.displayName ?? 'Null',
+                                style: AppThemes.theme.profileDisplayNameStyle),
                             const SizedBox(height: 4.0),
-                            Text(dataState.user.id ?? 'Null', style: AppThemes.theme.profileIdStyle),
+                            Text(dataState.user.id ?? 'Null',
+                                style: AppThemes.theme.profileIdStyle),
                             const SizedBox(height: 8.0),
                             Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 ClipRRect(
-                                  borderRadius:
-                                  BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(5.0),
                                   child: Container(
                                     height: 30.0,
                                     width: 40.0,
                                     color: Colors.greenAccent,
                                     child: Center(
-                                        child: Text(dataState.user.currentLesson.toString(), style: AppThemes.theme.countProcessStyle)),
+                                        child: Text(
+                                            dataState.user.currentLesson
+                                                .toString(),
+                                            style: AppThemes
+                                                .theme.countProcessStyle)),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Card(
-                                      child: SizedBox(height: size.height * 0.01, width: 0.1)),
+                                      child: SizedBox(
+                                          height: size.height * 0.01,
+                                          width: 0.1)),
                                 ),
                                 ClipRRect(
-                                  borderRadius:
-                                  BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(5.0),
                                   child: Container(
                                     height: 30.0,
                                     width: 40.0,
                                     color: Colors.redAccent,
                                     child: Center(
-                                        child: Text(dataState.user.totalLesson.toString(), style: AppThemes.theme.countProcessStyle)),
+                                        child: Text(
+                                            dataState.user.totalLesson
+                                                .toString(),
+                                            style: AppThemes
+                                                .theme.countProcessStyle)),
                                   ),
                                 ),
                               ],
@@ -152,14 +161,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       label: dataState.user.email ?? 'Null',
                                       borderRadius: 5.0,
                                       enable: isEditing,
-                                      keyboardType:
-                                      TextInputType.emailAddress,
+                                      keyboardType: TextInputType.emailAddress,
                                     ),
                                     const SizedBox(height: 16.0),
                                     AuthInput(
                                       icon: Icons.phone,
                                       controller: numberContrller,
-                                      label: dataState.user.phoneNumber ?? 'Null',
+                                      label:
+                                          dataState.user.phoneNumber ?? 'Null',
                                       borderRadius: 5.0,
                                       enable: isEditing,
                                       keyboardType: TextInputType.phone,
@@ -167,11 +176,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     const SizedBox(height: 16.0),
                                     AuthInput(
                                       icon: Icons.group,
-                                      label: dataState.user.groupClass.toString(),
+                                      label:
+                                          dataState.user.groupClass.toString(),
                                       borderRadius: 5.0,
                                       enable: false,
-                                      keyboardType:
-                                      TextInputType.number,
+                                      keyboardType: TextInputType.number,
                                     ),
                                     const SizedBox(height: 16.0),
                                     Row(
@@ -180,20 +189,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           child: GestureDetector(
                                             onTap: isEditing
                                                 ? () async {
-                                              await DatePicker.onPick(context, 1820, 2300).then((value) {
-                                                if(value != null) {
-                                                  setState(() {
-                                                    date = value;
-                                                    birthdayController.text = date != null ? AppTime.simpleDateFormat(date!) : dataState.user.birthday!;
-                                                  });
-                                                }
-                                              });
-                                            }
+                                                    await DatePicker.onPick(
+                                                            context, 1820, 2300)
+                                                        .then((value) {
+                                                      if (value != null) {
+                                                        setState(() {
+                                                          date = value;
+                                                          birthdayController
+                                                              .text = date !=
+                                                                  null
+                                                              ? AppTime
+                                                                  .simpleDateFormat(
+                                                                      date!)
+                                                              : dataState.user
+                                                                  .birthday!;
+                                                        });
+                                                      }
+                                                    });
+                                                  }
                                                 : () {},
                                             child: AuthInput(
                                               controller: birthdayController,
                                               icon: Icons.calendar_month,
-                                              label: date != null ? AppTime.simpleDateFormat(date!) : dataState.user.birthday!,
+                                              label: date != null
+                                                  ? AppTime.simpleDateFormat(
+                                                      date!)
+                                                  : dataState.user.birthday!,
                                               enable: false,
                                               borderRadius: 3.0,
                                             ),
@@ -203,11 +224,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         Expanded(
                                           child: ClipRRect(
                                             borderRadius:
-                                            BorderRadius.circular(3.0),
+                                                BorderRadius.circular(3.0),
                                             child: Container(
-                                              color: AppThemes.theme.fillTextInputColor,
+                                              color: AppThemes
+                                                  .theme.fillTextInputColor,
                                               child: Padding(
-                                                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 4.0),
                                                 child: DropdownButton(
                                                   underline: const SizedBox(),
                                                   alignment: Alignment.center,
@@ -220,9 +244,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         value: 1,
                                                         child: Text('Nữ'))
                                                   ],
-                                                  value: gender ?? dataState.user.gender,
+                                                  value: gender ??
+                                                      dataState.user.gender,
                                                   onChanged: (value) {
-                                                    if(value != null && isEditing) {
+                                                    if (value != null &&
+                                                        isEditing) {
                                                       setState(() {
                                                         gender = value;
                                                       });
@@ -256,14 +282,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   floatingActionButton: FloatingActionButton(
                     backgroundColor: AppThemes.theme.primaryColor,
                     onPressed: () {
-                      if(isEditing) {
-                        BlocProvider.of<UserBloc>(context).add(UserEventUpdateProfile(
-                            avatar: img,
-                            gender: gender.toString(),
-                            birthday: birthdayController.value.text != "" ? birthdayController.value.text : dataState.user.birthday!,
-                            phoneNumber: numberContrller.value.text != "" ? numberContrller.value.text : dataState.user.phoneNumber!,
-                            email: emailController.value.text != "" ? emailController.value.text : dataState.user.email!,
-                            context: context));
+                      if (isEditing) {
+                        BlocProvider.of<UserBloc>(context).add(
+                            UserEventUpdateProfile(
+                                avatar: img,
+                                gender: gender.toString(),
+                                birthday: birthdayController.value.text != ""
+                                    ? birthdayController.value.text
+                                    : dataState.user.birthday!,
+                                phoneNumber: numberContrller.value.text != ""
+                                    ? numberContrller.value.text
+                                    : dataState.user.phoneNumber!,
+                                email: emailController.value.text != ""
+                                    ? emailController.value.text
+                                    : dataState.user.email!,
+                                context: context));
                       } else {
                         setState(() {
                           numberContrller.text = dataState.user.phoneNumber!;
@@ -286,17 +319,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget getAvatar(dataState, img) {
-    if(isEditing) {
-      if(img != null) {
+    if (isEditing) {
+      if (img != null) {
         return Image.file(File(img.path), fit: BoxFit.cover);
       } else {
         return (dataState.user.avatar! != 'undefined')
-            ? Image.network(LocalAuthentication.avatar(dataState.user.id!), fit: BoxFit.cover,)
+            ? Image.network(
+                LocalAuthentication.avatar(dataState.user.id!),
+                fit: BoxFit.cover,
+              )
             : Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover);
       }
     } else {
       return (dataState.user.avatar! != 'undefined')
-          ? Image.network(LocalAuthentication.avatar(dataState.user.id!), fit: BoxFit.cover)
+          ? Image.network(LocalAuthentication.avatar(dataState.user.id!),
+              fit: BoxFit.cover)
           : Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover);
     }
   }

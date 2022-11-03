@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pvs/src/constant/app_string.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/service/app_router.dart';
+import 'package:pvs/src/service/shared_preferences.dart';
 import '../../../../../service/local_authentication.dart';
 
 part 'user_event.dart';
@@ -21,6 +22,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserEventGetPassword>(_getPassword);
     on<UserEventRegistry>(_onRegistry);
     on<UserEventUpdateProfile>(_onUpdate);
+    on<UserEventRelogin>(_onRelogin);
+    on<UserEventLogout>(_onLogout);
   }
 
   FutureOr<void> _onLogin(UserEventLogin event, Emitter<UserState> emit) async {
@@ -49,6 +52,32 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         .onError((error, stackTrace) {
           emit(UserStateLoginFail(error: error.toString()));
         });
+  }
+
+  FutureOr<void> _onRelogin(UserEventRelogin event, Emitter<UserState> emit) async {
+    await LocalAuthentication.getUser(Prefs.get('token')).then((value) async {
+      switch(value!['message']) {
+        case 'no-ip4':
+          AppRouter.navigatorKey.currentState?.pushReplacementNamed(AppRoutes.connect);
+          break;
+        case 'unauthorized':
+          await LocalAuthentication.refreshToken().then((value) {
+            if(value['massage'] != null) {
+              AppRouter.navigatorKey.currentState?.pushReplacementNamed(AppRoutes.login);
+            } else {
+              Prefs.set('token', value['accessToken']);
+              BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser());
+            }
+          });
+          break;
+        default:
+          BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser());
+          break;
+      }
+    }).timeout(const Duration(milliseconds: 2000))
+    .onError((error, stackTrace) {
+      AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.connect);
+    });
   }
 
   FutureOr<void> _onSignup(UserEventSignup event, Emitter<UserState> emit) async {
@@ -129,12 +158,19 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       } else {
         if(event.avatar != null) {
           await LocalAuthentication.upload('/avatar', File(event.avatar!.path).path, '$value/avatar.jpg', {}).then((value) {
-            BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser() );
+            BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser());
           });
         } else {
           BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser() );
         }
       }
     });
+  }
+
+  FutureOr<void> _onLogout(UserEventLogout event, Emitter<UserState> emit) {
+    Prefs.set('token', '');
+    Prefs.set('refreshToken', '');
+    AppRouter.navigatorKey.currentState?.pushNamedAndRemoveUntil(AppRoutes.login, ModalRoute.withName('/'));
+    emit(const UserSateLogout());
   }
 }

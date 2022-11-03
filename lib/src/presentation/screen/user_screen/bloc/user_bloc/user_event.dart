@@ -24,8 +24,7 @@ class UserEventSignup extends UserEvent {
 }
 
 class UserEventLogin extends UserEvent {
-  const UserEventLogin(
-      {required this.password, required this.id, required this.context});
+  const UserEventLogin({required this.password, required this.id, required this.context});
 
   final String id;
   final String password;
@@ -33,6 +32,19 @@ class UserEventLogin extends UserEvent {
 
   @override
   List<Object> get props => [id, password, context];
+}
+
+class UserEventRelogin extends UserEvent {
+  const UserEventRelogin({required this.context});
+
+  final BuildContext context;
+
+  @override
+  List<Object> get props => [context];
+}
+
+class UserEventLogout extends UserEvent {
+  const UserEventLogout();
 }
 
 class UserEventGetPassword extends UserEvent {
