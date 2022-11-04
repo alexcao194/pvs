@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pvs/src/model/user.dart';
 import 'package:pvs/src/service/app_router.dart';
+import 'package:pvs/src/service/data_handler.dart';
 import 'package:pvs/src/service/local_authentication.dart';
 
 import '../../../service/shared_preferences.dart';

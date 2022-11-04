@@ -20,7 +20,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         AuthButton(
             label: 'Lấy mật khẩu',
           onTap: () {
-              DataHandler.getQuestion();
+              DataHandler.getLessons();
           },
         )
       ],

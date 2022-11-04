@@ -109,9 +109,9 @@ class LocalAuthentication {
       headers: {
         'content-type' : 'application/json'
       },
-      body: {
+      body: json.encode({
         'refreshToken' : Prefs.get('refreshToken')
-      }
+      })
     );
     return json.decode(res.body);
   }

@@ -11,7 +11,8 @@ class ConnectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ipController.text = Prefs.get('ip4');
+    String ip4 = Prefs.get('ip4');
+    ipController.text = ip4.replaceAll(RegExp(r':1904'), '');
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(32.0),

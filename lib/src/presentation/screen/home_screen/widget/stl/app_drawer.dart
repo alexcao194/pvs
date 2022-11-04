@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
 
+import '../../../../bloc/lessons_bloc/lessons_bloc.dart';
 import 'header_drawer.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -9,38 +11,36 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Drawer(
-      backgroundColor: AppThemes.theme.backgroundColor,
-      child: Stack(
-        children: [
-          SingleChildScrollView(
-            physics: const ScrollPhysics(parent: BouncingScrollPhysics()),
-            child: Column(
-              children: [
-                SizedBox(height: size.height * 0.25),
-                ListTile(title: Text('Hello world', style: AppThemes.theme.titleDrawerEnableStyle)),
-                ListTile(title: Text('Biến', style: AppThemes.theme.titleDrawerEnableStyle)),
-                ListTile(title: Text('Kiểu dữ liệu', style: AppThemes.theme.titleDrawerEnableStyle)),
-                ListTile(title: Text('Toán tử', style: AppThemes.theme.titleDrawerEnableStyle)),
-                ListTile(title: Text('Câu điều kiện', style: AppThemes.theme.titleDrawerEnableStyle)),
-                ListTile(title: Text('Vòng lặp', style: AppThemes.theme.titleDrawerEnableStyle)),
-                ListTile(title: Text('Bla bla', style: AppThemes.theme.titleDrawerEnableStyle)),
-                ListTile(title: Text('Tiêu đề ne', style: AppThemes.theme.titleDrawerEnableStyle)),
-                ListTile(title: Text('Tiêu đề ne', style: AppThemes.theme.titleDrawerEnableStyle)),
-                ListTile(title: Text('Tiêu đề ne', style: AppThemes.theme.titleDrawerEnableStyle)),
-                ListTile(title: Text('Tiêu đề ne', style: AppThemes.theme.titleDrawerEnableStyle)),
-                ListTile(title: Text('Tiêu đề ne', style: AppThemes.theme.titleDrawerDisableStyle)),
-                ListTile(title: Text('Tiêu đề ne', style: AppThemes.theme.titleDrawerDisableStyle)),
-                ListTile(title: Text('Tiêu đề ne', style: AppThemes.theme.titleDrawerDisableStyle)),
-                ListTile(title: Text('Tiêu đề ne', style: AppThemes.theme.titleDrawerDisableStyle)),
-                ListTile(title: Text('Tiêu đề ne', style: AppThemes.theme.titleDrawerDisableStyle)),
-              ],
-            ),
+    return BlocBuilder<LessonsBloc, LessonsState>(
+      builder: (context, lessonsState) {
+        return Drawer(
+          backgroundColor: AppThemes.theme.backgroundColor,
+          child: Stack(
+            children: [
+              Column(
+                children: buildTitle(lessonsState, size)
+              ),
+              const HeaderDrawer()
+            ],
           ),
-          const HeaderDrawer()
-        ],
-      ),
+        );
+      },
     );
   }
-}
 
+  List<Widget> buildTitle(LessonsState lessonsState, Size size) {
+    List<Widget> outcome = [SizedBox(height: size.height * 0.25)];
+    for (int i = 0; i < lessonsState.totalLesson; i++) {
+      outcome.add(
+          ListTile(
+            title: Text(lessonsState.lessons[i],
+                style: lessonsState.totalLesson > i
+                    ? AppThemes.theme.titleDrawerDisableStyle
+                    : AppThemes.theme.titleDrawerEnableStyle
+                )
+          )
+      );
+    }
+    return outcome;
+  }
+}

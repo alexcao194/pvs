@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pvs/src/constant/app_string.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
+import 'package:pvs/src/presentation/bloc/lessons_bloc/lessons_bloc.dart';
 import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/shared_preferences.dart';
 import '../../../../../service/local_authentication.dart';
@@ -62,20 +63,24 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           break;
         case 'unauthorized':
           await LocalAuthentication.refreshToken().then((value) {
-            if(value['massage'] != null) {
+            if(value['message'] != null) {
               AppRouter.navigatorKey.currentState?.pushReplacementNamed(AppRoutes.login);
             } else {
               Prefs.set('token', value['accessToken']);
+              BlocProvider.of<LessonsBloc>(event.context).add(const LessonsEventGet());
               BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser());
             }
+          }).onError((error, stackTrace) {
           });
           break;
         default:
+          BlocProvider.of<LessonsBloc>(event.context).add(const LessonsEventGet());
           BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser());
           break;
       }
     }).timeout(const Duration(milliseconds: 2000))
     .onError((error, stackTrace) {
+      print(error);
       AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.connect);
     });
   }

@@ -4,9 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:pvs/src/service/shared_preferences.dart';
 
 class DataHandler {
-  static Future<Map<String, dynamic>?> getQuestion() async {
+  static Future<Map<String, dynamic>?> getQuestion(String lesson) async {
     Response res = await http.get(
-        Uri.http('${Prefs.get('ip4')}', '/q', {'file': 'text_questions/question1.txt'}),
+        Uri.http('${Prefs.get('ip4')}', '/question', {'lesson': lesson}),
     );
     return json.decode(res.body);
   }
@@ -18,7 +18,16 @@ class DataHandler {
         'x-access-token' : Prefs.get('token')
       }
     );
-    print(res);
     return res.body;
   }
+
+  static Future<Map<String, dynamic>> getLessons() async {
+    Response res = await http.get(
+      Uri.http(Prefs.get('ip4'), '/lessons'),
+      headers: {
+        'x-access-token' : Prefs.get('token')
+      }
+    );
+    return json.decode(res.body);
+}
 }

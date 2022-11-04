@@ -3,11 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
+import 'package:pvs/src/presentation/bloc/lessons_bloc/lessons_bloc.dart';
 import 'package:pvs/src/presentation/bloc/theme_bloc/theme_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/bloc/quiz_bloc.dart';
 import 'package:pvs/src/service/shared_preferences.dart';
-import 'package:pvs/src/service/stream_socket.dart';
 import 'src/presentation/screen/user_screen/bloc/user_bloc/user_bloc.dart';
 import 'src/service/app_router.dart';
 
@@ -28,6 +28,7 @@ void main() async {
           BlocProvider(create: (_) => ThemeBloc()),
           BlocProvider(create: (_) => UserBloc()),
           BlocProvider(create: (_) => DataBloc()),
+          BlocProvider(create: (_) => LessonsBloc())
         ],
         child: const MyApp()
       )
