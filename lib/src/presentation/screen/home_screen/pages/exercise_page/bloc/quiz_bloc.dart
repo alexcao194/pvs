@@ -8,14 +8,24 @@ part 'quiz_event.dart';
 part 'quiz_state.dart';
 
 class QuizBloc extends Bloc<QuizEvent, QuizState> {
-  QuizBloc() : super(const QuizInitial()) {
+  QuizBloc() : super(QuizInitial()) {
     on<QuizEventGetQuestion>(_onGetQuestion);
     on<QuizEventListen>(_onListen);
   }
 
   FutureOr<void> _onGetQuestion(QuizEventGetQuestion event, Emitter<QuizState> emit) async {
-    await DataHandler.getRsult().then((value) {
-
+    await DataHandler.getQuestion(event.lesson).then((value) {
+      List<Map<String, String>> lt = [];
+      for(int i = 0; i < 20; i++) {
+        lt.add({
+          'question' : value!['question-${i + 1}']['question'],
+          'answer-1' : value['question-${i + 1}']['answer-1'],
+          'answer-2' : value['question-${i + 1}']['answer-2'],
+          'answer-3' : value['question-${i + 1}']['answer-3'],
+          'answer-4' : value['question-${i + 1}']['answer-4'],
+        });
+      }
+      emit(QuizStateQuestionSuccessful(quizs: lt));
     });
   }
 

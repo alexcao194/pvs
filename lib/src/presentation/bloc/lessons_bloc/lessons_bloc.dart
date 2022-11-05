@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/service/data_handler.dart';
 
 part 'lessons_event.dart';
@@ -21,10 +22,10 @@ class LessonsBloc extends Bloc<LessonsEvent, LessonsState> {
       emit(LessonsStateGetSuccessful(
           lessons: lt,
           currentLesson: value['currentLesson'],
-          totalLesson: value['totalLesson']
+          totalLesson: value['totalLesson'],
+          pickedLesson: value['currentLesson']
       ));
     }).timeout(const Duration(milliseconds: 2000)).onError((error, stackTrace) {
-      print(error);
       emit(LessonsStateGetFail());
     });
   }

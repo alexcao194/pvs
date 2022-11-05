@@ -28,7 +28,7 @@ void main() async {
           BlocProvider(create: (_) => ThemeBloc()),
           BlocProvider(create: (_) => UserBloc()),
           BlocProvider(create: (_) => DataBloc()),
-          BlocProvider(create: (_) => LessonsBloc())
+          BlocProvider(create: (_) => LessonsBloc()),
         ],
         child: const MyApp()
       )

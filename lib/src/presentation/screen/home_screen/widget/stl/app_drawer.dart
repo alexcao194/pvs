@@ -34,7 +34,7 @@ class AppDrawer extends StatelessWidget {
       outcome.add(
           ListTile(
             title: Text(lessonsState.lessons[i],
-                style: lessonsState.totalLesson > i
+                style: lessonsState.currentLesson <= i
                     ? AppThemes.theme.titleDrawerDisableStyle
                     : AppThemes.theme.titleDrawerEnableStyle
                 )

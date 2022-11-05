@@ -8,7 +8,7 @@ class StreamSocket {
 
   static io.Socket? socket;
   static final  _response = StreamController<List<Map<String, String>>>();
-
+  static bool hasInit = false;
   static init() {
     socket = io.io('http://${Prefs.get('ip4')}', OptionBuilder().setTransports(['websocket']).build());
     socket!.onDisconnect((_) => print('disconnect'));

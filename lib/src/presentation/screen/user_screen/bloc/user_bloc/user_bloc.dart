@@ -80,7 +80,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
     }).timeout(const Duration(milliseconds: 2000))
     .onError((error, stackTrace) {
-      print(error);
       AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.connect);
     });
   }

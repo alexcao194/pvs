@@ -5,9 +5,12 @@ abstract class QuizEvent extends Equatable {
 }
 
 class QuizEventGetQuestion extends QuizEvent {
-  const QuizEventGetQuestion();
+  const QuizEventGetQuestion({required this.lesson});
+
+  final String lesson;
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [lesson];
 }
 
 class QuizEventListen extends QuizEvent {
