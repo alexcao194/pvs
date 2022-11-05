@@ -45,6 +45,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               break;
             case 'login-successful':
               BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser());
+              BlocProvider.of<LessonsBloc>(event.context).add(const LessonsEventGet());
               emit(const UserStateLoginSuccessful());
               break;
           }

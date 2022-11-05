@@ -10,3 +10,10 @@ abstract class LessonsEvent extends Equatable {
 class LessonsEventGet extends LessonsEvent {
   const LessonsEventGet();
 }
+
+class LessonsEventChange extends LessonsEvent {
+  const LessonsEventChange({required this.pickedLesson, required this.state});
+
+  final LessonsState state;
+  final int pickedLesson;
+}

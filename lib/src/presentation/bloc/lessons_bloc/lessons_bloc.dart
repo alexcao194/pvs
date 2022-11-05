@@ -11,6 +11,7 @@ part 'lessons_state.dart';
 class LessonsBloc extends Bloc<LessonsEvent, LessonsState> {
   LessonsBloc() : super(LessonsInitial()) {
     on<LessonsEventGet>(_onGet);
+    on<LessonsEventChange>(_onChange);
   }
 
   FutureOr<void> _onGet(LessonsEventGet event, Emitter<LessonsState> emit) async {
@@ -28,5 +29,15 @@ class LessonsBloc extends Bloc<LessonsEvent, LessonsState> {
     }).timeout(const Duration(milliseconds: 2000)).onError((error, stackTrace) {
       emit(LessonsStateGetFail());
     });
+  }
+
+  FutureOr<void> _onChange(LessonsEventChange event, Emitter<LessonsState> emit) {
+    emit(LessonsStateGetSuccessful(
+        lessons: event.state.lessons,
+        currentLesson: event.state.currentLesson,
+        totalLesson: event.state.totalLesson,
+        pickedLesson: event.pickedLesson
+    )
+    );
   }
 }
