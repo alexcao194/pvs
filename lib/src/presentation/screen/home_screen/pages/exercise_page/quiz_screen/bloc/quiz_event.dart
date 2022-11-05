@@ -17,5 +17,5 @@ class QuizEventListen extends QuizEvent {
   const QuizEventListen();
   @override
   List<Object?> get props => [];
-
 }
+

@@ -26,8 +26,10 @@ class LocalAuthentication {
         })
     );
     var outcome = json.decode(res.body);
-    await Prefs.set('token', outcome["accessToken"]);
-    await Prefs.set('refreshToken', outcome["refreshToken"]);
+    if(outcome['accessToken'] != null) {
+      await Prefs.set('token', outcome["accessToken"]);
+      await Prefs.set('refreshToken', outcome["refreshToken"]);
+    }
     return outcome['message'];
   }
 

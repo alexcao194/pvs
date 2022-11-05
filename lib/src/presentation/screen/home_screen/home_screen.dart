@@ -5,11 +5,11 @@ import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/exercise_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/settings_page/settings_page.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/test_page/test_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/video_page/video_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/widget/stf/keep_alive_page.dart';
 import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/local_authentication.dart';
-import 'package:pvs/src/service/stream_socket.dart';
 import '../../../constant/app_path.dart';
 import '../user_screen/bloc/user_bloc/user_bloc.dart';
 import 'widget/stl/app_drawer.dart';
@@ -42,10 +42,10 @@ class HomeScreen extends StatelessWidget {
                         child: PageView(
                           controller: pageController,
                           children: const [
-                            KeepAlivePage(child: ExercisePage()),
+                            TestPage(),
                             VideoPage(),
                             KeepAlivePage(child: ExercisePage()),
-                            Center(child: Text('4')),
+                            TestPage(),
                             SettingsPage()
                           ],
                         ),
@@ -62,12 +62,10 @@ class HomeScreen extends StatelessWidget {
                       tooltip: 'Open Quiz',
                       backgroundColor: AppThemes.theme.primaryColor,
                       onPressed: () {
-                        StreamSocket.socket!.emit('get-question', 'get-question');
                       },
                       child: const Icon(Icons.quiz))
                       : null,
-                  bottomNavigationBar: NavigationAppBar(
-                      pageController: pageController, size: size));
+                  bottomNavigationBar: NavigationAppBar(pageController: pageController, size: size));
             },
           );
         },

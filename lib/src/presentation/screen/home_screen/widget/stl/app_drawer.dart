@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
-import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/bloc/quiz_bloc.dart';
-
 import '../../../../bloc/lessons_bloc/lessons_bloc.dart';
+import '../../pages/exercise_page/quiz_screen/bloc/quiz_bloc.dart';
 import 'header_drawer.dart';
 
 class AppDrawer extends StatelessWidget {

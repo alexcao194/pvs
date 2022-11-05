@@ -24,6 +24,16 @@ class DataHandler {
     return res.body;
   }
 
+  static Future<Map<String, dynamic>> getTest(lesson) async {
+    Response res = await http.get(
+      Uri.http(Prefs.get('ip4'), '/test', {'lesson' : lesson}),
+      headers: {
+        'x-access-token' : Prefs.get('token')
+      }
+    );
+    return json.decode(res.body);
+  }
+
   static Future<Map<String, dynamic>> getLessons() async {
     Response res = await http.get(
       Uri.http(Prefs.get('ip4'), '/lessons'),

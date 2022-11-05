@@ -286,7 +286,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         BlocProvider.of<UserBloc>(context).add(
                             UserEventUpdateProfile(
                                 avatar: img,
-                                gender: gender.toString(),
+                                gender: gender != null
+                                    ? gender.toString()
+                                    : dataState.user.gender.toString(),
                                 birthday: birthdayController.value.text != ""
                                     ? birthdayController.value.text
                                     : dataState.user.birthday!,

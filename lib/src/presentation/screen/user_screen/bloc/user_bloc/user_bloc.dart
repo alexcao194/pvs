@@ -31,8 +31,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(const UserStateLoading());
     await LocalAuthentication
         .login(event.id, event.password)
-        .then((value) async {
-          switch(value) {
+        .then((value) {
+      switch(value) {
             case 'input-empty':
               emit(UserStateLoginFail(error: AppString.nullField));
               break;
@@ -155,7 +155,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   FutureOr<void> _onUpdate(UserEventUpdateProfile event, Emitter<UserState> emit) async {
     await LocalAuthentication.updateProfile(event.email, event.phoneNumber, event.birthday, event.gender, event.avatar)
     .then((value) async {
-      print(value);
       if(value == 'invalid-phone-number') {
 
       } else if(value == 'invalid-email') {

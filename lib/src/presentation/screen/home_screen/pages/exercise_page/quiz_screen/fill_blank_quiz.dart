@@ -15,8 +15,7 @@ class FillBlankQuiz extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: size.height * 0.08),
-          const Text('Hoàn thành câu',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
+          const Text('Hoàn thành câu', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
           const Padding(
             padding: EdgeInsets.all(24.0),
             child: QuestionBox(
