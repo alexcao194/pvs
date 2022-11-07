@@ -23,3 +23,4 @@ class LessonsStateGetSuccessful extends LessonsState {
 class LessonsStateGetFail extends LessonsState {
   LessonsStateGetFail() : super(currentLesson: 1, lessons: ['get fail'], totalLesson: 1, pickedLesson: 0);
 }
+

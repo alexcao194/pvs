@@ -14,14 +14,17 @@ class DataHandler {
     return json.decode(res.body);
   }
 
-  static Future<String> getRsult() async {
+  static Future<String> getRsult(String id, String lesson) async {
     Response res = await http.get(
-      Uri.parse('${Prefs.get('ip4')}'),
+      Uri.http('${Prefs.get('ip4')}', '/result', {
+        'id' : id,
+        'lesson' : lesson
+      }),
       headers: {
         'x-access-token' : Prefs.get('token')
       }
     );
-    return res.body;
+    return json.decode(res.body)['result'];
   }
 
   static Future<Map<String, dynamic>> getTest(lesson) async {

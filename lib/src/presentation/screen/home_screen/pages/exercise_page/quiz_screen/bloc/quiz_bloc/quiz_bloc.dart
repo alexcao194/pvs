@@ -15,17 +15,25 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
 
   FutureOr<void> _onGetQuestion(QuizEventGetQuestion event, Emitter<QuizState> emit) async {
     await DataHandler.getQuestion(event.lesson).then((value) {
-      List<Map<String, String>> lt = [];
-      for(int i = 0; i < 20; i++) {
-        lt.add({
-          'question' : value!['question-${i + 1}']['question'],
-          'answer-1' : value['question-${i + 1}']['answer-1'],
-          'answer-2' : value['question-${i + 1}']['answer-2'],
-          'answer-3' : value['question-${i + 1}']['answer-3'],
-          'answer-4' : value['question-${i + 1}']['answer-4'],
-        });
+      if(value!['result'] != null) {
+        emit(QuizStateDone(quizs: [
+          {
+            'result' : value['result']
+          }
+        ]));
+      } else {
+        List<Map<String, String>> lt = [];
+        for(int i = 0; i < 20; i++) {
+          lt.add({
+            'question' : value['question-${i + 1}']['question'],
+            'answer-1' : value['question-${i + 1}']['answer-1'],
+            'answer-2' : value['question-${i + 1}']['answer-2'],
+            'answer-3' : value['question-${i + 1}']['answer-3'],
+            'answer-4' : value['question-${i + 1}']['answer-4'],
+          });
+        }
+        emit(QuizStateQuestionSuccessful(quizs: lt));
       }
-      emit(QuizStateQuestionSuccessful(quizs: lt));
     });
   }
 

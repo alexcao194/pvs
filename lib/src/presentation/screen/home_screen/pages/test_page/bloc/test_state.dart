@@ -8,3 +8,4 @@ class TestInitial extends TestState {
   @override
   List<Object> get props => [];
 }
+

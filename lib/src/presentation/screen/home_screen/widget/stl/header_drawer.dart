@@ -32,7 +32,7 @@ class HeaderDrawer extends StatelessWidget {
                   children: [
                     const SizedBox(height: 8.0),
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(50.0),
+                      borderRadius: BorderRadius.circular(100.0),
                       child: Container(
                         height: size.height * 0.13,
                         width: size.height * 0.13,

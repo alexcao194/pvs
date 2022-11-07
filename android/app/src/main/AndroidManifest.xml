@@ -2,8 +2,8 @@
     package="com.alexcao.pvs.pvs">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
+        android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:label="pvs"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

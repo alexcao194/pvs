@@ -27,3 +27,7 @@ class QuizInitial extends QuizState {
 class QuizStateQuestionSuccessful extends QuizState {
   const QuizStateQuestionSuccessful({required super.quizs});
 }
+
+class QuizStateDone extends QuizState {
+  const QuizStateDone({required super.quizs});
+}

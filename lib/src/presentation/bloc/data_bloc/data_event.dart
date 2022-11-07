@@ -9,6 +9,7 @@ abstract class DataEvent extends Equatable {
 
 class DataEventGetUser extends DataEvent {
   const DataEventGetUser();
+
 }
 
 class DataEventUploadAvatar extends DataEvent {

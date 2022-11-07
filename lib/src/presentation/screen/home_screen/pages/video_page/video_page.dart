@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:better_player/better_player.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import '../../../../../service/shared_preferences.dart';
 
 class VideoPage extends StatefulWidget {
   const VideoPage({Key? key}) : super(key: key);
@@ -10,28 +11,21 @@ class VideoPage extends StatefulWidget {
 
 class _VideoPageState extends State<VideoPage> {
 
-  late BetterPlayerController betterPlayerController;
-
   @override
   void initState() {
     super.initState();
-    BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
-        BetterPlayerDataSourceType.network,
-        "http:/");
-    betterPlayerController = BetterPlayerController(
-    const BetterPlayerConfiguration(
-
-    ),
-    betterPlayerDataSource: betterPlayerDataSource);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: AspectRatio(
-        aspectRatio: 16 / 9,
-        child: BetterPlayer(controller: betterPlayerController)
-        ),
-      );
+    return Column(
+      children: [
+        AspectRatio(
+            aspectRatio: 16 / 9,
+            child: WebView(
+              initialUrl: '${Prefs.get('ip4')}/video',
+            ))
+      ] ,
+    );
   }
 }

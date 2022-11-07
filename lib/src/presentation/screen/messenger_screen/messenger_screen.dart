@@ -5,9 +5,10 @@ class MessengerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
+      backgroundColor: Colors.red,
       body: Center(
-        child: Text('1111111111'),
+        child: Text('Chức năng đang trong quá trình phát triển', style: TextStyle(fontWeight: FontWeight.bold, color : Colors.white)),
       ),
     );
   }

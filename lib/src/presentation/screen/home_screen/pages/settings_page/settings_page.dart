@@ -24,13 +24,12 @@ class SettingsPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: Text('Cài đặt', style: TextStyle(fontSize: 16, color: Colors.black26)),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
-                  SettingsButton(title: 'Chế độ tối', description: 'Bật/tắt chế độ tối', iconData: Icons.ac_unit_outlined),
-                  SettingsButton(title: 'Vùng đầu trang', description: 'Thay đổi kiểu thanh trạng thái', iconData: Icons.access_time)
-                ],
-              ),
+              const Text('Ứng dụng đang trong quá trinh phát triển, nếu có bất kì lỗi hay góp ý nào, hãy gửi về địa chỉ: '),
+              const SizedBox(height: 8.0),
+              const Text('alexcao194@gmail.com', style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text('0339143776', style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8.0),
+              const Text('Giờ bạn có thể đăng xuất'),
               CupertinoButton(child: const Text('Đăng xuất', style: TextStyle(color: Colors.red)), onPressed: () {
                 BlocProvider.of<UserBloc>(context).add(const UserEventLogout());
               })

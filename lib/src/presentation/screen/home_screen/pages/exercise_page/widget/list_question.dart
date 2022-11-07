@@ -5,12 +5,14 @@ class ListQuestion extends StatelessWidget {
     Key? key,
     this.onTap,
     required this.description,
+    required this.result,
     required this.label
   }) : super(key: key);
 
   final VoidCallback? onTap;
   final String label;
   final String description;
+  final String result;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,8 @@ class ListQuestion extends StatelessWidget {
                           height: 1.0, width: 100.0, color: Colors.white10),
                       Text(description)
                     ]),
+                const Expanded(child: SizedBox()),
+                Text(result)
               ],
             ),
           )),

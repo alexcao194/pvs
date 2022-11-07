@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/service/data_handler.dart';
+
+import '../../screen/home_screen/pages/exercise_page/quiz_screen/bloc/quiz_result_bloc/quiz_result_bloc.dart';
 
 part 'lessons_event.dart';
 part 'lessons_state.dart';
@@ -16,6 +19,7 @@ class LessonsBloc extends Bloc<LessonsEvent, LessonsState> {
 
   FutureOr<void> _onGet(LessonsEventGet event, Emitter<LessonsState> emit) async {
     await DataHandler.getLessons().then((value) {
+      BlocProvider.of<QuizResultBloc>(event.context).add(QuizResultEventGet(id: event.id, lesson: 'lesson_${value['currentLesson']}'));
       List<String> lt = [];
       for(int i = 0; i < value['totalLesson']; i++) {
         lt.add(value['lessons'][i]);
@@ -32,6 +36,7 @@ class LessonsBloc extends Bloc<LessonsEvent, LessonsState> {
   }
 
   FutureOr<void> _onChange(LessonsEventChange event, Emitter<LessonsState> emit) {
+    BlocProvider.of<QuizResultBloc>(event.context).add(QuizResultEventGet(id: event.id, lesson: 'lesson_${event.pickedLesson}'));
     emit(LessonsStateGetSuccessful(
         lessons: event.state.lessons,
         currentLesson: event.state.currentLesson,

@@ -31,14 +31,16 @@ class HomeScreen extends StatelessWidget {
         builder: (context, userState) {
           return BlocBuilder<DataBloc, DataState>(
             builder: (context, dataState) {
-              return Scaffold(
-                  backgroundColor: AppThemes.theme.backgroundColor,
+              return Stack(
+                children: [
+              Scaffold(
+              backgroundColor: AppThemes.theme.backgroundColor,
                   key: _scaffoldKey,
                   drawer: const AppDrawer(),
                   body: Stack(
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: size.height * 0.09),
+                        padding: EdgeInsets.symmetric(vertical: size.height * 0.08),
                         child: PageView(
                           controller: pageController,
                           children: const [
@@ -59,13 +61,16 @@ class HomeScreen extends StatelessWidget {
                   (MediaQuery.of(context).viewInsets.bottom == 0 &&
                       navigationBarState.currentPage != 4)
                       ? FloatingActionButton(
-                      tooltip: 'Open Quiz',
                       backgroundColor: AppThemes.theme.primaryColor,
                       onPressed: () {
+                        AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.messsenger);
                       },
                       child: const Icon(Icons.quiz))
                       : null,
-                  bottomNavigationBar: NavigationAppBar(pageController: pageController, size: size));
+                  bottomNavigationBar: NavigationAppBar(pageController: pageController, size: size)),
+
+                ],
+              );
             },
           );
         },

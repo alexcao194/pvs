@@ -93,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                     },
                   )
                 ],
-              )
+              ),
             ]),
             userState is UserStateLoading
                 ? Container(

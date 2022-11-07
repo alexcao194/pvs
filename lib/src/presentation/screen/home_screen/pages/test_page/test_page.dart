@@ -21,6 +21,7 @@ class TestPage extends StatelessWidget {
                 ListQuestion(
                   description: 'Một vài mô tả',
                   label: 'Bài kiểm tra thử nghiệm',
+                  result: '12/20',
                   onTap: () {
                     BlocProvider.of<TestBloc>(context).add(const TestEventGet(lesson: 'lesson_1'));
                     AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.test);

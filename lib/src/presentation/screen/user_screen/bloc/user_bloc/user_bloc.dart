@@ -45,7 +45,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               break;
             case 'login-successful':
               BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser());
-              BlocProvider.of<LessonsBloc>(event.context).add(const LessonsEventGet());
+              BlocProvider.of<LessonsBloc>(event.context).add(LessonsEventGet(context: event.context, id: Prefs.get('id')));
               emit(const UserStateLoginSuccessful());
               break;
           }
@@ -68,14 +68,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               AppRouter.navigatorKey.currentState?.pushReplacementNamed(AppRoutes.login);
             } else {
               Prefs.set('token', value['accessToken']);
-              BlocProvider.of<LessonsBloc>(event.context).add(const LessonsEventGet());
+              BlocProvider.of<LessonsBloc>(event.context).add(LessonsEventGet(context: event.context, id: Prefs.get('id')));
               BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser());
             }
           }).onError((error, stackTrace) {
           });
           break;
         default:
-          BlocProvider.of<LessonsBloc>(event.context).add(const LessonsEventGet());
+          BlocProvider.of<LessonsBloc>(event.context).add(LessonsEventGet(context: event.context, id: Prefs.get('id')));
           BlocProvider.of<DataBloc>(event.context).add(const DataEventGetUser());
           break;
       }

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/multi_choice_quiz.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/widget/question_header_bar.dart';
 
-import 'bloc/quiz_bloc.dart';
+import 'bloc/quiz_bloc/quiz_bloc.dart';
 
 enum QuizType {
   fillBank,
