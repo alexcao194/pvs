@@ -65,6 +65,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         case 'unauthorized':
           await LocalAuthentication.refreshToken().then((value) {
             if(value['message'] != null) {
+              print('test relogin');
+              print(value);
               AppRouter.navigatorKey.currentState?.pushReplacementNamed(AppRoutes.login);
             } else {
               Prefs.set('token', value['accessToken']);

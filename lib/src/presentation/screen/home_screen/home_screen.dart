@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/config/theme.dart';
 import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
+import 'package:pvs/src/presentation/bloc/lessons_bloc/lessons_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/exercise_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/settings_page/settings_page.dart';
@@ -29,47 +30,48 @@ class HomeScreen extends StatelessWidget {
         builder: (context, navigationBarState) {
       return BlocBuilder<UserBloc, UserState>(
         builder: (context, userState) {
-          return BlocBuilder<DataBloc, DataState>(
-            builder: (context, dataState) {
-              return Stack(
-                children: [
-              Scaffold(
-              backgroundColor: AppThemes.theme.backgroundColor,
-                  key: _scaffoldKey,
-                  drawer: const AppDrawer(),
-                  body: Stack(
+          return BlocBuilder<LessonsBloc, LessonsState>(
+            builder: (context, lessonsState) {
+              return BlocBuilder<DataBloc, DataState>(
+                builder: (context, dataState) {
+                  return Stack(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: size.height * 0.08),
-                        child: PageView(
-                          controller: pageController,
-                          children: const [
-                            TestPage(),
-                            VideoPage(),
-                            KeepAlivePage(child: ExercisePage()),
-                            TestPage(),
-                            SettingsPage()
-                          ],
-                        ),
-                      ),
-                      buildHeaderBar(dataState),
+                      Scaffold(
+                          backgroundColor: AppThemes.theme.backgroundColor,
+                          key: _scaffoldKey,
+                          drawer: const AppDrawer(),
+                          body: Stack(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: size.height * 0.08),
+                                child: PageView(
+                                  controller: pageController,
+                                  children: const [
+                                    TestPage(),
+                                    VideoPage(),
+                                    KeepAlivePage(child: ExercisePage()),
+                                    TestPage(),
+                                    SettingsPage()
+                                  ],
+                                ),
+                              ),
+                              buildHeaderBar(dataState, lessonsState),
+                            ],
+                          ),
+                          floatingActionButtonLocation:
+                              FloatingActionButtonLocation.endFloat,
+                          floatingActionButton: (MediaQuery.of(context).viewInsets.bottom == 0 && navigationBarState.currentPage != 4)
+                              ? FloatingActionButton(
+                                  backgroundColor: AppThemes.theme.primaryColor,
+                                  onPressed: () {
+                                    AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.messsenger);
+                                  },
+                                  child: const Icon(Icons.quiz))
+                              : null,
+                          bottomNavigationBar: NavigationAppBar(pageController: pageController, size: size)),
                     ],
-                  ),
-                  floatingActionButtonLocation:
-                  FloatingActionButtonLocation.endFloat,
-                  floatingActionButton:
-                  (MediaQuery.of(context).viewInsets.bottom == 0 &&
-                      navigationBarState.currentPage != 4)
-                      ? FloatingActionButton(
-                      backgroundColor: AppThemes.theme.primaryColor,
-                      onPressed: () {
-                        AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.messsenger);
-                      },
-                      child: const Icon(Icons.quiz))
-                      : null,
-                  bottomNavigationBar: NavigationAppBar(pageController: pageController, size: size)),
-
-                ],
+                  );
+                },
               );
             },
           );
@@ -78,15 +80,15 @@ class HomeScreen extends StatelessWidget {
     });
   }
 
-  HeaderBar buildHeaderBar(DataState dataState) {
+  HeaderBar buildHeaderBar(DataState dataState, LessonsState lessonsState) {
     return HeaderBar(
       headerType: HeaderType.full,
       title: const Text('Hello world', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       leading: CircleAvatar(
         radius: 20.0,
         backgroundColor: AppThemes.theme.buttonBackgroundColor,
-        child: const Text(
-          '1',
+        child: Text(
+          lessonsState.pickedLesson.toString(),
         ),
       ),
       action: ClipRRect(

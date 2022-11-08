@@ -154,13 +154,16 @@ class _MultiChoiceQuizState extends State<MultiChoiceQuiz> {
                   height: 60,
                   radius: 10.0,
                   isActive: true,
+                  // TODO: thiet ke man hinh ket qua
+                  // TODO: them danh sach TextEditingController
+                  // TODO: handle submit test
                   onTap: pickedAnswer != -1 ? () {
                     StreamSocket.socket!.emit('submit', {
                       'id': dataState.user.id!,
                       'question': widget.page,
                       'answer': pickedAnswer,
-                      'lesson': lessonsState.pickedLesson
-                    });
+                      'lesson': 'lesson_${lessonsState.pickedLesson}'
+                          });
                     if (widget.totalQuestion ==
                         widget.pageController.page!.floor() + 1) {
                       AppRouter.navigatorKey.currentState?.pushReplacementNamed(

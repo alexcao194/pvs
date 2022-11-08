@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/data_handler.dart';
 import 'package:pvs/src/service/stream_socket.dart';
 

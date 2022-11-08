@@ -13,7 +13,7 @@ class TestPage extends StatelessWidget {
     return BlocBuilder<TestBloc, TestState>(
       builder: (context, testState) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(

@@ -50,7 +50,10 @@ class ListQuestion extends StatelessWidget {
                       Text(description)
                     ]),
                 const Expanded(child: SizedBox()),
-                Text(result)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(result),
+                )
               ],
             ),
           )),

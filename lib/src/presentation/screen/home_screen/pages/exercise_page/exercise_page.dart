@@ -16,34 +16,39 @@ class ExercisePage extends StatelessWidget {
       builder: (context, quizState) {
         return BlocBuilder<QuizResultBloc, QuizResultState>(
           builder: (context, quizResultState) {
-            return BlocBuilder<LessonsBloc, LessonsState>(
-              builder: (context, lessonsState) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        ListQuestion(
-                          description: 'Một vài mô tả',
-                          label: 'Bộ quiz thử nghiệm',
-                          result: quizResultState is QuizResultStateDone ? quizResultState.result : '',
-                          onTap: () {
-                            if (!StreamSocket.hasInit) {
-                              StreamSocket.init();
-                              BlocProvider.of<QuizBloc>(context)
-                                  .add(const QuizEventListen());
-                              StreamSocket.hasInit = true;
-                            }
-                            BlocProvider.of<QuizBloc>(context).add(
-                                QuizEventGetQuestion(
-                                    lesson: 'lesson_${lessonsState
-                                        .currentLesson}'));
-                          },
-                        )
-                      ],
-                    ),
-                  ),
+            return BlocBuilder<QuizResultBloc, QuizResultState>(
+              builder: (context, quizResulttate) {
+                return BlocBuilder<LessonsBloc, LessonsState>(
+                  builder: (context, lessonsState) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Column(
+                          children: [
+                            ListQuestion(
+                              description: 'Một vài mô tả',
+                              label: 'Bộ quiz thử nghiệm',
+                              result: quizResultState is QuizResultStateDone
+                                  ? quizResultState.result
+                                  : '',
+                              onTap: quizResulttate is! QuizResultStateDone
+                                  ? () {
+                                    if (!StreamSocket.hasInit) {
+                                      StreamSocket.init();
+                                      BlocProvider.of<QuizBloc>(context).add(const QuizEventListen());
+                                      StreamSocket.hasInit = true;
+                                    }
+                                    BlocProvider.of<QuizBloc>(context).add(QuizEventGetQuestion(lesson: 'lesson_${lessonsState.currentLesson}'));
+                                    AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.quiz);
+                              }
+                                  : () {},
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             );
