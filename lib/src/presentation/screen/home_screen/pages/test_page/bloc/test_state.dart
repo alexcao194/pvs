@@ -12,7 +12,7 @@ class TestInitial extends TestState {
 class TestStateGenerateDone extends TestState {
   const TestStateGenerateDone({required this.test});
 
-  final List<InlineSpan> test;
+  final List<Widget> test;
 
   @override
   List<Object> get props => [test];

@@ -7,12 +7,13 @@ class BlankBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
+    var size = MediaQuery.of(context).size;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: SizedBox(
+        height: size.height * 0.03,
         width: 60,
-        height: 40,
-        child: TextField(
+        child: const TextField(
           maxLines: 1,
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
