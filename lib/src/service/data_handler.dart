@@ -46,4 +46,20 @@ class DataHandler {
     );
     return json.decode(res.body);
 }
+
+  static Future<Map<String, dynamic>> submitTest(String lesson, int test, List<String> result) async {
+    Response res = await http.post(
+      Uri.parse('http://${Prefs.get('ip4')}/submit_test'),
+      headers: {
+        'x-access-token' : Prefs.get('token'),
+        'content-type' : 'application/json'
+      },
+      body: json.encode({
+        "lesson" : lesson,
+        "test" : test,
+        "result" : result
+      })
+    );
+    return json.decode(res.body);
+  }
 }

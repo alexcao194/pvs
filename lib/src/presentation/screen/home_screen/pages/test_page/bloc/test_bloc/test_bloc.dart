@@ -13,6 +13,7 @@ part 'test_state.dart';
 class TestBloc extends Bloc<TestEvent, TestState> {
   TestBloc() : super(TestInitial()) {
     on<TestEventGet>(_onGet);
+    on<TestEventSubmit>(_onSubmit);
   }
 
   FutureOr<void> _onGet(TestEventGet event, Emitter<TestState> emit) async {
@@ -53,5 +54,30 @@ class TestBloc extends Bloc<TestEvent, TestState> {
       }
       emit(TestStateGenerateDone(test: tests, controllers: controllerss,countTest: value.length));
     });
+  }
+
+  FutureOr<void> _onSubmit(TestEventSubmit event, Emitter<TestState> emit) async {
+    List<String> result = [];
+    for (int i = 0; i < event.controllers.length; i++) {
+      if(event.controllers[i].value.text != '') {
+        result.add(event.controllers[i].value.text);
+      } else {
+        break;
+      }
+    }
+    if(result.length == event.controllers.length) {
+      print(event.lesson);
+      await DataHandler.submitTest(event.lesson, event.test, result).then((value) {
+        print(value);
+        if(value['message'] == 'done') {
+          event.pageController.nextPage(duration: const Duration(milliseconds: 2000), curve: Curves.bounceIn);
+        }
+      }).timeout(const Duration(milliseconds: 2000)).onError((error, stackTrace) {
+        print(error);
+      });
+    } else {
+      // do sth
+    }
+
   }
 }

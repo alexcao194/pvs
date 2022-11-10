@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/widget/list_question.dart';
-import 'package:pvs/src/presentation/screen/home_screen/pages/test_page/bloc/test_bloc.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/test_page/bloc/test_bloc/test_bloc.dart';
 import 'package:pvs/src/service/app_router.dart';
 
 

@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/widget/question_box.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/widget/question_header_bar.dart';
 
-import '../bloc/test_bloc.dart';
+import '../../../../../bloc/lessons_bloc/lessons_bloc.dart';
+import '../bloc/test_bloc/test_bloc.dart';
 
 class FillBlankQuiz extends StatelessWidget {
   FillBlankQuiz({
@@ -18,26 +19,30 @@ class FillBlankQuiz extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return BlocBuilder<TestBloc, TestState>(
       builder: (context, testState) {
-        return Stack(
-          children: [
-            PageView.builder(
-              controller: pageController,
-              physics: const ScrollPhysics(
-                parent: NeverScrollableScrollPhysics()
-              ),
-              itemCount: testState is TestStateGenerateDone ? testState.countTest : 0,
-              itemBuilder: (context, index) {
-                return buildBody(size, testState, index);
-              },
-            ),
-            const QuestionHeaderBar()
-          ],
+        return BlocBuilder<LessonsBloc, LessonsState>(
+          builder: (context, lessonsState) {
+            return Stack(
+                  children: [
+                    PageView.builder(
+                      controller: pageController,
+                      physics: const ScrollPhysics(
+                        parent: NeverScrollableScrollPhysics()
+                      ),
+                      itemCount: testState is TestStateGenerateDone ? testState.countTest : 0,
+                      itemBuilder: (context, index) {
+                        return buildBody(size, testState, index, context, lessonsState);
+                      },
+                    ),
+                    const QuestionHeaderBar()
+                  ],
+                );
+          },
         );
       },
     );
   }
 
-  Widget buildBody(Size size, TestState testState, int test) {
+  Widget buildBody(Size size, TestState testState, int test, BuildContext context, LessonsState lessonsState) {
     return Stack(
       children: [
         SingleChildScrollView(
@@ -91,10 +96,16 @@ class FillBlankQuiz extends StatelessWidget {
                 radius: 10.0,
                 isActive: true,
                 onTap: () {
-                  if (testState is TestStateGenerateDone) {
-                    if(testState.countTest != test + 1) {
-                      pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.bounceIn);
-                    }
+                  if(testState is TestStateGenerateDone) {
+                    BlocProvider.of<TestBloc>(context).add(TestEventSubmit(
+                        pageController: pageController,
+                        test: test,
+                        context: context,
+                        totalTest: testState.countTest,
+                        controllers: testState.controllers[test],
+                        lesson: 'lesson_${lessonsState.pickedLesson}'
+                    )
+                    );
                   }
                 },
                 child: const Text('Submit', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white)),
