@@ -149,14 +149,10 @@ class _MultiChoiceQuizState extends State<MultiChoiceQuiz> {
               bottomNavigationBar: Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: InkWellButton(
-                  primaryColor: pickedAnswer != -1 ? Colors.red : Colors
-                      .black12,
+                  primaryColor: pickedAnswer != -1 ? Colors.red : Colors.black12,
                   height: 60,
                   radius: 10.0,
                   isActive: true,
-                  // TODO: thiet ke man hinh ket qua
-                  // TODO: them danh sach TextEditingController
-                  // TODO: handle submit test
                   onTap: pickedAnswer != -1 ? () {
                     StreamSocket.socket!.emit('submit', {
                       'id': dataState.user.id!,

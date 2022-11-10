@@ -10,10 +10,12 @@ class TestInitial extends TestState {
 }
 
 class TestStateGenerateDone extends TestState {
-  const TestStateGenerateDone({required this.test});
+  const TestStateGenerateDone({required this.test, required this.controllers, required this.countTest});
 
-  final List<Widget> test;
+  final List<List<Widget>> test;
+  final List<List<TextEditingController>> controllers;
+  final int countTest;
 
   @override
-  List<Object> get props => [test];
+  List<Object> get props => [test, controllers, countTest];
 }

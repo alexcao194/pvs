@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 class BlankBox extends StatelessWidget {
   const BlankBox({
     Key? key,
+    required this.controller
   }) : super(key: key);
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +16,10 @@ class BlankBox extends StatelessWidget {
       child: SizedBox(
         height: size.height * 0.03,
         width: 60,
-        child: const TextField(
+        child: TextField(
           maxLines: 1,
-          style: TextStyle(fontWeight: FontWeight.w500),
+          controller: controller,
+          style: const TextStyle(fontWeight: FontWeight.w500),
         ),
       ),
     );

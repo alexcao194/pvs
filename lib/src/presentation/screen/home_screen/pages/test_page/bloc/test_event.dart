@@ -8,7 +8,6 @@ class TestEventGet extends TestEvent {
   const TestEventGet({required this.lesson});
 
   final String lesson;
-
   @override
   List<Object?> get props => [lesson];
 }

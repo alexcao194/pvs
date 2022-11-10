@@ -27,7 +27,7 @@ class DataHandler {
     return json.decode(res.body)['result'];
   }
 
-  static Future<Map<String, dynamic>> getTest(lesson) async {
+  static Future<List<dynamic>> getTest(lesson) async {
     Response res = await http.get(
       Uri.http(Prefs.get('ip4'), '/test', {'lesson' : lesson}),
       headers: {
