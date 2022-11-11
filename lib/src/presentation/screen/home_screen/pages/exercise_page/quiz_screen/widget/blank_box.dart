@@ -14,7 +14,7 @@ class BlankBox extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
-        height: size.height * 0.03,
+        height: size.height * 0.05,
         width: 60,
         child: TextField(
           maxLines: 1,

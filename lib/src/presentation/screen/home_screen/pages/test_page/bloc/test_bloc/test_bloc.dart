@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/widget/blank_box.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/test_page/bloc/test_infor_bloc/test_infor_bloc.dart';
+import 'package:pvs/src/service/app_router.dart';
 import 'package:pvs/src/service/data_handler.dart';
 
 part 'test_event.dart';
@@ -66,14 +69,16 @@ class TestBloc extends Bloc<TestEvent, TestState> {
       }
     }
     if(result.length == event.controllers.length) {
-      print(event.lesson);
       await DataHandler.submitTest(event.lesson, event.test, result).then((value) {
-        print(value);
         if(value['message'] == 'done') {
-          event.pageController.nextPage(duration: const Duration(milliseconds: 2000), curve: Curves.bounceIn);
+          if(event.totalTest != event.test + 1) {
+            event.pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.bounceIn);
+          } else {
+            BlocProvider.of<TestInforBloc>(event.context).add(TestInforEventGet(lesson: event.lesson));
+            AppRouter.navigatorKey.currentState?.pushReplacementNamed(AppRoutes.testResult);
+          }
         }
       }).timeout(const Duration(milliseconds: 2000)).onError((error, stackTrace) {
-        print(error);
       });
     } else {
       // do sth

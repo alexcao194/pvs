@@ -14,7 +14,6 @@ class QuizResultBloc extends Bloc<QuizResultEvent, QuizResultState> {
 
   FutureOr<void> _onGet(QuizResultEventGet event, Emitter<QuizResultState> emit) async {
     await DataHandler.getRsult(event.id, event.lesson).then((value) {
-      print(value);
       if(value == 'nope') {
         emit(QuizResultInitial());
       } else if (value.length == 1) {

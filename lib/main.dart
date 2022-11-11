@@ -9,6 +9,7 @@ import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/bloc/quiz_bloc/quiz_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/bloc/quiz_result_bloc/quiz_result_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/test_page/bloc/test_bloc/test_bloc.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/test_page/bloc/test_infor_bloc/test_infor_bloc.dart';
 import 'package:pvs/src/service/shared_preferences.dart';
 import 'src/presentation/screen/user_screen/bloc/user_bloc/user_bloc.dart';
 import 'src/service/app_router.dart';
@@ -32,7 +33,8 @@ void main() async {
           BlocProvider(create: (_) => DataBloc()),
           BlocProvider(create: (_) => LessonsBloc()),
           BlocProvider(create: (_) => TestBloc()),
-          BlocProvider(create: (_) => QuizResultBloc())
+          BlocProvider(create: (_) => QuizResultBloc()),
+          BlocProvider(create: (_) => TestInforBloc())
         ],
         child: const MyApp()
       )

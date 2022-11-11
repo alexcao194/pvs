@@ -20,8 +20,7 @@ class AppDrawer extends StatelessWidget {
               backgroundColor: AppThemes.theme.backgroundColor,
               child: Stack(
                 children: [
-                  Column(
-                      children: buildTitle(lessonsState, size, context, dataState)),
+                  Column(children: buildTitle(lessonsState, size, context, dataState)),
                   const HeaderDrawer()
                 ],
               ),

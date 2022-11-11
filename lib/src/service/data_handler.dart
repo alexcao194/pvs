@@ -62,4 +62,14 @@ class DataHandler {
     );
     return json.decode(res.body);
   }
+
+  static Future<Map<String, dynamic>> getTestInfor(String lesson) async {
+    Response res = await http.get(
+      Uri.http('${Prefs.get('ip4')}', '/test_infor', {'lesson' : lesson}),
+      headers: {
+        'x-access-token' : Prefs.get('token')
+      }
+    );
+    return json.decode(res.body);
+  }
 }

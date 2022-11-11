@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pvs/src/model/user.dart';
-import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/bloc/quiz_result_bloc/quiz_result_bloc.dart';
 import 'package:pvs/src/service/app_router.dart';
-import 'package:pvs/src/service/data_handler.dart';
 import 'package:pvs/src/service/local_authentication.dart';
 
 import '../../../service/shared_preferences.dart';
@@ -33,7 +30,6 @@ class DataBloc extends Bloc<DataEvent, DataState> {
       } else {
           User user = User.fromJson(value);
           emit(DataStateGetUserSuccessful(user: user));
-          AppRouter.navigatorKey.currentState?.pushReplacementNamed(AppRoutes.home);
         }
       }
     );
