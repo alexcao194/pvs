@@ -19,6 +19,7 @@ class BlankBox extends StatelessWidget {
         child: TextField(
           maxLines: 1,
           controller: controller,
+          textInputAction: TextInputAction.next,
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
       ),

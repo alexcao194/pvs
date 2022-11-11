@@ -45,6 +45,9 @@ class HomeScreen extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(vertical: size.height * 0.08),
                                 child: PageView(
+                                  physics: const ScrollPhysics(
+                                    parent: NeverScrollableScrollPhysics()
+                                  ),
                                   controller: pageController,
                                   children: const [
                                     TestPage(),
