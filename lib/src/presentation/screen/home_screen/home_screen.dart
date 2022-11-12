@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                               ? FloatingActionButton(
                                   backgroundColor: AppThemes.theme.primaryColor,
                                   onPressed: () {
-                                    AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.messsenger);
+                                    AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.checkin);
                                   },
                                   child: const Icon(Icons.quiz))
                               : null,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pvs/src/presentation/screen/check_in_screen/check_in_screen.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/quiz_screen.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/result_screen.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/test_page/test_result_screen.dart';
@@ -45,6 +46,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const TestScreen());
       case AppRoutes.testResult:
         return MaterialPageRoute(builder: (_) => const TestResultScreen());
+      case AppRoutes.checkin:
+        return MaterialPageRoute(builder: (_) => const CheckInScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
@@ -70,4 +73,5 @@ class AppRoutes {
   static const String result = '/result';
   static const String test = '/test';
   static const String testResult = '/restResult';
+  static const String checkin = '/checkIn';
 }

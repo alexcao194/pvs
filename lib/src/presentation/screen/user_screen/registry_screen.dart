@@ -64,7 +64,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                   children: [
                     GestureDetector(
                     onTap: () async {
-                        await ImgPicker.onPick().then((value) {
+                        await ImgPicker.onPick(ImageSource.gallery).then((value) {
                           if (value != null) {
                             setState(() {
                               img = value;

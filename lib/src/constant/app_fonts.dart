@@ -1,3 +1,3 @@
 class AppFonts {
-  static String primary = 'Primary';
+  static const String primary = 'Primary';
 }

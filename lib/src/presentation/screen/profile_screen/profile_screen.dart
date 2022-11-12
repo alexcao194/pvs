@@ -86,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     child: GestureDetector(
                                         onTap: isEditing
                                             ? () async {
-                                                await ImgPicker.onPick()
+                                                await ImgPicker.onPick(ImageSource.gallery)
                                                     .then((value) {
                                                   if (value != null) {
                                                     setState(() {

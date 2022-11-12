@@ -128,6 +128,16 @@ class LocalAuthentication {
     return response.statusCode.toString();
   }
 
+  static Future<String?> checkin(String address, String filePath, String fileName, Map<String, String> request) async {
+    var postUri = Uri.http(Prefs.get('ip4'), address, request);
+    var req = http.MultipartRequest("POST", postUri);
+    await http.MultipartFile.fromPath('checkin', filePath, filename: fileName).then((file) {
+      req.files.add(file);
+    });
+    http.StreamedResponse response = await req.send();
+    return response.statusCode.toString();
+  }
+
   static avatar(String id) {
     return "http://${Prefs.get('ip4')}/users/$id/avatar.jpg";
   }

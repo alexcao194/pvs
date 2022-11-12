@@ -34,10 +34,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         .then((value) {
       switch(value) {
             case 'input-empty':
-              emit(UserStateLoginFail(error: AppString.nullField));
+              emit(const UserStateLoginFail(error: AppString.nullField));
               break;
             case 'incorrect-account':
-              emit(UserStateLoginFail(error: AppString.incorrectAccount));
+              emit(const UserStateLoginFail(error: AppString.incorrectAccount));
               break;
             case 'not-registry':
               emit(UserStateSignUpSuccessful(status: AppString.signupSuccessful, id: event.id));
@@ -91,22 +91,22 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         .then((value) {
           switch(value) {
             case "input-empty":
-              emit(UserStateSignUpFail(error: AppString.nullField));
+              emit(const UserStateSignUpFail(error: AppString.nullField));
               break;
             case "password-not-match":
-              emit(UserStateSignUpFail(error: AppString.passwordNotCompare));
+              emit(const UserStateSignUpFail(error: AppString.passwordNotCompare));
               break;
             case "exists-account":
-              emit(UserStateSignUpFail(error: AppString.existsAccount));
+              emit(const UserStateSignUpFail(error: AppString.existsAccount));
               break;
             case "invalid-password":
-              emit(UserStateSignUpFail(error: AppString.invalidPassword));
+              emit(const UserStateSignUpFail(error: AppString.invalidPassword));
               break;
             case "invalid-email":
-              emit(UserStateSignUpFail(error: AppString.invalidEmail));
+              emit(const UserStateSignUpFail(error: AppString.invalidEmail));
               break;
             case "invalid-id":
-              emit(UserStateSignUpFail(error: AppString.invalidId));
+              emit(const UserStateSignUpFail(error: AppString.invalidId));
               break;
             case "signup-successful":
               emit(UserStateSignUpSuccessful(status: AppString.signupSuccessful, id: event.id));
@@ -146,7 +146,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           emit(UserStateRegistryFail(error: AppString.existsAccount, id: event.id));
           break;
         case 'registry-successful':
-          emit(UserStateRegistrySuccessful(status: AppString.signupSuccessful));
+          emit(const UserStateRegistrySuccessful(status: AppString.signupSuccessful));
           break;
       }
     });
