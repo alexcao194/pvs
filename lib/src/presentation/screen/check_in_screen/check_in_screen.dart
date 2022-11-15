@@ -64,16 +64,18 @@ class _CheckInScreenState extends State<CheckInScreen> {
                 InkWellButton(
                   height: 50,
                   width: 120,
+                  radius: 10.0,
                   onTap: () {
                     AppRouter.navigatorKey.currentState?.pop();
                   },
                   primaryColor: Colors.red,
                   child: const Text('Hủy'),
                 ),
-                SizedBox(width: size.width * 0.08),
+                SizedBox(width: size.width * 0.1),
                 InkWellButton(
                   height: 50,
                   width: 120,
+                  radius: 10.0,
                   onTap: img != null
                     ? () async {
                     await LocalAuthentication.checkin('/checkin', File(img!.path).path, '${AppTime.simpleDateFormat(DateTime.now()).replaceAll('/', '-')}/${Prefs.get('id')}.jpg', {});

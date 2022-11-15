@@ -99,6 +99,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                         width: double.maxFinite),
                     AuthInput(
                       controller: phoneController,
+                      textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.phone,
                       icon: Icons.phone,
                       label: "Số điện thoại",
@@ -158,6 +159,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
               Expanded(
                 child: AuthInput(
                   controller: nameController,
+                  textInputAction: TextInputAction.next,
                   icon: Icons.person,
                   label: "Họ và tên",
                   borderRadius: 3.0,
@@ -167,6 +169,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
               Expanded(
                 child: AuthInput(
                   controller: groupController,
+                  textInputAction: TextInputAction.next,
                   icon: Icons.group,
                   keyboardType: TextInputType.number,
                   label: "Nhóm",

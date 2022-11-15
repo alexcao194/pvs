@@ -162,8 +162,7 @@ class _MultiChoiceQuizState extends State<MultiChoiceQuiz> {
                           });
                     if (widget.totalQuestion ==
                         widget.pageController.page!.floor() + 1) {
-                      AppRouter.navigatorKey.currentState?.pushReplacementNamed(
-                          AppRoutes.result);
+                      AppRouter.navigatorKey.currentState?.pushReplacementNamed(AppRoutes.home);
                     } else {
                       widget.pageController.nextPage(duration: const Duration(
                           milliseconds: 300), curve: Curves.bounceIn);

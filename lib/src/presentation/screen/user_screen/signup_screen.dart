@@ -31,23 +31,27 @@ class SignupScreen extends StatelessWidget {
                 SizedBox(height: size.height * 0.01),
                 AuthInput(
                     controller: idController,
+                    textInputAction: TextInputAction.next,
                     icon: Icons.person,
                     label: 'Mã sinh viên'),
                 SizedBox(height: size.height * 0.02),
                 AuthInput(
                     controller: passwordController,
+                    textInputAction: TextInputAction.next,
                     obscureText: true,
                     icon: Icons.lock,
                     label: 'Mật khẩu'),
                 SizedBox(height: size.height * 0.02),
                 AuthInput(
                     controller: rePasswordController,
+                    textInputAction: TextInputAction.next,
                     obscureText: true,
                     icon: Icons.lock,
                     label: 'Nhập lại mật khẩu'),
                 SizedBox(height: size.height * 0.02),
                 AuthInput(
                     controller: emailController,
+                    textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
                     icon: Icons.email,
                     label: 'Email'),

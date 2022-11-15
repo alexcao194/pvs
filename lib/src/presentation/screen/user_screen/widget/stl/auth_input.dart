@@ -15,7 +15,8 @@ class AuthInput extends StatelessWidget {
         this.controller,
         this.borderRadius,
         this.enable,
-        this.keyboardType
+        this.keyboardType,
+        this.textInputAction
       })
       : super(key: key);
 
@@ -31,6 +32,7 @@ class AuthInput extends StatelessWidget {
   final double? borderRadius;
   final bool? enable;
   final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class AuthInput extends StatelessWidget {
         obscureText: obscureText ?? false,
         onSubmitted: onSubmitted,
         enabled: enable,
+        textInputAction: textInputAction,
         onTap: onTap,
         keyboardType: keyboardType,
         style: AppThemes.theme.labelAuthInputStyle,

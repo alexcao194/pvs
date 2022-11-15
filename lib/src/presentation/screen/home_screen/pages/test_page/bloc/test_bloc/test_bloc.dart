@@ -65,20 +65,47 @@ class TestBloc extends Bloc<TestEvent, TestState> {
       if(event.controllers[i].value.text != '') {
         result.add(event.controllers[i].value.text);
       } else {
+        showDialog(context: event.context, builder: (context) {
+          return AlertDialog(
+            content: const Text('Hãy điền tất cả các trường trước khi nộp'),
+            actions: [
+              TextButton(onPressed: () {
+                Navigator.of(event.context).pop();
+              },
+                  child: const Text('ok', style: TextStyle(color: Colors.red))
+              )
+            ],
+          );
+        });
         break;
       }
     }
     if(result.length == event.controllers.length) {
-      await DataHandler.submitTest(event.lesson, event.test, result).then((value) {
-        if(value['message'] == 'done') {
-          if(event.totalTest != event.test + 1) {
-            event.pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.bounceIn);
-          } else {
-            BlocProvider.of<TestInforBloc>(event.context).add(TestInforEventGet(lesson: event.lesson));
-            AppRouter.navigatorKey.currentState?.pushReplacementNamed(AppRoutes.testResult);
-          }
-        }
-      }).timeout(const Duration(milliseconds: 2000)).onError((error, stackTrace) {
+      showDialog(context: event.context, builder: (context) {
+        return AlertDialog(
+          content: const Text('Sau khi bấm nộp bài sẽ không thể quay lại, bạn có chắc muốn nộp bài?'),
+          actions: [
+            TextButton(onPressed: () {
+              Navigator.of(event.context).pop();
+            }, child: const Text('Hủy', style: TextStyle(color: Colors.red))),
+            TextButton(onPressed: () async {
+              Navigator.of(event.context).pop();
+              await DataHandler.submitTest(event.lesson, event.test, result).then((value) {
+                if(value['message'] == 'done') {
+                  if(event.totalTest != event.test + 1) {
+                    event.pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.bounceIn);
+                  } else {
+                    BlocProvider.of<TestInforBloc>(event.context).add(TestInforEventGet(lesson: event.lesson));
+                    AppRouter.navigatorKey.currentState?.pushReplacementNamed(AppRoutes.home);
+                  }
+                }
+              }).timeout(const Duration(milliseconds: 2000)).onError((error, stackTrace) {
+
+              });
+
+            }, child: const Text('Nộp', style: TextStyle(color: Colors.red)))
+          ],
+        );
       });
     } else {
       // do sth

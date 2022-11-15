@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
   HeaderBar buildHeaderBar(DataState dataState, LessonsState lessonsState) {
     return HeaderBar(
       headerType: HeaderType.full,
-      title: const Text('Hello world', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+      title: Text(lessonsState.lessons[lessonsState.pickedLesson - 1], style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       leading: CircleAvatar(
         radius: 20.0,
         backgroundColor: AppThemes.theme.buttonBackgroundColor,

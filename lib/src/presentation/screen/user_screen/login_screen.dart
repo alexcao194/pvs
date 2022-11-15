@@ -27,6 +27,7 @@ class LoginScreen extends StatelessWidget {
             Template(label: 'Đăng nhập', children: [
               AuthInput(
                 controller: idController,
+                textInputAction: TextInputAction.next,
                 icon: Icons.person,
                 label: 'Mã Sinh Viên',
                 onTap: () {
