@@ -68,7 +68,11 @@ class ExercisePage extends StatelessWidget {
                                   StreamSocket.hasInit = true;
                                 }
                                 AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.quiz);
-                                BlocProvider.of<QuizBloc>(context).add(QuizEventGetQuestion(lesson: 'lesson_${lessonsState.currentLesson}'));
+                                BlocProvider.of<QuizBloc>(context).add(
+                                    QuizEventGetQuestion(
+                                        lesson: 'lesson_${lessonsState.currentLesson}'
+                                    )
+                                );
                               }
                                   : () {},
                               child: Container(

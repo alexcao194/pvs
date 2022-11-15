@@ -18,3 +18,11 @@ class QuizResultStateDone extends QuizResultState {
   List<Object> get props => [result];
 }
 
+class QuizResultStateGoingOn extends QuizResultState {
+  const QuizResultStateGoingOn({required this.currentQuiz});
+
+  final int currentQuiz;
+
+  @override
+  List<Object> get props => [currentQuiz];
+}

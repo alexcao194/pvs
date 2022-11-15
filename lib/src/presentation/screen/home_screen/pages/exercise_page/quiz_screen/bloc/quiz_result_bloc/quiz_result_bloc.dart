@@ -17,7 +17,7 @@ class QuizResultBloc extends Bloc<QuizResultEvent, QuizResultState> {
       if(value == 'nope') {
         emit(QuizResultInitial());
       } else if (value.length == 1) {
-        emit(QuizResultInitial());
+        emit(QuizResultStateGoingOn(currentQuiz: int.parse(value)));
       } else {
         emit(QuizResultStateDone(result: value));
       }

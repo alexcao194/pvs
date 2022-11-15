@@ -15,6 +15,7 @@ class TestPage extends StatelessWidget {
       builder: (context, testInforState) {
         return BlocBuilder<TestBloc, TestState>(
           builder: (context, testState) {
+            if(testInforState.test.name == null) return const CircularProgressIndicator();
             return SizedBox(
               width: double.infinity,
               child: Column(

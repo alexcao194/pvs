@@ -24,7 +24,7 @@ class DataHandler {
         'x-access-token' : Prefs.get('token')
       }
     );
-    return json.decode(res.body)['result'];
+    return json.decode(res.body)['result'].toString();
   }
 
   static Future<List<dynamic>> getTest(lesson) async {
