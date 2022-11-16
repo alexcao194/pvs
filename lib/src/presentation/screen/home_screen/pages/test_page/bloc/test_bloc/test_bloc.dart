@@ -56,6 +56,7 @@ class TestBloc extends Bloc<TestEvent, TestState> {
         tests.add(test);
       }
       emit(TestStateGenerateDone(test: tests, controllers: controllerss,countTest: value.length));
+      AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.test);
     });
   }
 

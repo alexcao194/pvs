@@ -47,29 +47,24 @@ class ExercisePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text("Trạng thái ", style: TextStyle(fontSize: 17, color: Colors.black)),
-                            (quizResultState is QuizResultStateDone
+                            (quizResultState is QuizResultStateDone && quizResultState.result.length >= 3
                                 ? const Icon(Icons.check_circle_outline, color: Colors.green)
                                 : const Icon(Icons.cancel_outlined, color: Colors.red)),
-                            (quizResultState is QuizResultStateDone
+                            (quizResultState is QuizResultStateDone && quizResultState.result.length >= 3
                                 ? Text(quizResultState.result.toString(), style: const TextStyle(color: Colors.green))
                                 : const Text('chưa hoàn thành', style: TextStyle(color: Colors.red)))
                           ],
                         ),
                         const SizedBox(height: 30),
                         TextButton(
-                          onPressed: quizResultState is! QuizResultStateDone
+                          onPressed: quizResultState is! QuizResultStateDone || quizResultState.result.length < 3
                               ? () {
                             if (!StreamSocket.hasInit) {
                               StreamSocket.init();
                               BlocProvider.of<QuizBloc>(context).add(const QuizEventListen());
                               StreamSocket.hasInit = true;
                             }
-                            AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.quiz);
-                            BlocProvider.of<QuizBloc>(context).add(
-                                QuizEventGetQuestion(
-                                    lesson: 'lesson_${lessonsState.currentLesson}'
-                                )
-                            );
+                            BlocProvider.of<QuizBloc>(context).add(QuizEventGetQuestion(lesson: 'lesson_${lessonsState.currentLesson}'));
                           }
                               : () {},
                           child: Container(

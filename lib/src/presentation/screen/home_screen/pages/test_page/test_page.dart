@@ -59,7 +59,6 @@ class TestPage extends StatelessWidget {
                           ? () {}
                           : () {
                         BlocProvider.of<TestBloc>(context).add(const TestEventGet(lesson: 'lesson_1'));
-                        AppRouter.navigatorKey.currentState?.pushNamed(AppRoutes.test);
                       },
                       child: Container(
                         height: 40,

@@ -11,17 +11,45 @@ enum QuizType {
   mutilChoice,
 }
 
-class QuizScreen extends StatelessWidget {
+class QuizScreen extends StatefulWidget {
   const QuizScreen({Key? key}) : super(key: key);
+
+  @override
+  State<QuizScreen> createState() => _QuizScreenState();
+}
+
+class _QuizScreenState extends State<QuizScreen>{
+
+  final PageController pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    var q = BlocProvider.of<QuizResultBloc>(context).state;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (pageController.hasClients) {
+        pageController.jumpToPage(q is QuizResultStateGoingOn ? q.currentQuiz : 0);
+      }
+    });
+    super.didChangeDependencies();
+  }
+
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: BlocBuilder<QuizResultBloc, QuizResultState>(
           builder: (context, quizResultState) {
-            final PageController pageController = PageController(
-              initialPage: quizResultState is QuizResultStateGoingOn ? quizResultState.currentQuiz : 0
-            );
             return BlocBuilder<QuizBloc, QuizState>(
                 builder: (context, quizState) {
                   return Stack(
