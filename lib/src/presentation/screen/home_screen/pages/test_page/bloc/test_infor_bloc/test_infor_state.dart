@@ -15,6 +15,4 @@ class TestInforInitial extends TestInforState {
 
 class TestInforBlocGetDone extends TestInforState {
   const TestInforBlocGetDone({required super.test});
-
-
 }

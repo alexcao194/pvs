@@ -6,35 +6,41 @@ import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz
 
 import '../../../../../bloc/lessons_bloc/lessons_bloc.dart';
 import '../bloc/test_bloc/test_bloc.dart';
+import '../bloc/test_infor_bloc/test_infor_bloc.dart';
 
 class FillBlankQuiz extends StatelessWidget {
-  FillBlankQuiz({
+  const FillBlankQuiz({
     Key? key,
   }) : super(key: key);
-
-  final pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return BlocBuilder<TestBloc, TestState>(
       builder: (context, testState) {
-        return BlocBuilder<LessonsBloc, LessonsState>(
-          builder: (context, lessonsState) {
-            return Stack(
-                  children: [
-                    PageView.builder(
-                      controller: pageController,
-                      physics: const ScrollPhysics(
-                        parent: NeverScrollableScrollPhysics()
-                      ),
-                      itemCount: testState is TestStateGenerateDone ? testState.countTest : 0,
-                      itemBuilder: (context, index) {
-                        return buildBody(size, testState, index, context, lessonsState);
-                      },
-                    ),
-                    const QuestionHeaderBar()
-                  ],
+        return BlocBuilder<TestInforBloc, TestInforState>(
+          builder: (context, testInforState) {
+            final pageController = PageController(
+              initialPage: testInforState is TestInforBlocGetDone ? testInforState.test.currentTest! : 0
+            );
+            return BlocBuilder<LessonsBloc, LessonsState>(
+                  builder: (context, lessonsState) {
+                    return Stack(
+                          children: [
+                            PageView.builder(
+                              controller: pageController,
+                              physics: const ScrollPhysics(
+                                parent: NeverScrollableScrollPhysics()
+                              ),
+                              itemCount: testState is TestStateGenerateDone ? testState.countTest : 0,
+                              itemBuilder: (context, index) {
+                                return buildBody(size, testState, index, context, lessonsState, pageController);
+                              },
+                            ),
+                            const QuestionHeaderBar()
+                          ],
+                        );
+                  },
                 );
           },
         );
@@ -42,7 +48,7 @@ class FillBlankQuiz extends StatelessWidget {
     );
   }
 
-  Widget buildBody(Size size, TestState testState, int test, BuildContext context, LessonsState lessonsState) {
+  Widget buildBody(Size size, TestState testState, int test, BuildContext context, LessonsState lessonsState, PageController pageController) {
     return Stack(
       children: [
         SingleChildScrollView(

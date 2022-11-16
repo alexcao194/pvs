@@ -4,6 +4,7 @@ import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/quiz_screen/widget/question_header_bar.dart';
 
 import 'bloc/quiz_bloc/quiz_bloc.dart';
+import 'bloc/quiz_result_bloc/quiz_result_bloc.dart';
 
 enum QuizType {
   fillBank,
@@ -11,38 +12,43 @@ enum QuizType {
 }
 
 class QuizScreen extends StatelessWidget {
-  QuizScreen({Key? key}) : super(key: key);
-
-  final PageController pageController = PageController();
+  const QuizScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: BlocBuilder<QuizBloc, QuizState>(
-            builder: (context, quizState) {
-              return Stack(
-                children: [
-                  PageView.builder(
-                    controller: pageController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: quizState.quizs.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return MultiChoiceQuiz(
-                        pageController: pageController,
-                        totalQuestion: quizState.quizs.length,
-                        page: index,
-                        quiz: quizState.quizs[index]['question']!,
-                        answer1: quizState.quizs[index]['answer-1']!,
-                        answer2: quizState.quizs[index]['answer-2']!,
-                        answer3: quizState.quizs[index]['answer-3']!,
-                        answer4: quizState.quizs[index]['answer-4']!,
-                      );
-                    },
-                  ),
-                  const QuestionHeaderBar(),
-                ],
-              );
-            }
+        body: BlocBuilder<QuizResultBloc, QuizResultState>(
+          builder: (context, quizResultState) {
+            final PageController pageController = PageController(
+              initialPage: quizResultState is QuizResultStateGoingOn ? quizResultState.currentQuiz : 0
+            );
+            return BlocBuilder<QuizBloc, QuizState>(
+                builder: (context, quizState) {
+                  return Stack(
+                    children: [
+                      PageView.builder(
+                        controller: pageController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: quizState.quizs.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return MultiChoiceQuiz(
+                            pageController: pageController,
+                            totalQuestion: quizState.quizs.length,
+                            page: index,
+                            quiz: quizState.quizs[index]['question']!,
+                            answer1: quizState.quizs[index]['answer-1']!,
+                            answer2: quizState.quizs[index]['answer-2']!,
+                            answer3: quizState.quizs[index]['answer-3']!,
+                            answer4: quizState.quizs[index]['answer-4']!,
+                          );
+                        },
+                      ),
+                      const QuestionHeaderBar(),
+                    ],
+                  );
+                }
+            );
+          },
         ));
   }
 }

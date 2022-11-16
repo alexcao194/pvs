@@ -92,6 +92,7 @@ class TestBloc extends Bloc<TestEvent, TestState> {
               Navigator.of(event.context).pop();
               await DataHandler.submitTest(event.lesson, event.test, result).then((value) {
                 if(value['message'] == 'done') {
+                  BlocProvider.of<TestInforBloc>(event.context).add(TestInforEventGet(lesson: event.lesson));
                   if(event.totalTest != event.test + 1) {
                     event.pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.bounceIn);
                   } else {

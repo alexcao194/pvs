@@ -4,8 +4,15 @@ class Test {
   int? totalTest;
   int? time;
   bool? hasDone;
+  int? currentTest;
 
-  Test({this.name, this.desciption, this.totalTest, this.time, this.hasDone});
+  Test(
+      {this.name,
+        this.desciption,
+        this.totalTest,
+        this.time,
+        this.hasDone,
+        this.currentTest});
 
   Test.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -13,15 +20,17 @@ class Test {
     totalTest = json['total_test'];
     time = json['time'];
     hasDone = json['has_done'];
+    currentTest = json['current_test'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = name;
-    data['desciption'] = desciption;
-    data['total_test'] = totalTest;
-    data['time'] = time;
-    data['has_done'] = hasDone;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['desciption'] = this.desciption;
+    data['total_test'] = this.totalTest;
+    data['time'] = this.time;
+    data['has_done'] = this.hasDone;
+    data['current_test'] = this.currentTest;
     return data;
   }
 }
