@@ -20,74 +20,91 @@ class CheckInScreen extends StatefulWidget {
 class _CheckInScreenState extends State<CheckInScreen> {
 
   XFile? img;
+  bool isLoad = false;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            SizedBox(height: size.height * 0.05),
-            const Text('Điểm danh', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27)),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SizedBox(
-                height: size.height * 0.5,
-                width: size.width * 0.8,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: img == null
-                      ? Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover)
-                      : Image.file(File(img!.path)),
-                )
-              ),
-            ),
-            InkWellButton(
-              height: 70,
-              width: 70,
-              borderWidth: 2.0,
-              onTap: () async {
-                ImgPicker.onPick(ImageSource.camera).then((value) {
-                  setState(() {
-                    img = value;
-                  });
-                });
-              },
-              primaryColor: Colors.red,
-              child: const Icon(Icons.camera_alt_outlined, size: 32, color: Colors.grey,),
-            ),
-            const Expanded(child: SizedBox()),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
+                SizedBox(height: size.height * 0.05),
+                const Text('Điểm danh', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27)),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    height: size.height * 0.5,
+                    width: size.width * 0.8,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: img == null
+                          ? Image.asset(AppPath.defaultAvatar, fit: BoxFit.cover)
+                          : Image.file(File(img!.path)),
+                    )
+                  ),
+                ),
                 InkWellButton(
-                  height: 50,
-                  width: 120,
-                  radius: 10.0,
-                  onTap: () {
-                    AppRouter.navigatorKey.currentState?.pop();
+                  height: 70,
+                  width: 70,
+                  borderWidth: 2.0,
+                  onTap: () async {
+                    ImgPicker.onPick(ImageSource.camera).then((value) {
+                      setState(() {
+                        img = value;
+                      });
+                    });
                   },
                   primaryColor: Colors.red,
-                  child: const Text('Hủy'),
+                  child: const Icon(Icons.camera_alt_outlined, size: 32, color: Colors.grey,),
                 ),
-                SizedBox(width: size.width * 0.1),
-                InkWellButton(
-                  height: 50,
-                  width: 120,
-                  radius: 10.0,
-                  onTap: img != null
-                    ? () async {
-                    await LocalAuthentication.checkin('/checkin', File(img!.path).path, '${AppTime.simpleDateFormat(DateTime.now()).replaceAll('/', '-')}/${Prefs.get('id')}.jpg', {});
-                    AppRouter.navigatorKey.currentState?.pop();
-                  }
-                  : null,
-                  primaryColor: img == null ? Colors.grey :  Colors.red,
-                  child: const Text('Điểm danh'),
-                )
+                const Expanded(child: SizedBox()),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWellButton(
+                      height: 50,
+                      width: 120,
+                      radius: 10.0,
+                      onTap: () {
+                        AppRouter.navigatorKey.currentState?.pop();
+                      },
+                      primaryColor: Colors.red,
+                      child: const Text('Hủy'),
+                    ),
+                    SizedBox(width: size.width * 0.1),
+                    InkWellButton(
+                      height: 50,
+                      width: 120,
+                      radius: 10.0,
+                      onTap: img != null
+                        ? () async {
+                        setState(() {
+                          isLoad = true;
+                        });
+                        await LocalAuthentication.checkin('/checkin', File(img!.path).path, '${AppTime.simpleDateFormat(DateTime.now()).replaceAll('/', '-')}/${Prefs.get('id')}.jpg', {}).then((value) {
+                          AppRouter.navigatorKey.currentState?.pop();
+                        });
+                      }
+                      : null,
+                      primaryColor: img == null ? Colors.grey :  Colors.red,
+                      child: const Text('Điểm danh'),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 50.0)
               ],
             ),
-            const SizedBox(height: 50.0)
+            if(isLoad) Container(
+              color: Colors.white12,
+              child: const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.red,
+                ),
+              ),
+            )
           ],
         ),
       ),
