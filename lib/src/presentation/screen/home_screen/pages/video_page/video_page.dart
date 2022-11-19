@@ -30,9 +30,9 @@ class _VideoPageState extends State<VideoPage> {
         ),
         MaterialButton(
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (_) => VideoScreen()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideoScreen()));
           },
-          child: Text('kajh'),
+          child: const Text('tap to full screen mode'),
         )
       ] ,
     );
