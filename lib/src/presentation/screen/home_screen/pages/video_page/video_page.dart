@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/video_page/video_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../../../service/shared_preferences.dart';
 
@@ -21,10 +23,17 @@ class _VideoPageState extends State<VideoPage> {
     return Column(
       children: [
         AspectRatio(
-            aspectRatio: 16 / 9,
-            child: WebView(
-              initialUrl: '${Prefs.get('ip4')}/video',
-            ))
+          aspectRatio: 16 / 9,
+          child: WebView(
+            initialUrl: 'http://${Prefs.get('ip4')}/video',
+          ),
+        ),
+        MaterialButton(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) => VideoScreen()));
+          },
+          child: Text('kajh'),
+        )
       ] ,
     );
   }
