@@ -22,7 +22,7 @@ void main() async {
     DeviceOrientation.portraitUp
   ]);
   Prefs.initial();
-  await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   runApp(
       MultiBlocProvider(
         providers: [
