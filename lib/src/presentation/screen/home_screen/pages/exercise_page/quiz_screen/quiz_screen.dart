@@ -47,36 +47,41 @@ class _QuizScreenState extends State<QuizScreen>{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: BlocBuilder<QuizResultBloc, QuizResultState>(
-          builder: (context, quizResultState) {
-            return BlocBuilder<QuizBloc, QuizState>(
-                builder: (context, quizState) {
-                  return Stack(
-                    children: [
-                      PageView.builder(
-                        controller: pageController,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: quizState.quizs.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return MultiChoiceQuiz(
-                            pageController: pageController,
-                            totalQuestion: quizState.quizs.length,
-                            page: index,
-                            quiz: quizState.quizs[index]['question']!,
-                            answer1: quizState.quizs[index]['answer-1']!,
-                            answer2: quizState.quizs[index]['answer-2']!,
-                            answer3: quizState.quizs[index]['answer-3']!,
-                            answer4: quizState.quizs[index]['answer-4']!,
-                          );
-                        },
-                      ),
-                      const QuestionHeaderBar(),
-                    ],
-                  );
-                }
-            );
-          },
-        ));
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+          body: BlocBuilder<QuizResultBloc, QuizResultState>(
+            builder: (context, quizResultState) {
+              return BlocBuilder<QuizBloc, QuizState>(
+                  builder: (context, quizState) {
+                    return Stack(
+                      children: [
+                        PageView.builder(
+                          controller: pageController,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: quizState.quizs.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return MultiChoiceQuiz(
+                              pageController: pageController,
+                              totalQuestion: quizState.quizs.length,
+                              page: index,
+                              quiz: quizState.quizs[index]['question']!,
+                              answer1: quizState.quizs[index]['answer-1']!,
+                              answer2: quizState.quizs[index]['answer-2']!,
+                              answer3: quizState.quizs[index]['answer-3']!,
+                              answer4: quizState.quizs[index]['answer-4']!,
+                            );
+                          },
+                        ),
+                        const QuestionHeaderBar(),
+                      ],
+                    );
+                  }
+              );
+            },
+          )),
+    );
   }
 }

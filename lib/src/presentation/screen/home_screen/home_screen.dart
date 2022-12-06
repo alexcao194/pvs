@@ -5,6 +5,7 @@ import 'package:pvs/src/presentation/bloc/data_bloc/data_bloc.dart';
 import 'package:pvs/src/presentation/bloc/lessons_bloc/lessons_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/bloc/navigaton_bar_bloc/navigation_bar_bloc.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/exercise_page/exercise_page.dart';
+import 'package:pvs/src/presentation/screen/home_screen/pages/knowledge_page/knowledge_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/settings_page/settings_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/test_page/test_page.dart';
 import 'package:pvs/src/presentation/screen/home_screen/pages/video_page/video_page.dart';
@@ -50,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                   controller: pageController,
                                   children: const [
-                                    TestPage(),
+                                    KnowLedgePage(),
                                     VideoPage(),
                                     KeepAlivePage(child: ExercisePage()),
                                     TestPage(),

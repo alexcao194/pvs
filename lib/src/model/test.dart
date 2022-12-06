@@ -16,7 +16,7 @@ class Test {
 
   Test.fromJson(Map<String, dynamic> json) {
     name = json['name'];
-    desciption = json['desciption'];
+    desciption = json['description'];
     totalTest = json['total_test'];
     time = json['time'];
     hasDone = json['has_done'];
@@ -24,13 +24,13 @@ class Test {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['desciption'] = this.desciption;
-    data['total_test'] = this.totalTest;
-    data['time'] = this.time;
-    data['has_done'] = this.hasDone;
-    data['current_test'] = this.currentTest;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['description'] = desciption;
+    data['total_test'] = totalTest;
+    data['time'] = time;
+    data['has_done'] = hasDone;
+    data['current_test'] = currentTest;
     return data;
   }
 }
